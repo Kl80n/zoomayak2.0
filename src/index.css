@@ -611,3 +611,46 @@ html, body, #root { max-width: 100%; overflow-x: hidden; }
 .auth-switch{margin-top:14px;border:0;background:none;color:#00d4ad;cursor:pointer}
 .auth-error{color:#ff7890;font-size:13px}.auth-note{margin-top:17px;padding-top:14px;border-top:1px solid rgba(255,255,255,.07);color:#647a90;font-size:11px;line-height:1.45}
 @media(max-width:700px){.auth-modal{padding:24px}.auth-modal h2{font-size:24px}.account-header-menu{right:-8px}}
+
+/* v8.5.1 — final approved logo treatment + registration crash fix */
+.zoomayak-approved-logo {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  min-height: 0;
+  width: 214px;
+  height: 76px;
+  border-radius: 0;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  overflow: visible;
+}
+.zoomayak-approved-logo-img {
+  width: 214px !important;
+  height: auto !important;
+  object-fit: contain !important;
+  display: block;
+}
+.zoomayak-approved-logo-img.zoomayak-logo-light { display: block; }
+.zoomayak-approved-logo-img.zoomayak-logo-dark { display: none; }
+.theme-dark .zoomayak-approved-logo-img.zoomayak-logo-light { display: none; }
+.theme-dark .zoomayak-approved-logo-img.zoomayak-logo-dark { display: block; }
+.zoomayak-approved-logo.is-compact {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  background: transparent !important;
+}
+.zoomayak-approved-logo.is-compact .zoomayak-approved-logo-img { width: 42px !important; height: 42px !important; }
+.theme-dark .zoomayak-approved-logo.is-compact .zoomayak-logo-light { display: block; filter: brightness(1.12); }
+@media (max-width: 1199px) {
+  .zoomayak-approved-logo { width: 180px; height: 68px; }
+  .zoomayak-approved-logo-img { width: 180px !important; }
+}
+@media (max-width: 640px) {
+  .zoomayak-approved-logo { width: 150px; height: 58px; }
+  .zoomayak-approved-logo-img { width: 150px !important; }
+}

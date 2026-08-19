@@ -4,6 +4,7 @@
  */
 
 import React, { useEffect, useState } from 'react';
+import { LockKeyhole, Mail, UserRound } from 'lucide-react';
 import { 
   INITIAL_PETS, 
   INITIAL_RECORDS, 
@@ -53,13 +54,30 @@ function AuthModal({
       setError('Пароль должен содержать минимум 6 символов');
       return;
     }
-    const displayName = mode === 'register'
-      ? name.trim()
-      : (localStorage.getItem('zoomayak_account_name') || email.split('@')[0]);
+    const normalizedEmail = email.trim().toLowerCase();
+    const savedEmail = localStorage.getItem('zoomayak_account_email');
+    const savedPassword = localStorage.getItem('zoomayak_account_password');
+
+    if (mode === 'login') {
+      if (!savedEmail || !savedPassword) {
+        setError('Учётная запись ещё не создана. Зарегистрируйтесь.');
+        return;
+      }
+      if (normalizedEmail !== savedEmail || password !== savedPassword) {
+        setError('Неверный e-mail или пароль');
+        return;
+      }
+    } else {
+      localStorage.setItem('zoomayak_account_name', name.trim());
+      localStorage.setItem('zoomayak_account_email', normalizedEmail);
+      localStorage.setItem('zoomayak_account_password', password);
+    }
+
+    const displayName = localStorage.getItem('zoomayak_account_name') || name.trim() || normalizedEmail.split('@')[0];
     localStorage.setItem('zoomayak_account_logged_in', '1');
     localStorage.setItem('zoomayak_account_name', displayName);
-    localStorage.setItem('zoomayak_account_email', email);
-    onSuccess(displayName, email);
+    localStorage.setItem('zoomayak_account_email', normalizedEmail);
+    onSuccess(displayName, normalizedEmail);
     onClose();
   };
 
