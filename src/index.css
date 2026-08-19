@@ -654,3 +654,46 @@ html, body, #root { max-width: 100%; overflow-x: hidden; }
   .zoomayak-approved-logo { width: 150px; height: 58px; }
   .zoomayak-approved-logo-img { width: 150px !important; }
 }
+
+
+/* v8.5.2 — final approved logo rendering
+   Never apply brightness/invert/blur filters to brand artwork. */
+.zoomayak-approved-logo {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  overflow: visible;
+}
+.zoomayak-approved-logo-img {
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  object-fit: contain !important;
+  filter: none !important;
+}
+.zoomayak-approved-logo .zoomayak-logo-light { display: block; }
+.zoomayak-approved-logo .zoomayak-logo-dark { display: none; }
+.theme-dark .zoomayak-approved-logo .zoomayak-logo-light { display: none; }
+.theme-dark .zoomayak-approved-logo .zoomayak-logo-dark { display: block; }
+.zoomayak-approved-logo.is-compact {
+  width: 42px !important;
+  height: 42px !important;
+  background: transparent !important;
+}
+.zoomayak-approved-logo.is-compact .zoomayak-approved-logo-img {
+  width: 42px !important;
+  height: 42px !important;
+}
+.theme-dark .zoomayak-approved-logo.is-compact .zoomayak-logo-light { display: none !important; }
+.theme-dark .zoomayak-approved-logo.is-compact .zoomayak-logo-dark { display: block !important; }
+@media (max-width: 1199px) {
+  .zoomayak-approved-logo { width: 180px; height: 68px; }
+  .zoomayak-approved-logo-img { width: 180px !important; height: auto !important; }
+}
+@media (max-width: 640px) {
+  .zoomayak-approved-logo { width: 150px; height: 58px; }
+  .zoomayak-approved-logo-img { width: 150px !important; height: auto !important; }
+}

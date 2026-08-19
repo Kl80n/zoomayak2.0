@@ -112,3 +112,8 @@ Install command: `npm install`
 - Светлая тема: утверждённый master-логотип без изменений.
 - Тёмная тема: отдельный прозрачный neon-lockup на основе того же master-логотипа, без белой плашки.
 - Сохраняются название «ЗооМаяк» и слоган «Ваш ориентир в мире питомцев».
+
+
+### v8.5.2 — logo fix
+- Dark theme uses a transparent contrast version of the approved master logo with the same composition, wordmark and slogan.
+- Removed all CSS brightness/invert/filter effects from brand artwork.

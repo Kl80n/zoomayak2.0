@@ -9,12 +9,20 @@ import React from 'react';
 export const ZoomayakLogo: React.FC<{ className?: string; compact?: boolean }> = ({ className = '', compact = false }) => (
   <span className={`zoomayak-approved-logo ${compact ? 'is-compact' : ''} ${className}`} data-logo-theme>
     {compact ? (
-      <img
-        src="/zoomayak-logo-approved-icon.png"
-        alt="ЗооМаяк"
-        className="zoomayak-approved-logo-img zoomayak-logo-light"
-        draggable={false}
-      />
+      <>
+        <img
+          src="/zoomayak-logo-approved-icon.png"
+          alt="ЗооМаяк"
+          className="zoomayak-approved-logo-img zoomayak-logo-light"
+          draggable={false}
+        />
+        <img
+          src="/zoomayak-logo-dark-icon.png"
+          alt="ЗооМаяк"
+          className="zoomayak-approved-logo-img zoomayak-logo-dark"
+          draggable={false}
+        />
+      </>
     ) : (
       <>
         <img
