@@ -28,7 +28,73 @@ import { HomeMarketplacePreview } from './components/HomeMarketplacePreview';
 import { PetNews } from './components/PetNews';
 import { usePersistentState } from './storage';
 
+
+function AuthModal({
+  onClose,
+  onSuccess,
+}: {
+  onClose: () => void;
+  onSuccess: (name: string, email: string) => void;
+}) {
+  const [mode, setMode] = React.useState<'register' | 'login'>('register');
+  const [name, setName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [password, setPassword] = React.useState('');
+  const [error, setError] = React.useState('');
+
+  const submit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setError('');
+    if (!email || !password || (mode === 'register' && !name)) {
+      setError('Заполните все поля');
+      return;
+    }
+    if (password.length < 6) {
+      setError('Пароль должен содержать минимум 6 символов');
+      return;
+    }
+    const displayName = mode === 'register'
+      ? name.trim()
+      : (localStorage.getItem('zoomayak_account_name') || email.split('@')[0]);
+    localStorage.setItem('zoomayak_account_logged_in', '1');
+    localStorage.setItem('zoomayak_account_name', displayName);
+    localStorage.setItem('zoomayak_account_email', email);
+    onSuccess(displayName, email);
+    onClose();
+  };
+
+  return (
+    <div className="auth-modal-backdrop" onClick={onClose}>
+      <section className="auth-modal" onClick={e => e.stopPropagation()} role="dialog" aria-modal="true">
+        <button className="auth-close" onClick={onClose} aria-label="Закрыть">×</button>
+        <div className="auth-brand">Зоо<span>Маяк</span></div>
+        <div className="auth-kicker">{mode === 'register' ? 'ЛИЧНЫЙ КАБИНЕТ' : 'ВХОД В АККАУНТ'}</div>
+        <h2>{mode === 'register' ? 'Создать учётную запись' : 'С возвращением'}</h2>
+        <p>Ваши питомцы, документы, здоровье и напоминания — в одном личном кабинете.</p>
+        <form onSubmit={submit} className="auth-form">
+          {mode === 'register' && (
+            <label><span>Имя</span><div className="auth-input"><UserRound/><input value={name} onChange={e=>setName(e.target.value)} placeholder="Ваше имя" /></div></label>
+          )}
+          <label><span>E-mail</span><div className="auth-input"><Mail/><input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="name@example.ru" /></div></label>
+          <label><span>Пароль</span><div className="auth-input"><LockKeyhole/><input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Минимум 6 символов" /></div></label>
+          {error && <div className="auth-error">{error}</div>}
+          <button className="auth-submit" type="submit">{mode === 'register' ? 'Создать аккаунт' : 'Войти'}</button>
+        </form>
+        <button className="auth-switch" onClick={() => { setError(''); setMode(mode === 'register' ? 'login' : 'register'); }}>
+          {mode === 'register' ? 'Уже есть аккаунт? Войти →' : 'Нет аккаунта? Зарегистрироваться →'}
+        </button>
+        <div className="auth-note">MVP: данные аккаунта сохраняются локально в браузере. Настоящую серверную авторизацию подключим отдельным backend-этапом.</div>
+      </section>
+    </div>
+  );
+}
+
+
 export default function App() {
+  const [authOpen, setAuthOpen] = useState(false);
+  const [accountLoggedIn, setAccountLoggedIn] = useState(() => localStorage.getItem('zoomayak_account_logged_in') === '1');
+  const [accountName, setAccountName] = useState(() => localStorage.getItem('zoomayak_account_name') || 'Личный кабинет');
+
   const publicMatch = window.location.pathname.match(/^\/qr\/([^/]+)/i);
   if (publicMatch) {
     const publicId = decodeURIComponent(publicMatch[1]).toLowerCase();
@@ -53,6 +119,15 @@ export default function App() {
   const [isAddPetOpen, setIsAddPetOpen] = useState(false);
   const [isScanModalOpen, setIsScanModalOpen] = useState(false);
   const [isSOSModalOpen, setIsSOSModalOpen] = useState(false);
+
+  const handleLogout = () => {
+    localStorage.removeItem('zoomayak_account_logged_in');
+    localStorage.removeItem('zoomayak_account_name');
+    localStorage.removeItem('zoomayak_account_email');
+    setAccountLoggedIn(false);
+    setAccountName('Личный кабинет');
+    setActiveTab('home');
+  };
 
   // Handlers
   const handleSelectPet = (pet: Pet) => setSelectedPetId(pet.id);
@@ -121,6 +196,10 @@ export default function App() {
         onOpenScanModal={() => setIsScanModalOpen(true)}
         onOpenSOS={() => setIsSOSModalOpen(true)}
         onOpenAccount={() => setActiveTab('account')}
+        accountLoggedIn={accountLoggedIn}
+        accountName={accountName}
+        onOpenAuth={() => setAuthOpen(true)}
+        onLogout={handleLogout}
         notificationCount={uncompletedRemindersCount}
         theme={theme}
         onToggleTheme={toggleTheme}
@@ -218,6 +297,16 @@ export default function App() {
         pets={pets}
         onAddAlert={handleAddLostAlert}
       />
+      {authOpen && (
+        <AuthModal
+          onClose={() => setAuthOpen(false)}
+          onSuccess={(name) => {
+            setAccountLoggedIn(true);
+            setAccountName(name);
+            setActiveTab('account');
+          }}
+        />
+      )}
     </div>
   );
 }

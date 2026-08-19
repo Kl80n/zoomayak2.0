@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ZoomayakLogo } from './ZoomayakLogo';
-import { Bell, QrCode, CheckCircle2, Sun, Moon, UserRound } from 'lucide-react';
+import { Bell, QrCode, CheckCircle2, Sun, Moon, UserRound, LogIn, LogOut, Mail, LockKeyhole } from 'lucide-react';
 import { Pet, ActiveNavTab } from '../types';
 
 export type ThemeMode = 'light' | 'dark';
@@ -16,6 +16,10 @@ interface HeaderProps {
   onOpenScanModal: () => void;
   onOpenSOS: () => void;
   onOpenAccount: () => void;
+  accountLoggedIn: boolean;
+  accountName: string;
+  onOpenAuth: () => void;
+  onLogout: () => void;
   notificationCount: number;
   theme: ThemeMode;
   onToggleTheme: () => void;
@@ -30,6 +34,7 @@ const navItems: Array<{ id: ActiveNavTab; label: string }> = [
 export const Header: React.FC<HeaderProps> = ({
   pets, selectedPet, onSelectPet, activeTab, setActiveTab, onOpenAddPet,
   onOpenPassport, onOpenScanModal, onOpenSOS, onOpenAccount,
+  accountLoggedIn, accountName, onOpenAuth, onLogout,
   notificationCount, theme, onToggleTheme,
 }) => {
   const [petDropdownOpen, setPetDropdownOpen] = useState(false);
@@ -71,15 +76,31 @@ export const Header: React.FC<HeaderProps> = ({
             </div>}
           </div>
 
-          <button onClick={() => setActiveTab('account')} className={`account-header-button ${activeTab === 'account' ? 'is-active' : ''}`} aria-label="Открыть личный кабинет" title="Личный кабинет">
-            <span className="account-header-icon"><UserRound className="w-4 h-4" /></span>
-            <span className="hidden lg:block text-left leading-tight"><strong>Личный кабинет</strong><small>Профиль владельца</small></span>
-          </button>
+          <div className="header-account-wrap">
+            <button
+              onClick={() => accountLoggedIn ? setActiveTab('account') : onOpenAuth()}
+              className={`account-header-button ${activeTab === 'account' ? 'is-active' : ''}`}
+              aria-label={accountLoggedIn ? 'Открыть личный кабинет' : 'Войти или зарегистрироваться'}
+              title={accountLoggedIn ? 'Личный кабинет' : 'Войти / Регистрация'}
+            >
+              <span className="account-header-icon"><UserRound className="w-4 h-4" /></span>
+              <span className="hidden lg:block text-left leading-tight">
+                <strong>{accountLoggedIn ? accountName : 'Войти / Регистрация'}</strong>
+                <small>{accountLoggedIn ? 'Личный кабинет' : 'Создать учётную запись'}</small>
+              </span>
+            </button>
+            {accountLoggedIn && (
+              <div className="account-header-menu">
+                <button onClick={() => setActiveTab('account')}><UserRound className="w-4 h-4" /> Открыть ЛК</button>
+                <button onClick={onLogout}><LogOut className="w-4 h-4" /> Выйти</button>
+              </div>
+            )}
+          </div>
         </div>
       </div>
 
       <div className="mobile-tools xl:hidden max-w-[1400px] mx-auto px-4 pt-2 flex items-center justify-between gap-2">
-        <button onClick={() => setActiveTab('account')} className={`mobile-account-button ${activeTab === 'account' ? 'is-active' : ''}`}><span className="account-header-icon"><UserRound className="w-4 h-4" /></span><span>Личный кабинет</span></button>
+        <button onClick={() => accountLoggedIn ? setActiveTab('account') : onOpenAuth()} className={`mobile-account-button ${activeTab === 'account' ? 'is-active' : ''}`}><span className="account-header-icon"><UserRound className="w-4 h-4" /></span><span>{accountLoggedIn ? 'Личный кабинет' : 'Войти / Регистрация'}</span></button>
         <div className="flex items-center gap-1 shrink-0">
           <button onClick={onToggleTheme} className="mobile-theme-button" aria-label="Переключить тему">{theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}</button>
           <button onClick={onOpenScanModal} className="mobile-theme-button" aria-label="Сканировать QR"><QrCode className="w-4 h-4" /></button>
