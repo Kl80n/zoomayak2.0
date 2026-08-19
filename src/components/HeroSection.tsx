@@ -53,25 +53,6 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ selectedPet, onOpenPas
         </aside>
       </div>
 
-      <div className="home-market-section">
-        <div className="home-section-heading">
-          <div><span className="eyebrow compact"><PawPrint className="w-3.5 h-3.5" /> ОБЪЯВЛЕНИЯ О ЖИВОТНЫХ</span><h2>Питомцы, которых сейчас ищут новый дом</h2><p>Подборка из каталога ЗооМаяка и подключаемых источников.</p></div>
-          <button onClick={onOpenMarketplace} className="secondary-cta">Все объявления <ArrowRight className="w-4 h-4" /></button>
-        </div>
-        <div className="home-listings-grid">
-          {listings.map(item => (
-            <article className="home-listing-card" key={item.id}>
-              <div className="home-listing-image"><img src={item.imageUrl} alt={item.title} /><span>{item.source}</span>{item.verified && <b>✓ Проверено</b>}</div>
-              <div className="home-listing-body">
-                <div className="home-listing-title"><h3>{item.title}</h3><strong>{item.price.toLocaleString('ru-RU')} ₽</strong></div>
-                <p>{item.breed} · {item.age} · {item.sex === 'female' ? 'девочка' : 'мальчик'}</p>
-                <div className="home-listing-meta"><span><MapPin /> {item.city}</span><span>{item.publishedAt}</span></div>
-              </div>
-            </article>
-          ))}
-        </div>
-      </div>
-
       <div className="home-value-grid">
         <div className="home-value-card"><Sparkles /><div><strong>QR-маяк всегда под рукой</strong><span>Нашёлся питомец — человек сканирует код и получает безопасную информацию для связи с владельцем.</span></div></div>
         <div className="home-value-card"><ShieldCheck /><div><strong>Единый цифровой паспорт</strong><span>Чип, ветпаспорт, здоровье и важные документы собраны в одном профиле.</span></div></div>
