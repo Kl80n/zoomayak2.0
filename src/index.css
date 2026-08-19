@@ -359,3 +359,90 @@ html, body, #root { max-width: 100%; overflow-x: hidden; }
   .brand-block { min-width: 150px; }
   .zoomayak-approved-logo-img { width: 150px !important; }
 }
+
+
+/* v8 — clean homepage, real owner cabinet, approved logo treatment */
+.zoomayak-approved-logo {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  padding:4px 9px;
+  min-height:48px;
+  border-radius:13px;
+  background:#fff;
+  box-shadow:0 8px 24px rgba(0,0,0,.18);
+  border:1px solid rgba(255,255,255,.8);
+}
+.zoomayak-approved-logo-img { width:182px; height:auto; object-fit:contain; display:block; }
+.zoomayak-approved-logo.is-compact { padding:3px; width:42px; height:42px; border-radius:12px; }
+.zoomayak-approved-logo.is-compact .zoomayak-approved-logo-img { width:36px; height:36px; object-fit:contain; }
+.account-header-button.is-active { border-color:var(--green); background:var(--green-soft); }
+.mobile-account-button.is-active { border-color:var(--green); background:var(--green-soft); color:var(--green); }
+
+.home-market-section { margin-top:28px; }
+.home-section-heading { display:flex; align-items:flex-end; justify-content:space-between; gap:18px; margin-bottom:13px; }
+.home-section-heading h2 { margin:4px 0 3px; font-size:24px; font-weight:900; color:var(--text); }
+.home-section-heading p { margin:0; color:var(--muted); font-size:12px; }
+.home-listings-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:11px; }
+.home-listing-card { min-width:0; overflow:hidden; border:1px solid var(--line); border-radius:17px; background:var(--surface); transition:.2s ease; }
+.home-listing-card:hover { transform:translateY(-2px); border-color:color-mix(in srgb,var(--green) 45%,var(--line)); box-shadow:0 12px 28px rgba(0,155,105,.08); }
+.home-listing-image { position:relative; height:145px; }
+.home-listing-image img { width:100%; height:100%; object-fit:cover; display:block; }
+.home-listing-image > span, .home-listing-image > b { position:absolute; top:8px; padding:4px 6px; border-radius:7px; font-size:8px; font-weight:900; backdrop-filter:blur(8px); }
+.home-listing-image > span { left:8px; background:rgba(0,0,0,.68); color:#fff; }
+.home-listing-image > b { right:8px; background:rgba(0,155,105,.92); color:#fff; }
+.home-listing-body { padding:11px; }
+.home-listing-title { display:flex; justify-content:space-between; align-items:flex-start; gap:7px; }
+.home-listing-title h3 { margin:0; font-size:13px; line-height:1.15; font-weight:900; color:var(--text); }
+.home-listing-title strong { white-space:nowrap; color:var(--green); font-size:12px; }
+.home-listing-body > p { margin:5px 0 0; color:var(--muted); font-size:9px; line-height:1.4; }
+.home-listing-meta { display:flex; justify-content:space-between; gap:5px; margin-top:9px; padding-top:8px; border-top:1px solid var(--line); color:var(--muted); font-size:8px; }
+.home-listing-meta span:first-child { display:flex; align-items:center; gap:3px; }
+.home-listing-meta svg { width:10px; color:var(--green); }
+.home-value-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; margin-top:22px; }
+.home-value-card { display:flex; align-items:flex-start; gap:11px; padding:17px; border:1px solid var(--line); border-radius:18px; background:var(--surface); }
+.home-value-card > svg { width:22px; height:22px; flex:0 0 auto; color:var(--green); padding:7px; box-sizing:content-box; border-radius:11px; background:var(--green-soft); }
+.home-value-card strong { display:block; color:var(--text); font-size:13px; font-weight:900; }
+.home-value-card span { display:block; margin-top:5px; color:var(--muted); font-size:10px; line-height:1.5; }
+.home-value-card.sos { position:relative; padding-right:105px; background:linear-gradient(135deg,var(--surface),var(--green-soft)); }
+.home-value-card.sos button { position:absolute; right:12px; bottom:14px; border:0; background:transparent; color:var(--green); font-size:9px; font-weight:900; cursor:pointer; }
+.home-steps { display:grid; grid-template-columns:1.2fr repeat(3,1fr); gap:11px; margin-top:22px; padding:16px; border:1px solid var(--line); border-radius:19px; background:var(--surface-2); }
+.home-steps-title h2 { margin:4px 0 0; font-size:18px; font-weight:900; color:var(--text); }
+.home-step { padding:4px 12px; border-left:1px solid var(--line); }
+.home-step b { display:block; color:var(--green); font-size:10px; }
+.home-step strong { display:block; margin-top:4px; color:var(--text); font-size:12px; }
+.home-step span { display:block; margin-top:3px; color:var(--muted); font-size:9px; line-height:1.4; }
+
+.account-page-hero { display:flex; align-items:center; justify-content:space-between; gap:20px; padding:25px 28px; border:1px solid color-mix(in srgb,var(--green) 28%,var(--line)); border-radius:22px; background:var(--hero); }
+.account-page-hero h1 { margin:6px 0 7px; font-size:clamp(27px,3vw,40px); font-weight:900; color:var(--text); }
+.account-page-hero p { max-width:760px; margin:0; color:var(--muted); font-size:12px; line-height:1.5; }
+.account-status-card { display:flex; align-items:center; gap:9px; padding:11px 13px; min-width:190px; border:1px solid color-mix(in srgb,var(--green) 30%,var(--line)); border-radius:14px; background:var(--surface); }
+.account-status-card strong { display:block; color:var(--text); font-size:11px; }.account-status-card span { display:block; color:var(--muted); font-size:9px; margin-top:2px; }
+.account-section-nav { display:flex; gap:7px; margin:15px 0; padding:5px; border:1px solid var(--line); border-radius:15px; background:var(--surface-2); width:max-content; max-width:100%; overflow:auto; }
+.account-section-nav button { display:inline-flex; align-items:center; gap:6px; border:0; border-radius:10px; padding:9px 12px; background:transparent; color:var(--muted); font-size:10px; font-weight:850; white-space:nowrap; cursor:pointer; }
+.account-section-nav button.is-active, .account-section-nav button:hover { color:var(--green); background:var(--surface-3); }
+.account-section-nav svg { width:14px; }.account-section-nav b { min-width:17px; padding:2px 5px; border-radius:6px; background:var(--green-soft); color:var(--green); font-size:8px; }
+.account-page-grid { display:grid; grid-template-columns:1.2fr .8fr; gap:14px; }
+.account-profile-card, .account-summary-card { padding:19px; border:1px solid var(--line); border-radius:19px; background:var(--surface); color:var(--text); }
+.account-profile-foot { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-top:17px; padding-top:14px; border-top:1px solid var(--line); color:var(--muted); font-size:9px; }
+.account-summary-card > button { width:100%; display:flex; align-items:center; gap:10px; padding:13px 4px; border:0; border-top:1px solid var(--line); background:transparent; color:var(--text); text-align:left; cursor:pointer; }
+.account-summary-card > button > svg { width:18px; color:var(--green); }.account-summary-card > button span { flex:1; }.account-summary-card > button strong { display:block; font-size:11px; }.account-summary-card > button small { display:block; margin-top:2px; color:var(--muted); font-size:9px; }.account-summary-card > button > b { color:var(--green); }
+.account-privacy { display:flex; gap:9px; margin-top:12px; padding:12px; border-radius:13px; background:var(--green-soft); color:var(--green); }.account-privacy > svg { width:16px; flex:0 0 auto; }.account-privacy strong { display:block; color:var(--text); font-size:10px; }.account-privacy small { display:block; margin-top:3px; color:var(--muted); font-size:8px; line-height:1.45; }
+
+@media (max-width: 1180px) {
+  .home-listings-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
+  .home-listing-card:nth-child(n+4) { display:none; }
+}
+@media (max-width: 760px) {
+  .zoomayak-approved-logo { min-height:40px; padding:3px 6px; border-radius:10px; }.zoomayak-approved-logo-img { width:142px; }
+  .home-section-heading { align-items:flex-start; flex-direction:column; }.home-section-heading h2 { font-size:20px; }
+  .home-listings-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }.home-listing-card:nth-child(n+4) { display:block; }.home-listing-image { height:125px; }
+  .home-value-grid { grid-template-columns:1fr; }.home-steps { grid-template-columns:1fr 1fr; }.home-steps-title { grid-column:1/-1; }.home-step:nth-child(3) { border-left:0; }
+  .account-page-hero { flex-direction:column; align-items:flex-start; padding:20px; }.account-status-card { min-width:0; width:100%; box-sizing:border-box; }
+  .account-page-grid { grid-template-columns:1fr; }.account-section-nav { width:100%; box-sizing:border-box; }
+}
+@media (max-width: 480px) {
+  .home-listings-grid { grid-template-columns:1fr 1fr; gap:8px; }.home-listing-image { height:105px; }.home-listing-title { display:block; }.home-listing-title strong { display:block; margin-top:4px; }
+  .home-steps { grid-template-columns:1fr; }.home-step { border-left:0; border-top:1px solid var(--line); padding:11px 0 0; }
+  .account-form-grid { grid-template-columns:1fr; }.account-profile-foot { align-items:flex-start; flex-direction:column; }
+}

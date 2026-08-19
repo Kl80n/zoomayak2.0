@@ -14,9 +14,6 @@ import {
 import { Pet, MedicalRecord, ReminderItem, LostAlert, ActiveNavTab } from './types';
 import { Header, type ThemeMode } from './components/Header';
 import { HeroSection } from './components/HeroSection';
-import { MyPetsTab } from './components/MyPetsTab';
-import { RemindersTab } from './components/RemindersTab';
-import { HealthVaultTab } from './components/HealthVaultTab';
 import { LostPetSOSTab } from './components/LostPetSOSTab';
 import { MarketplaceTab } from './components/MarketplaceTab';
 import { PetPassportModal } from './components/PetPassportModal';
@@ -26,7 +23,7 @@ import { ScanModal } from './components/ScanModal';
 import { SOSAlertModal } from './components/SOSAlertModal';
 import { Footer } from './components/Footer';
 import { PublicPetProfile } from './components/PublicPetProfile';
-import { AccountModal } from './components/AccountModal';
+import { AccountTab } from './components/AccountTab';
 import { usePersistentState } from './storage';
 
 export default function App() {
@@ -54,7 +51,6 @@ export default function App() {
   const [isAddPetOpen, setIsAddPetOpen] = useState(false);
   const [isScanModalOpen, setIsScanModalOpen] = useState(false);
   const [isSOSModalOpen, setIsSOSModalOpen] = useState(false);
-  const [isAccountOpen, setIsAccountOpen] = useState(false);
 
   // Handlers
   const handleSelectPet = (pet: Pet) => setSelectedPetId(pet.id);
@@ -122,7 +118,7 @@ export default function App() {
         onOpenPassport={() => setIsPassportOpen(true)}
         onOpenScanModal={() => setIsScanModalOpen(true)}
         onOpenSOS={() => setIsSOSModalOpen(true)}
-        onOpenAccount={() => setIsAccountOpen(true)}
+        onOpenAccount={() => setActiveTab('account')}
         notificationCount={uncompletedRemindersCount}
         theme={theme}
         onToggleTheme={toggleTheme}
@@ -137,40 +133,26 @@ export default function App() {
               onOpenPassport={() => setIsPassportOpen(true)}
               onOpenCollarStudio={() => setIsCollarStudioOpen(true)}
               onOpenSOS={() => setIsSOSModalOpen(true)}
-              onSelectPets={() => setActiveTab('pets')}
-              onOpenReminders={() => setActiveTab('reminders')}
+              onSelectPets={() => setActiveTab('account')}
+              onOpenMarketplace={() => setActiveTab('services')}
             />
 
           </div>
         )}
 
-        {activeTab === 'pets' && (
-          <MyPetsTab
+        {activeTab === 'account' && (
+          <AccountTab
             pets={pets}
             selectedPet={selectedPet}
+            reminders={reminders}
+            medicalRecords={medicalRecords}
             onSelectPet={handleSelectPet}
             onOpenAddPet={() => setIsAddPetOpen(true)}
             onOpenPassport={() => setIsPassportOpen(true)}
             onOpenCollarStudio={() => setIsCollarStudioOpen(true)}
-          />
-        )}
-
-        {activeTab === 'reminders' && (
-          <RemindersTab
-            reminders={reminders}
-            pets={pets}
             onToggleReminder={handleToggleReminder}
             onAddReminder={handleAddReminder}
-          />
-        )}
-
-        {activeTab === 'health' && (
-          <HealthVaultTab
-            medicalRecords={medicalRecords}
-            pets={pets}
-            selectedPet={selectedPet}
             onAddRecord={handleAddRecord}
-            onOpenPassport={() => setIsPassportOpen(true)}
           />
         )}
 
@@ -233,8 +215,6 @@ export default function App() {
         pets={pets}
         onAddAlert={handleAddLostAlert}
       />
-
-      <AccountModal isOpen={isAccountOpen} onClose={() => setIsAccountOpen(false)} />
     </div>
   );
 }

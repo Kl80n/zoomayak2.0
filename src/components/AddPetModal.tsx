@@ -127,32 +127,20 @@ export const AddPetModal: React.FC<AddPetModalProps> = ({
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
               <label className="text-xs font-bold text-slate-300 block mb-1">
-                Вид питомца
+                Вид питомца *
               </label>
-              <div className="grid grid-cols-2 gap-2">
-                <button
-                  type="button"
-                  onClick={() => setSpecies('dog')}
-                  className={`py-2 px-3 rounded-xl text-xs font-bold border transition cursor-pointer ${
-                    species === 'dog'
-                      ? 'bg-teal-500/20 border-teal-400 text-teal-300'
-                      : 'bg-slate-950 border-slate-800 text-slate-400'
-                  }`}
-                >
-                  🐶 Собака
-                </button>
-                <button
-                  type="button"
-                  onClick={() => setSpecies('cat')}
-                  className={`py-2 px-3 rounded-xl text-xs font-bold border transition cursor-pointer ${
-                    species === 'cat'
-                      ? 'bg-teal-500/20 border-teal-400 text-teal-300'
-                      : 'bg-slate-950 border-slate-800 text-slate-400'
-                  }`}
-                >
-                  🐱 Кошка
-                </button>
-              </div>
+              <select
+                value={species}
+                onChange={(e) => setSpecies(e.target.value as PetSpecies)}
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-teal-400 focus:outline-none"
+              >
+                <option value="dog">🐶 Собака</option>
+                <option value="cat">🐱 Кошка</option>
+                <option value="bird">🦜 Птица</option>
+                <option value="rodent">🐹 Грызун</option>
+                <option value="reptile">🦎 Рептилия</option>
+                <option value="other">🐾 Другое</option>
+              </select>
             </div>
 
             <div>

@@ -12,9 +12,9 @@ interface NavigationCardsProps {
 
 export const NavigationCards: React.FC<NavigationCardsProps> = ({ activeTab, onSelectTab, petsCount, remindersCount, lostAlertsCount }) => {
   const cards = [
-    { id: 'pets' as ActiveNavTab, title: 'Мои питомцы', subtitle: 'Профили и документы', icon: Users, badge: `${petsCount} профиля` },
-    { id: 'reminders' as ActiveNavTab, title: 'Напоминания', subtitle: 'Прививки и события', icon: CalendarClock, badge: `${remindersCount} активных` },
-    { id: 'health' as ActiveNavTab, title: 'Здоровье', subtitle: 'История и наблюдение', icon: HeartPulse, badge: '98% норма' },
+    { id: 'account' as ActiveNavTab, title: 'Мои питомцы', subtitle: 'Профили и документы', icon: Users, badge: `${petsCount} профиля` },
+    { id: 'account' as ActiveNavTab, title: 'Напоминания', subtitle: 'Прививки и события', icon: CalendarClock, badge: `${remindersCount} активных` },
+    { id: 'account' as ActiveNavTab, title: 'Здоровье', subtitle: 'История и наблюдение', icon: HeartPulse, badge: '98% норма' },
     { id: 'lost' as ActiveNavTab, title: 'Потеряшка SOS', subtitle: 'Поиск и оповещения', icon: Radio, badge: `${lostAlertsCount} в поиске`, emergency: true },
     { id: 'services' as ActiveNavTab, title: 'Объявления', subtitle: 'Товары и услуги', icon: ShoppingBag, badge: '120+ услуг' },
   ];

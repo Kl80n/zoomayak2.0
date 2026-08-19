@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { ZoomayakLogo } from './ZoomayakLogo';
-import { Bell, QrCode, Plus, CheckCircle2, Sun, Moon, UserRound, ChevronDown } from 'lucide-react';
+import { Bell, QrCode, CheckCircle2, Sun, Moon, UserRound } from 'lucide-react';
 import { Pet, ActiveNavTab } from '../types';
 
 export type ThemeMode = 'light' | 'dark';
@@ -23,9 +23,6 @@ interface HeaderProps {
 
 const navItems: Array<{ id: ActiveNavTab; label: string }> = [
   { id: 'home', label: 'Главная' },
-  { id: 'pets', label: 'Мои питомцы' },
-  { id: 'reminders', label: 'Напоминания' },
-  { id: 'health', label: 'Здоровье' },
   { id: 'lost', label: 'Потеряшка SOS' },
   { id: 'services', label: 'Объявления' },
 ];
@@ -70,11 +67,11 @@ export const Header: React.FC<HeaderProps> = ({
             {showNotifications && <div className="header-popover right-0 mt-2 w-72 p-4">
               <div className="flex items-center justify-between mb-3"><strong>Напоминания</strong><span className="status-pill">{notificationCount} активных</span></div>
               <p className="text-sm opacity-70">Проверьте ближайшие события в разделе «Напоминания».</p>
-              <button onClick={() => { setActiveTab('reminders'); setShowNotifications(false); }} className="popover-link mt-3">Открыть напоминания →</button>
+              <button onClick={() => { setActiveTab('account'); setShowNotifications(false); }} className="popover-link mt-3">Открыть напоминания →</button>
             </div>}
           </div>
 
-          <button onClick={onOpenAccount} className="account-header-button" aria-label="Открыть личный кабинет" title="Личный кабинет">
+          <button onClick={() => setActiveTab('account')} className={`account-header-button ${activeTab === 'account' ? 'is-active' : ''}`} aria-label="Открыть личный кабинет" title="Личный кабинет">
             <span className="account-header-icon"><UserRound className="w-4 h-4" /></span>
             <span className="hidden lg:block text-left leading-tight"><strong>Личный кабинет</strong><small>Профиль владельца</small></span>
           </button>
@@ -82,7 +79,7 @@ export const Header: React.FC<HeaderProps> = ({
       </div>
 
       <div className="mobile-tools xl:hidden max-w-[1400px] mx-auto px-4 pt-2 flex items-center justify-between gap-2">
-        <button onClick={onOpenAccount} className="mobile-account-button"><span className="account-header-icon"><UserRound className="w-4 h-4" /></span><span>Личный кабинет</span></button>
+        <button onClick={() => setActiveTab('account')} className={`mobile-account-button ${activeTab === 'account' ? 'is-active' : ''}`}><span className="account-header-icon"><UserRound className="w-4 h-4" /></span><span>Личный кабинет</span></button>
         <div className="flex items-center gap-1 shrink-0">
           <button onClick={onToggleTheme} className="mobile-theme-button" aria-label="Переключить тему">{theme === 'dark' ? <Sun className="w-4 h-4" /> : <Moon className="w-4 h-4" />}</button>
           <button onClick={onOpenScanModal} className="mobile-theme-button" aria-label="Сканировать QR"><QrCode className="w-4 h-4" /></button>

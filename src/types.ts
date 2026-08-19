@@ -1,4 +1,4 @@
-export type PetSpecies = 'dog' | 'cat' | 'other';
+export type PetSpecies = 'dog' | 'cat' | 'bird' | 'rodent' | 'reptile' | 'other';
 
 export interface WeightRecord {
   date: string;
@@ -119,4 +119,4 @@ export interface AnimalListing {
   verified?: boolean;
 }
 
-export type ActiveNavTab = 'home' | 'pets' | 'reminders' | 'health' | 'lost' | 'services';
+export type ActiveNavTab = 'home' | 'account' | 'lost' | 'services';

@@ -38,3 +38,15 @@ Install command: `npm install`
 - The top navigation keeps Главная, Объявления and Потеряшка SOS; Мои питомцы, Напоминания and Здоровье are moved into the working Личный кабинет menu.
 - Homepage no longer repeats pet cards or the nearest-events panel; it adds popular animal listings, feature shortcuts, SOS promo and newsletter.
 - Animal listings have a species dropdown filter; pet creation uses the same species dropdown.
+
+
+## v8.1.0 — clean homepage & owner cabinet
+
+- Утверждённый логотип ЗооМаяка подключён как master-asset и читается на тёмном фоне через аккуратную светлую подложку.
+- Верхняя навигация очищена: питомцы, напоминания и здоровье перенесены в Личный кабинет.
+- Главная очищена от дублирующих блоков питомцев, ближайших событий и повторной карточки данных.
+- На главной добавлена витрина из 5 объявлений о животных.
+- Возвращён каталог объявлений с источниками Avito / VK / Telegram / ЗооМаяк.
+- В создании питомца и публикации объявления добавлен единый список видов животных.
+- Добавлен полноценный рабочий раздел «Личный кабинет» с профилем, питомцами, напоминаниями и здоровьем.
+- Светлая тема сохранена в бело-зелёной палитре.

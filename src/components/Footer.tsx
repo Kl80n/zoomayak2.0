@@ -10,6 +10,7 @@ import {
   FileText
 } from 'lucide-react';
 import { ActiveNavTab } from '../types';
+import { ZoomayakLogo } from './ZoomayakLogo';
 
 interface FooterProps {
   onSelectTab: (tab: ActiveNavTab) => void;
@@ -36,12 +37,7 @@ export const Footer: React.FC<FooterProps> = ({
           {/* Col 1: Brand */}
           <div className="space-y-4 md:col-span-1">
             <div className="flex items-center gap-2.5">
-              <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-500 to-cyan-500 flex items-center justify-center text-slate-950 font-black shadow-md">
-                <Compass className="w-6 h-6" />
-              </div>
-              <span className="text-xl font-extrabold text-white font-display">
-                Зоо<span className="text-teal-400">Маяк</span>
-              </span>
+              <ZoomayakLogo />
             </div>
             <p className="text-xs text-slate-400 leading-relaxed">
               Единый цифровой профиль и экосистема заботы о питомцах. Международная интеграция ветпаспортов, поиск потеряшек и умные QR-адресники.
@@ -59,7 +55,7 @@ export const Footer: React.FC<FooterProps> = ({
             </h4>
             <ul className="space-y-2.5 text-xs text-slate-400">
               <li>
-                <button onClick={() => onSelectTab('pets')} className="hover:text-teal-300 transition cursor-pointer">
+                <button onClick={() => onSelectTab('account')} className="hover:text-teal-300 transition cursor-pointer">
                   Цифровые профили питомцев
                 </button>
               </li>
@@ -69,12 +65,12 @@ export const Footer: React.FC<FooterProps> = ({
                 </button>
               </li>
               <li>
-                <button onClick={() => onSelectTab('reminders')} className="hover:text-teal-300 transition cursor-pointer">
+                <button onClick={() => onSelectTab('account')} className="hover:text-teal-300 transition cursor-pointer">
                   Календарь вакцинации и заботы
                 </button>
               </li>
               <li>
-                <button onClick={() => onSelectTab('health')} className="hover:text-teal-300 transition cursor-pointer">
+                <button onClick={() => onSelectTab('account')} className="hover:text-teal-300 transition cursor-pointer">
                   Электронная медкарта
                 </button>
               </li>
