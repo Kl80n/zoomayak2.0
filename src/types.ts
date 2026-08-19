@@ -102,4 +102,21 @@ export interface ServiceListing {
   description: string;
 }
 
+export interface AnimalListing {
+  id: string;
+  title: string;
+  species: PetSpecies;
+  breed: string;
+  age: string;
+  sex: 'male' | 'female';
+  price: number;
+  city: string;
+  source: 'Avito' | 'VK' | 'Telegram' | 'ЗооМаяк';
+  sourceUrl: string;
+  imageUrl: string;
+  description: string;
+  publishedAt: string;
+  verified?: boolean;
+}
+
 export type ActiveNavTab = 'home' | 'pets' | 'reminders' | 'health' | 'lost' | 'services';

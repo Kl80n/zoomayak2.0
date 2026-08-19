@@ -165,7 +165,7 @@ export const CollarTagStudioModal: React.FC<CollarTagStudioModalProps> = ({
                     level="H"
                     includeMargin={false}
                     imageSettings={{
-                      src: '/zoomayak-qr-mark.svg',
+                      src: '/zoomayak-logo-approved-icon.png',
                       height: 16,
                       width: 16,
                       excavate: true,

@@ -1,284 +1,89 @@
-import React, { useState } from 'react';
-import { 
-  ShoppingBag, 
-  Search, 
-  Star, 
-  MapPin, 
-  Phone, 
-  Clock, 
-  ShieldCheck, 
-  Sparkles, 
-  Check, 
-  Calendar,
-  Filter
-} from 'lucide-react';
+import React, { useMemo, useState } from 'react';
+import { Search, Star, MapPin, Phone, Clock, ShieldCheck, ShoppingBag, PawPrint, Plus, ExternalLink, RefreshCw, SlidersHorizontal, X } from 'lucide-react';
 import confetti from 'canvas-confetti';
-import { ServiceListing } from '../types';
+import { AnimalListing, ServiceListing } from '../types';
+import { INITIAL_ANIMAL_LISTINGS } from '../data/mockData';
 
-interface MarketplaceTabProps {
-  services: ServiceListing[];
-}
+interface MarketplaceTabProps { services: ServiceListing[]; }
+type MarketMode = 'animals' | 'services' | 'mine';
 
 export const MarketplaceTab: React.FC<MarketplaceTabProps> = ({ services }) => {
-  const [selectedCategory, setSelectedCategory] = useState<string>('all');
-  const [searchQuery, setSearchQuery] = useState('');
-  const [bookingService, setBookingService] = useState<ServiceListing | null>(null);
-  const [bookingSuccess, setBookingSuccess] = useState(false);
+  const [mode, setMode] = useState<MarketMode>('animals');
+  const [query, setQuery] = useState('');
+  const [source, setSource] = useState<'all' | AnimalListing['source']>('all');
+  const [showPublish, setShowPublish] = useState(false);
+  const [syncing, setSyncing] = useState(false);
+  const [published, setPublished] = useState<AnimalListing[]>([]);
 
-  const filtered = services.filter((srv) => {
-    if (selectedCategory !== 'all' && srv.category !== selectedCategory) return false;
-    if (searchQuery.trim()) {
-      const q = searchQuery.toLowerCase();
-      return (
-        srv.title.toLowerCase().includes(q) ||
-        srv.address.toLowerCase().includes(q) ||
-        srv.description.toLowerCase().includes(q)
-      );
-    }
-    return true;
-  });
+  const listings = useMemo(() => [...published, ...INITIAL_ANIMAL_LISTINGS].filter((item) => {
+    const q = query.trim().toLowerCase();
+    const matchesQuery = !q || [item.title, item.breed, item.city, item.description].some(v => v.toLowerCase().includes(q));
+    const matchesSource = source === 'all' || item.source === source;
+    return matchesQuery && matchesSource;
+  }), [query, source, published]);
 
-  const handleBooking = (e: React.FormEvent) => {
-    e.preventDefault();
-    confetti({ particleCount: 50 });
-    setBookingSuccess(true);
-    setTimeout(() => {
-      setBookingSuccess(false);
-      setBookingService(null);
-      alert('Заявка успешно отправлена! Специалист свяжется с вами в течение 10 минут.');
-    }, 1200);
+  const syncSources = () => {
+    setSyncing(true);
+    window.setTimeout(() => setSyncing(false), 1100);
   };
 
-  return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in duration-300 text-left">
-      
-      {/* Banner */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-indigo-950/60 via-slate-900 to-teal-950/60 p-6 rounded-3xl border border-indigo-500/30">
-        <div>
-          <div className="flex items-center gap-2 text-indigo-400 text-xs font-bold uppercase tracking-wider mb-1">
-            <ShoppingBag className="w-4 h-4" />
-            <span>Проверенные сервисы и специалисты</span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-white">
-            Объявления и услуги для питомцев
-          </h2>
-          <p className="text-sm text-slate-300 mt-1">
-            Круглосуточные ветеринарные центры, груминг-салоны, зоогостиницы и кинологи с рейтингом 4.8+.
-          </p>
-        </div>
+  const publish = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const data = new FormData(e.currentTarget);
+    const item: AnimalListing = {
+      id: `mine-${Date.now()}`, title: String(data.get('title') || 'Новое объявление'), species: String(data.get('species')) as AnimalListing['species'],
+      breed: String(data.get('breed') || 'Порода не указана'), age: String(data.get('age') || 'Возраст не указан'), sex: String(data.get('sex')) as AnimalListing['sex'],
+      price: Number(data.get('price') || 0), city: String(data.get('city') || 'Ярославль'), source: 'ЗооМаяк', sourceUrl: '#',
+      imageUrl: 'https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=900&q=80', description: String(data.get('description') || ''), publishedAt: 'Только что', verified: true,
+    };
+    setPublished(prev => [item, ...prev]);
+    setShowPublish(false);
+    setMode('mine');
+    confetti({ particleCount: 35 });
+  };
 
-        <div className="flex items-center gap-2 bg-slate-950/80 px-4 py-2 rounded-2xl border border-slate-800 text-xs text-teal-300 font-bold">
-          <ShieldCheck className="w-4 h-4 text-emerald-400" />
-          <span>Все специалисты проверены ЗооМаяк</span>
-        </div>
-      </div>
-
-      {/* Search and Category Filters */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-slate-900/80 p-3 rounded-2xl border border-slate-800">
-        <div className="relative flex-1">
-          <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-1/2 -translate-y-1/2" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder="Поиск клиники, грумера, гостиницы или услуги..."
-            className="w-full bg-slate-950 border border-slate-800 rounded-xl pl-10 pr-4 py-2 text-xs text-white placeholder:text-slate-500 focus:border-indigo-400 focus:outline-none"
-          />
-        </div>
-
-        <div className="flex items-center gap-2 overflow-x-auto pb-1 sm:pb-0">
-          {[
-            { id: 'all', label: 'Все' },
-            { id: 'vet', label: 'Ветклиники' },
-            { id: 'grooming', label: 'Груминг' },
-            { id: 'hotel', label: 'Зоогостиницы' },
-            { id: 'training', label: 'Дрессировка' },
-          ].map((cat) => (
-            <button
-              key={cat.id}
-              onClick={() => setSelectedCategory(cat.id)}
-              className={`px-3.5 py-1.5 rounded-xl text-xs font-bold whitespace-nowrap transition cursor-pointer ${
-                selectedCategory === cat.id
-                  ? 'bg-indigo-600 text-white shadow-md'
-                  : 'bg-slate-950 text-slate-400 hover:text-white hover:bg-slate-800 border border-slate-800'
-              }`}
-            >
-              {cat.label}
-            </button>
-          ))}
-        </div>
-      </div>
-
-      {/* Services Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {filtered.map((service) => (
-          <div
-            key={service.id}
-            className="p-6 rounded-3xl bg-slate-900 border border-slate-800 hover:border-indigo-500/40 shadow-xl transition-all flex flex-col justify-between"
-          >
-            <div>
-              <div className="relative mb-4">
-                <img
-                  src={service.imageUrl}
-                  alt={service.title}
-                  className="w-full h-44 rounded-2xl object-cover ring-1 ring-slate-800"
-                />
-                <div className="absolute top-3 right-3 px-3 py-1 rounded-xl bg-slate-950/90 text-white font-bold text-xs flex items-center gap-1 border border-slate-700 shadow-md">
-                  <Star className="w-3.5 h-3.5 text-amber-400 fill-amber-400" />
-                  <span>{service.rating}</span>
-                  <span className="text-slate-400 text-[10px]">({service.reviewsCount})</span>
-                </div>
-
-                {service.verified && (
-                  <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg bg-teal-950/90 text-teal-300 font-bold text-xs flex items-center gap-1 border border-teal-500/40">
-                    <ShieldCheck className="w-3.5 h-3.5" />
-                    <span>Верифицировано</span>
-                  </div>
-                )}
-              </div>
-
-              <h4 className="text-xl font-extrabold text-white mb-1">
-                {service.title}
-              </h4>
-              
-              <p className="text-xs text-slate-300 line-clamp-2 mb-3">
-                {service.description}
-              </p>
-
-              {/* Badges */}
-              <div className="flex flex-wrap gap-1.5 mb-4">
-                {service.badges.map((b, i) => (
-                  <span key={i} className="text-[11px] font-semibold px-2.5 py-0.5 rounded-lg bg-slate-950 text-indigo-300 border border-slate-800">
-                    {b}
-                  </span>
-                ))}
-              </div>
-
-              {/* Address and Hours */}
-              <div className="space-y-1 text-xs text-slate-400 bg-slate-950/60 p-3 rounded-xl border border-slate-850 mb-4">
-                <div className="flex items-center gap-1.5 text-slate-300">
-                  <MapPin className="w-3.5 h-3.5 text-indigo-400" />
-                  <span>{service.address} ({service.district})</span>
-                </div>
-                <div className="flex items-center gap-1.5 text-slate-400">
-                  <Clock className="w-3.5 h-3.5 text-teal-400" />
-                  <span>{service.openHours}</span>
-                </div>
-              </div>
-            </div>
-
-            {/* Bottom Row: Price & Action */}
-            <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
-              <div>
-                <div className="text-[10px] uppercase font-bold text-slate-400">Стоимость от</div>
-                <div className="text-lg font-black text-white">
-                  {service.priceFrom} <span className="text-xs font-normal text-slate-300">{service.priceUnit}</span>
-                </div>
-              </div>
-
-              <div className="flex gap-2">
-                <a
-                  href={`tel:${service.phone}`}
-                  className="p-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 transition"
-                  title="Позвонить"
-                >
-                  <Phone className="w-4 h-4" />
-                </a>
-
-                <button
-                  onClick={() => setBookingService(service)}
-                  className="px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-teal-600 hover:from-indigo-500 hover:to-teal-500 text-white font-extrabold text-xs shadow-md transition cursor-pointer"
-                >
-                  Записаться онлайн
-                </button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
-
-      {/* Booking Modal */}
-      {bookingService && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md">
-          <div className="bg-slate-900 border border-indigo-500/40 rounded-3xl p-6 sm:p-8 max-w-md w-full shadow-2xl animate-in zoom-in-95">
-            <h3 className="text-xl font-extrabold text-white mb-2">
-              Запись в {bookingService.title}
-            </h3>
-            <p className="text-xs text-slate-400 mb-4">
-              Автоматическая передача данных ветпаспорта из ЗооМаяк
-            </p>
-
-            <form onSubmit={handleBooking} className="space-y-3.5 text-left">
-              <div>
-                <label className="text-xs font-bold text-slate-300 block mb-1">
-                  Ваше имя и телефон
-                </label>
-                <input
-                  type="text"
-                  required
-                  defaultValue="Алексей (+7 999 450-88-21)"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-indigo-400 focus:outline-none"
-                />
-              </div>
-
-              <div>
-                <label className="text-xs font-bold text-slate-300 block mb-1">
-                  Питомец
-                </label>
-                <input
-                  type="text"
-                  readOnly
-                  value="Барни (Золотистый ретривер, ZM-7X3B-9K2D)"
-                  className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-teal-300 font-mono"
-                />
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <div>
-                  <label className="text-xs font-bold text-slate-300 block mb-1">
-                    Желаемая дата
-                  </label>
-                  <input
-                    type="date"
-                    required
-                    defaultValue={new Date().toISOString().split('T')[0]}
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-indigo-400 focus:outline-none"
-                  />
-                </div>
-
-                <div>
-                  <label className="text-xs font-bold text-slate-300 block mb-1">
-                    Время
-                  </label>
-                  <input
-                    type="time"
-                    required
-                    defaultValue="14:00"
-                    className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-indigo-400 focus:outline-none"
-                  />
-                </div>
-              </div>
-
-              <div className="pt-3 flex items-center justify-end gap-3">
-                <button
-                  type="button"
-                  onClick={() => setBookingService(null)}
-                  className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold cursor-pointer"
-                >
-                  Отмена
-                </button>
-                <button
-                  type="submit"
-                  className="px-6 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-extrabold text-xs shadow-md cursor-pointer"
-                >
-                  {bookingSuccess ? 'Отправлено!' : 'Подтвердить запись'}
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
-
+  return <div className="market-shell">
+    <div className="market-hero">
+      <div><span className="eyebrow"><ShoppingBag className="w-4 h-4" /> МАРКЕТПЛЕЙС ЗООМАЯКА</span><h1>Объявления для питомцев</h1><p>Продажа животных, товары и услуги в одной ленте. Внешние источники собираются в единый каталог, а объявления ЗооМаяка публикуются отдельно.</p></div>
+      <button onClick={() => setShowPublish(true)} className="primary-cta"><Plus className="w-4 h-4" /> Разместить объявление</button>
     </div>
-  );
+
+    <div className="market-tabs">
+      <button className={mode === 'animals' ? 'is-active' : ''} onClick={() => setMode('animals')}><PawPrint /> Продажа животных <span>{INITIAL_ANIMAL_LISTINGS.length}</span></button>
+      <button className={mode === 'services' ? 'is-active' : ''} onClick={() => setMode('services')}><ShoppingBag /> Услуги <span>{services.length}</span></button>
+      <button className={mode === 'mine' ? 'is-active' : ''} onClick={() => setMode('mine')}><ShieldCheck /> Мои объявления <span>{published.length}</span></button>
+    </div>
+
+    {mode === 'animals' || mode === 'mine' ? <>
+      <div className="market-toolbar">
+        <div className="market-search"><Search /><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Порода, вид, город или ключевое слово" /></div>
+        <div className="market-sources"><button className={source === 'all' ? 'is-active' : ''} onClick={() => setSource('all')}>Все источники</button>{(['Avito','VK','Telegram','ЗооМаяк'] as const).map(s => <button key={s} className={source === s ? 'is-active' : ''} onClick={() => setSource(s)}>{s}</button>)}</div>
+        <button className="market-sync" onClick={syncSources}><RefreshCw className={syncing ? 'spin' : ''} /> {syncing ? 'Обновляем…' : 'Обновить ленту'}</button>
+      </div>
+
+      <div className="market-source-note"><ShieldCheck /><span><strong>Единый каталог:</strong> карточки помечены источником. В продакшене парсер подключается к серверным адаптерам Avito / VK / Telegram, а здесь используется демонстрационная лента без обхода ограничений площадок.</span></div>
+
+      {mode === 'mine' && published.length === 0 ? <div className="market-empty"><PawPrint /><h3>У вас пока нет объявлений</h3><p>Разместите первое объявление — оно появится в разделе «Мои объявления» и в общей ленте ЗооМаяка.</p><button onClick={() => setShowPublish(true)} className="primary-cta"><Plus /> Разместить объявление</button></div> :
+      <div className="animal-listing-grid">{listings.map(item => <AnimalCard key={item.id} item={item} />)}</div>}
+    </> : <ServicesGrid services={services} />}
+
+    {showPublish && <PublishModal onClose={() => setShowPublish(false)} onSubmit={publish} />}
+  </div>;
 };
+
+const AnimalCard: React.FC<{ item: AnimalListing }> = ({ item }) => <article className="animal-card">
+  <div className="animal-card-image"><img src={item.imageUrl} alt={item.title} /><span className="source-badge">{item.source}</span>{item.verified && <span className="verified-badge"><ShieldCheck /> Проверено</span>}</div>
+  <div className="animal-card-body"><div className="animal-card-title"><h3>{item.title}</h3><strong>{item.price.toLocaleString('ru-RU')} ₽</strong></div><p className="animal-breed">{item.breed} · {item.age} · {item.sex === 'female' ? 'девочка' : 'мальчик'}</p><p className="animal-description">{item.description}</p><div className="animal-meta"><span><MapPin /> {item.city}</span><span>{item.publishedAt}</span></div><div className="animal-card-foot"><span>Источник: <b>{item.source}</b></span><a href={item.sourceUrl} onClick={e => e.preventDefault()}>Открыть <ExternalLink /></a></div></div>
+</article>;
+
+const ServicesGrid: React.FC<{ services: ServiceListing[] }> = ({ services }) => <div className="services-grid">{services.map(service => <article key={service.id} className="service-card">
+  <img src={service.imageUrl} alt={service.title} /><div className="service-card-body"><div className="service-rating"><Star /> {service.rating} <span>({service.reviewsCount})</span></div><h3>{service.title}</h3><p>{service.description}</p><div className="service-line"><MapPin /> {service.address} · {service.district}</div><div className="service-line"><Clock /> {service.openHours}</div><div className="service-card-foot"><strong>от {service.priceFrom.toLocaleString('ru-RU')} ₽</strong><a href={`tel:${service.phone}`}><Phone /> Позвонить</a></div></div>
+</article>)}</div>;
+
+const PublishModal: React.FC<{ onClose: () => void; onSubmit: (e: React.FormEvent<HTMLFormElement>) => void }> = ({ onClose, onSubmit }) => <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xl" onMouseDown={onClose}>
+  <form className="publish-modal" onSubmit={onSubmit} onMouseDown={e => e.stopPropagation()}>
+    <div className="publish-head"><div><span className="eyebrow compact">НОВОЕ ОБЪЯВЛЕНИЕ</span><h2>Продажа животного</h2></div><button type="button" className="icon-action" onClick={onClose}><X /></button></div>
+    <div className="publish-grid"><label>Заголовок<input name="title" required placeholder="Например, щенки корги" /></label><label>Вид<select name="species"><option value="dog">Собака</option><option value="cat">Кошка</option><option value="other">Другое</option></select></label><label>Порода<input name="breed" placeholder="Порода" /></label><label>Возраст<input name="age" placeholder="3 месяца" /></label><label>Пол<select name="sex"><option value="female">Девочка</option><option value="male">Мальчик</option></select></label><label>Цена, ₽<input name="price" type="number" min="0" placeholder="30000" /></label><label>Город<input name="city" defaultValue="Ярославль" /></label><label className="publish-wide">Описание<textarea name="description" rows={4} placeholder="Расскажите о животном, документах и состоянии" /></label></div>
+    <div className="publish-foot"><span>После публикации источник будет отмечен как «ЗооМаяк».</span><button className="primary-cta" type="submit"><Plus /> Опубликовать</button></div>
+  </form>
+</div>;

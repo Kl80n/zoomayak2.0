@@ -368,3 +368,11 @@ export const INITIAL_SERVICES: ServiceListing[] = [
     description: 'Позитивное подкрепление, бытовая социализация щенков и исправление страхов.',
   }
 ];
+
+
+export const INITIAL_ANIMAL_LISTINGS: import('../types').AnimalListing[] = [
+  { id: 'animal-1', title: 'Щенки золотистого ретривера', species: 'dog', breed: 'Золотистый ретривер', age: '2 месяца', sex: 'male', price: 35000, city: 'Ярославль', source: 'Avito', sourceUrl: '#', imageUrl: 'https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=900&q=80', description: 'Домашнее выращивание, ветпаспорт, первые прививки. Родители проверены.', publishedAt: 'Сегодня, 09:20', verified: true },
+  { id: 'animal-2', title: 'Мейн-кун, девочка', species: 'cat', breed: 'Мейн-кун', age: '4 месяца', sex: 'female', price: 28000, city: 'Ярославль', source: 'VK', sourceUrl: '#', imageUrl: 'https://images.unsplash.com/photo-1574158622682-e40e69881006?auto=format&fit=crop&w=900&q=80', description: 'Социализированная кошечка, приучена к лотку. Документы по запросу.', publishedAt: 'Сегодня, 08:45', verified: false },
+  { id: 'animal-3', title: 'Померанский шпиц', species: 'dog', breed: 'Померанский шпиц', age: '5 месяцев', sex: 'female', price: 42000, city: 'Кострома', source: 'Telegram', sourceUrl: '#', imageUrl: 'https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=900&q=80', description: 'Маленькая активная девочка. Есть ветпаспорт и отметки о вакцинации.', publishedAt: 'Вчера, 21:10', verified: true },
+  { id: 'animal-4', title: 'Котёнок британской породы', species: 'cat', breed: 'Британская короткошёрстная', age: '3 месяца', sex: 'male', price: 18000, city: 'Рыбинск', source: 'ЗооМаяк', sourceUrl: '#', imageUrl: 'https://images.unsplash.com/photo-1519052537078-e6302a4968d4?auto=format&fit=crop&w=900&q=80', description: 'Спокойный котёнок, готов к переезду. Информация о здоровье в профиле.', publishedAt: 'Вчера, 17:30', verified: true },
+];

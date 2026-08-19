@@ -14,7 +14,6 @@ import {
 import { Pet, MedicalRecord, ReminderItem, LostAlert, ActiveNavTab } from './types';
 import { Header, type ThemeMode } from './components/Header';
 import { HeroSection } from './components/HeroSection';
-import { NavigationCards } from './components/NavigationCards';
 import { MyPetsTab } from './components/MyPetsTab';
 import { RemindersTab } from './components/RemindersTab';
 import { HealthVaultTab } from './components/HealthVaultTab';
@@ -27,6 +26,7 @@ import { ScanModal } from './components/ScanModal';
 import { SOSAlertModal } from './components/SOSAlertModal';
 import { Footer } from './components/Footer';
 import { PublicPetProfile } from './components/PublicPetProfile';
+import { AccountModal } from './components/AccountModal';
 import { usePersistentState } from './storage';
 
 export default function App() {
@@ -54,6 +54,7 @@ export default function App() {
   const [isAddPetOpen, setIsAddPetOpen] = useState(false);
   const [isScanModalOpen, setIsScanModalOpen] = useState(false);
   const [isSOSModalOpen, setIsSOSModalOpen] = useState(false);
+  const [isAccountOpen, setIsAccountOpen] = useState(false);
 
   // Handlers
   const handleSelectPet = (pet: Pet) => setSelectedPetId(pet.id);
@@ -121,6 +122,7 @@ export default function App() {
         onOpenPassport={() => setIsPassportOpen(true)}
         onOpenScanModal={() => setIsScanModalOpen(true)}
         onOpenSOS={() => setIsSOSModalOpen(true)}
+        onOpenAccount={() => setIsAccountOpen(true)}
         notificationCount={uncompletedRemindersCount}
         theme={theme}
         onToggleTheme={toggleTheme}
@@ -134,20 +136,11 @@ export default function App() {
               selectedPet={selectedPet}
               onOpenPassport={() => setIsPassportOpen(true)}
               onOpenCollarStudio={() => setIsCollarStudioOpen(true)}
-              onOpenAddPet={() => setIsAddPetOpen(true)}
               onOpenSOS={() => setIsSOSModalOpen(true)}
-              onSelectPet={handleSelectPet}
-              allPets={pets}
+              onSelectPets={() => setActiveTab('pets')}
+              onOpenReminders={() => setActiveTab('reminders')}
             />
 
-            {/* 5 Bottom Feature Cards as seen in user reference, enhanced */}
-            <NavigationCards
-              activeTab={activeTab}
-              onSelectTab={setActiveTab}
-              petsCount={pets.length}
-              remindersCount={uncompletedRemindersCount}
-              lostAlertsCount={lostAlerts.length}
-            />
           </div>
         )}
 
@@ -241,6 +234,7 @@ export default function App() {
         onAddAlert={handleAddLostAlert}
       />
 
+      <AccountModal isOpen={isAccountOpen} onClose={() => setIsAccountOpen(false)} />
     </div>
   );
 }

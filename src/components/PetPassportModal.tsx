@@ -215,7 +215,7 @@ export const PetPassportModal: React.FC<PetPassportModalProps> = ({
                     size={96}
                     level="H"
                     includeMargin
-                    imageSettings={{ src: '/zoomayak-qr-mark.svg', height: 22, width: 22, excavate: true }}
+                    imageSettings={{ src: '/zoomayak-logo-approved-icon.png', height: 22, width: 22, excavate: true }}
                   />
                 </div>
                 <span className="text-[10px] font-bold uppercase tracking-wider text-slate-800">Сканировать QR</span>
