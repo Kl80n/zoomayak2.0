@@ -579,8 +579,14 @@ html, body, #root { max-width: 100%; overflow-x: hidden; }
 .theme-dark .zoomayak-approved-logo .zoomayak-logo-dark { display: block; }
 .zoomayak-approved-logo-img { background: transparent !important; }
 .zoomayak-approved-logo { background: transparent !important; }
+.zoomayak-dark-lockup { display:none; align-items:center; gap:7px; }
+.theme-dark .zoomayak-dark-lockup { display:inline-flex; }
+.theme-dark .zoomayak-dark-lockup .zoomayak-logo-dark { width:54px; height:54px; object-fit:contain; }
+.zoomayak-dark-wordmark { font-size:20px; font-weight:900; letter-spacing:-.7px; white-space:nowrap; line-height:1; text-shadow:0 0 14px rgba(0,212,175,.22); }
+.zoomayak-dark-wordmark b { color:#f3f7ff; font-weight:900; }
+.zoomayak-dark-wordmark strong { color:#18d7b0; font-weight:900; }
 .theme-dark .zoomayak-logo-glow {
-  width: 190px; height: 92px;
-  background: radial-gradient(ellipse, rgba(0, 212, 175, .20) 0%, rgba(0, 126, 255, .09) 42%, transparent 74%);
-  filter: blur(7px);
+  width: 155px; height: 72px;
+  background: radial-gradient(ellipse, rgba(0, 212, 175, .16) 0%, rgba(0, 126, 255, .08) 44%, transparent 74%);
+  filter: blur(8px);
 }
