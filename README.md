@@ -117,3 +117,8 @@ Install command: `npm install`
 ### v8.5.2 — logo fix
 - Dark theme uses a transparent contrast version of the approved master logo with the same composition, wordmark and slogan.
 - Removed all CSS brightness/invert/filter effects from brand artwork.
+
+
+## v8.6.0 — header fixes
+- Dark-theme logo uses a normalized transparent lockup so the approved logo keeps the same visual size as the light theme and remains readable.
+- Account dropdown is closed by default, opens only on click, closes on outside click, navigation, and logout.

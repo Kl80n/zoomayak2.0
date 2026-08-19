@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { ZoomayakLogo } from './ZoomayakLogo';
 import { Bell, QrCode, CheckCircle2, Sun, Moon, UserRound, LogIn, LogOut, Mail, LockKeyhole } from 'lucide-react';
 import { Pet, ActiveNavTab } from '../types';
@@ -39,6 +39,23 @@ export const Header: React.FC<HeaderProps> = ({
 }) => {
   const [petDropdownOpen, setPetDropdownOpen] = useState(false);
   const [showNotifications, setShowNotifications] = useState(false);
+  const [showAccountMenu, setShowAccountMenu] = useState(false);
+  const accountMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!showAccountMenu) return;
+    const handlePointerDown = (event: MouseEvent) => {
+      if (!accountMenuRef.current?.contains(event.target as Node)) {
+        setShowAccountMenu(false);
+      }
+    };
+    document.addEventListener('mousedown', handlePointerDown);
+    return () => document.removeEventListener('mousedown', handlePointerDown);
+  }, [showAccountMenu]);
+
+  useEffect(() => {
+    setShowAccountMenu(false);
+  }, [activeTab, accountLoggedIn]);
 
   return (
     <header className="site-header sticky top-0 z-40 w-full">
@@ -76,11 +93,19 @@ export const Header: React.FC<HeaderProps> = ({
             </div>}
           </div>
 
-          <div className="header-account-wrap">
+          <div className="header-account-wrap" ref={accountMenuRef}>
             <button
-              onClick={() => accountLoggedIn ? setActiveTab('account') : onOpenAuth()}
+              onClick={() => {
+                if (accountLoggedIn) {
+                  setShowAccountMenu((open) => !open);
+                } else {
+                  onOpenAuth();
+                }
+              }}
               className={`account-header-button ${activeTab === 'account' ? 'is-active' : ''}`}
-              aria-label={accountLoggedIn ? 'Открыть личный кабинет' : 'Войти или зарегистрироваться'}
+              aria-expanded={accountLoggedIn ? showAccountMenu : undefined}
+              aria-haspopup={accountLoggedIn ? 'menu' : undefined}
+              aria-label={accountLoggedIn ? 'Открыть меню личного кабинета' : 'Войти или зарегистрироваться'}
               title={accountLoggedIn ? 'Личный кабинет' : 'Войти / Регистрация'}
             >
               <span className="account-header-icon"><UserRound className="w-4 h-4" /></span>
@@ -89,10 +114,14 @@ export const Header: React.FC<HeaderProps> = ({
                 <small>{accountLoggedIn ? 'Личный кабинет' : 'Создать учётную запись'}</small>
               </span>
             </button>
-            {accountLoggedIn && (
-              <div className="account-header-menu">
-                <button onClick={() => setActiveTab('account')}><UserRound className="w-4 h-4" /> Открыть ЛК</button>
-                <button onClick={onLogout}><LogOut className="w-4 h-4" /> Выйти</button>
+            {accountLoggedIn && showAccountMenu && (
+              <div className="account-header-menu" role="menu">
+                <button role="menuitem" onClick={() => { setShowAccountMenu(false); setActiveTab('account'); }}>
+                  <UserRound className="w-4 h-4" /> Открыть ЛК
+                </button>
+                <button role="menuitem" onClick={() => { setShowAccountMenu(false); onLogout(); }}>
+                  <LogOut className="w-4 h-4" /> Выйти
+                </button>
               </div>
             )}
           </div>

@@ -32,7 +32,7 @@ export const ZoomayakLogo: React.FC<{ className?: string; compact?: boolean }> =
           draggable={false}
         />
         <img
-          src="/zoomayak-logo-dark-lockup.png"
+          src="/zoomayak-logo-dark-lockup-normalized.png"
           alt="ЗооМаяк — Ваш ориентир в мире питомцев"
           className="zoomayak-approved-logo-img zoomayak-logo-dark"
           draggable={false}
