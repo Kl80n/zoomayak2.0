@@ -40,17 +40,19 @@ export const LostPetSOSTab: React.FC<LostPetSOSTabProps> = ({
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in duration-300 text-left">
       
       {/* High Alert Hero Banner */}
-      <div className="relative overflow-hidden bg-gradient-to-r from-rose-50 via-white to-amber-50 p-6 sm:p-8 rounded-3xl border-2 border-rose-200 shadow-sm">
+      <div className="relative overflow-hidden bg-gradient-to-r from-rose-950 via-slate-900 to-amber-950 p-6 sm:p-8 rounded-3xl border-2 border-rose-500/40 shadow-2xl shadow-rose-950/60">
+        <div className="absolute top-0 right-0 w-96 h-96 bg-rose-500/10 rounded-full blur-3xl pointer-events-none"></div>
+
         <div className="relative z-10 flex flex-col lg:flex-row lg:items-center justify-between gap-6">
           <div className="max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-100 text-rose-800 border border-rose-200 text-xs font-black uppercase tracking-wider mb-3">
-              <span className="w-2 h-2 rounded-full bg-rose-600 animate-ping"></span>
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-rose-500/20 text-rose-300 border border-rose-500/40 text-xs font-black uppercase tracking-wider mb-3">
+              <span className="w-2 h-2 rounded-full bg-rose-400 animate-ping"></span>
               <span>Федеральный поисковый радар ЗооМаяк</span>
             </div>
-            <h2 className="text-3xl sm:text-4xl font-black text-slate-900 leading-tight">
+            <h2 className="text-3xl sm:text-4xl font-black text-white leading-tight">
               Потеряшка SOS: Экстренный поиск животных
             </h2>
-            <p className="text-sm sm:text-base text-slate-600 mt-2 font-medium">
+            <p className="text-sm sm:text-base text-slate-300 mt-2 font-medium">
               При активации сигнала SOS уведомления рассылаются волонтерам, клиникам и пользователям в радиусе 10 км. QR-адресник на ошейнике передает GPS координаты при сканировании.
             </p>
           </div>
@@ -58,7 +60,7 @@ export const LostPetSOSTab: React.FC<LostPetSOSTabProps> = ({
           <div className="flex flex-wrap items-center gap-3">
             <button
               onClick={onOpenSOSModal}
-              className="px-6 py-4 rounded-2xl bg-gradient-to-r from-rose-600 via-red-600 to-amber-600 hover:from-rose-500 hover:to-amber-500 text-white font-extrabold text-sm shadow-lg shadow-rose-600/30 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer flex items-center gap-2"
+              className="px-6 py-4 rounded-2xl bg-gradient-to-r from-rose-600 via-red-500 to-amber-600 hover:from-rose-500 hover:to-amber-500 text-white font-extrabold text-sm shadow-xl shadow-rose-600/40 hover:scale-105 active:scale-95 transition-all duration-200 cursor-pointer flex items-center gap-2"
             >
               <Radio className="w-5 h-5 animate-pulse" />
               <span>Подать сигнал SOS о пропаже</span>
@@ -68,38 +70,38 @@ export const LostPetSOSTab: React.FC<LostPetSOSTabProps> = ({
       </div>
 
       {/* Radar Map Simulation */}
-      <div className="relative rounded-3xl bg-white border border-slate-200 p-6 shadow-sm overflow-hidden">
+      <div className="relative rounded-3xl bg-slate-900 border border-slate-800 p-6 overflow-hidden">
         <div className="flex items-center justify-between mb-4">
           <div className="flex items-center gap-2">
-            <Navigation className="w-5 h-5 text-rose-600" />
-            <h3 className="text-lg font-black text-slate-900">
+            <Navigation className="w-5 h-5 text-rose-400" />
+            <h3 className="text-lg font-extrabold text-white">
               Интерактивный радар поиска в вашем районе
             </h3>
           </div>
-          <span className="text-xs font-bold text-teal-800 bg-teal-50 px-3 py-1 rounded-full border border-teal-200">
+          <span className="text-xs font-bold text-teal-400 bg-teal-950/60 px-3 py-1 rounded-full border border-teal-500/30">
             Радар активен (Зона: 15 км)
           </span>
         </div>
 
         {/* Map Canvas Background Simulation */}
-        <div className="relative h-64 sm:h-80 w-full rounded-2xl bg-slate-900 border border-slate-800 overflow-hidden flex items-center justify-center">
+        <div className="relative h-64 sm:h-80 w-full rounded-2xl bg-slate-950 border border-slate-800/80 overflow-hidden flex items-center justify-center">
           
           {/* Radar circle animations */}
-          <div className="absolute w-40 h-40 rounded-full border border-rose-500/40 animate-ping"></div>
-          <div className="absolute w-80 h-80 rounded-full border border-rose-500/30"></div>
-          <div className="absolute w-[450px] h-[450px] rounded-full border border-teal-500/20"></div>
-          <div className="absolute w-full h-[1px] bg-slate-800"></div>
-          <div className="absolute h-full w-[1px] bg-slate-800"></div>
+          <div className="absolute w-40 h-40 rounded-full border border-rose-500/30 animate-ping"></div>
+          <div className="absolute w-80 h-80 rounded-full border border-rose-500/20"></div>
+          <div className="absolute w-[450px] h-[450px] rounded-full border border-teal-500/10"></div>
+          <div className="absolute w-full h-[1px] bg-slate-800/50"></div>
+          <div className="absolute h-full w-[1px] bg-slate-800/50"></div>
 
           {/* Map Grid overlay */}
-          <div className="absolute inset-0 bg-[radial-gradient(#334155_1px,transparent_1px)] [background-size:16px_16px] opacity-40"></div>
+          <div className="absolute inset-0 bg-[radial-gradient(#1e293b_1px,transparent_1px)] [background-size:16px_16px] opacity-30"></div>
 
           {/* User Location Center */}
           <div className="relative z-10 flex flex-col items-center">
             <div className="w-6 h-6 rounded-full bg-teal-500 border-2 border-white shadow-lg flex items-center justify-center text-slate-950 font-black text-[10px]">
               Вы
             </div>
-            <span className="text-[10px] font-bold text-teal-200 mt-1 bg-slate-900/90 px-2 py-0.5 rounded border border-slate-700">
+            <span className="text-[10px] font-bold text-teal-300 mt-1 bg-slate-900/90 px-2 py-0.5 rounded border border-slate-800">
               Ваша локация
             </span>
           </div>
@@ -121,14 +123,14 @@ export const LostPetSOSTab: React.FC<LostPetSOSTabProps> = ({
                 onClick={() => handlePrintPoster(alert)}
               >
                 <div className="relative">
-                  <div className="w-10 h-10 rounded-full ring-2 ring-rose-500 overflow-hidden shadow-xl group-hover:scale-125 transition-transform bg-white">
+                  <div className="w-10 h-10 rounded-full ring-2 ring-rose-500 overflow-hidden shadow-xl group-hover:scale-125 transition-transform bg-slate-900">
                     <img src={alert.photoUrl} alt={alert.petName} className="w-full h-full object-cover" />
                   </div>
                   <span className="absolute -top-1 -right-1 w-4 h-4 bg-rose-600 rounded-full text-[9px] font-black text-white flex items-center justify-center animate-bounce">
                     !
                   </span>
                 </div>
-                <div className="bg-white text-slate-900 text-[11px] font-bold px-2 py-0.5 rounded-md border border-rose-300 shadow-md mt-1 whitespace-nowrap group-hover:bg-rose-50">
+                <div className="bg-slate-900 text-white text-[11px] font-bold px-2 py-0.5 rounded-md border border-rose-500/40 shadow-lg mt-1 whitespace-nowrap group-hover:bg-rose-950">
                   {alert.petName} ({alert.reward || 'SOS'})
                 </div>
               </div>
@@ -140,66 +142,66 @@ export const LostPetSOSTab: React.FC<LostPetSOSTabProps> = ({
       {/* Active Missing Pets List */}
       <div>
         <div className="flex items-center justify-between mb-4">
-          <h3 className="text-xl font-black text-slate-900 flex items-center gap-2">
+          <h3 className="text-xl font-extrabold text-white flex items-center gap-2">
             <span>Срочные объявления о поиске ({lostAlerts.length})</span>
           </h3>
-          <span className="text-xs text-slate-500 font-medium">Нажмите на карточку для генерации постера</span>
+          <span className="text-xs text-slate-400">Нажмите на карточку для генерации постера</span>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {lostAlerts.map((alert) => (
             <div
               key={alert.id}
-              className="p-5 rounded-3xl bg-white border border-slate-200 hover:border-rose-300 shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
+              className="p-5 rounded-3xl bg-slate-900 border border-slate-800 hover:border-rose-500/50 shadow-xl transition-all flex flex-col justify-between"
             >
               <div>
                 <div className="relative mb-4">
                   <img
                     src={alert.photoUrl}
                     alt={alert.petName}
-                    className="w-full h-48 rounded-2xl object-cover ring-1 ring-slate-200"
+                    className="w-full h-48 rounded-2xl object-cover ring-1 ring-slate-800"
                   />
                   {alert.reward && (
-                    <div className="absolute top-3 right-3 px-3 py-1 rounded-xl bg-rose-600 text-white font-extrabold text-xs shadow-md">
+                    <div className="absolute top-3 right-3 px-3 py-1 rounded-xl bg-rose-600 text-white font-extrabold text-xs shadow-lg">
                       Вознаграждение: {alert.reward}
                     </div>
                   )}
-                  <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg bg-white/95 text-teal-800 font-mono text-xs font-bold border border-slate-200 shadow-xs">
+                  <div className="absolute bottom-3 left-3 px-2.5 py-1 rounded-lg bg-slate-950/90 text-teal-300 font-mono text-xs font-bold border border-slate-700">
                     {alert.zmId}
                   </div>
                 </div>
 
                 <div className="flex items-center justify-between mb-1">
-                  <h4 className="text-2xl font-black text-slate-900 font-display">
+                  <h4 className="text-2xl font-black text-white font-display">
                     {alert.petName}
                   </h4>
-                  <span className="text-xs font-bold text-slate-500">
+                  <span className="text-xs font-bold text-slate-400">
                     {alert.species === 'dog' ? 'Собака' : 'Кошка'}
                   </span>
                 </div>
                 
-                <p className="text-xs font-bold text-slate-600 mb-2">
+                <p className="text-xs font-bold text-slate-300 mb-2">
                   {alert.breed}
                 </p>
 
-                <div className="space-y-1.5 text-xs text-slate-700 bg-slate-50 p-3 rounded-xl border border-slate-200 mb-3 font-medium">
-                  <div className="flex items-start gap-1.5 text-rose-800 font-bold">
-                    <MapPin className="w-3.5 h-3.5 shrink-0 mt-0.5 text-rose-600" />
+                <div className="space-y-1.5 text-xs text-slate-300 bg-slate-950/60 p-3 rounded-xl border border-slate-800 mb-3">
+                  <div className="flex items-start gap-1.5 text-rose-300 font-medium">
+                    <MapPin className="w-3.5 h-3.5 shrink-0 mt-0.5 text-rose-400" />
                     <span>{alert.location}</span>
                   </div>
-                  <div className="text-slate-500 text-[11px]">
+                  <div className="text-slate-400 text-[11px]">
                     Время пропажи: {alert.lostDate}
                   </div>
-                  <div className="text-slate-600 text-[11px] italic pt-1 border-t border-slate-200">
+                  <div className="text-slate-300 text-[11px] italic pt-1 border-t border-slate-800">
                     «{alert.distinguishingFeatures}»
                   </div>
                 </div>
               </div>
 
-              <div className="space-y-2 pt-2 border-t border-slate-100">
+              <div className="space-y-2 pt-2 border-t border-slate-800">
                 <a
                   href={`tel:${alert.ownerPhone}`}
-                  className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-sm transition cursor-pointer"
+                  className="w-full py-2.5 px-3 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-500 hover:to-teal-500 text-white font-extrabold text-xs flex items-center justify-center gap-2 shadow-md transition"
                 >
                   <Phone className="w-4 h-4" />
                   <span>Позвонить владельцу ({alert.ownerName})</span>
@@ -207,9 +209,9 @@ export const LostPetSOSTab: React.FC<LostPetSOSTabProps> = ({
 
                 <button
                   onClick={() => handlePrintPoster(alert)}
-                  className="w-full py-2 px-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-bold border border-slate-200 transition flex items-center justify-center gap-1.5 cursor-pointer"
+                  className="w-full py-2 px-3 rounded-xl bg-slate-800 hover:bg-slate-750 text-teal-300 text-xs font-bold border border-teal-500/20 transition flex items-center justify-center gap-1.5 cursor-pointer"
                 >
-                  <Printer className="w-3.5 h-3.5 text-slate-600" />
+                  <Printer className="w-3.5 h-3.5" />
                   <span>Печать объявления о пропаже (А4)</span>
                 </button>
               </div>

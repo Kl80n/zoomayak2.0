@@ -1,20 +1,41 @@
-<div align="center">
-<img width="1200" height="475" alt="GHBanner" src="https://ai.google.dev/static/site-assets/images/share-ais-513315318.png" />
-</div>
+# ЗооМаяк MVP
 
-# Run and deploy your AI Studio app
+Рабочая Vite + React + TypeScript заготовка интерфейса ЗооМаяка.
 
-This contains everything you need to run your app locally.
+## Запуск локально
 
-View your app in AI Studio: https://ai.studio/apps/964d6ee0-064d-471a-ac79-0ba17a14381d
+```bash
+npm install
+npm run dev
+```
 
-## Run Locally
+## Проверка
 
-**Prerequisites:**  Node.js
+```bash
+npm run typecheck
+npm run build
+```
 
+## Vercel
 
-1. Install dependencies:
-   `npm install`
-2. Set the `GEMINI_API_KEY` in [.env.local](.env.local) to your Gemini API key
-3. Run the app:
-   `npm run dev`
+Проект подготовлен для Vercel:
+
+- Framework: Vite
+- Build Command: `npm run build`
+- Output Directory: `dist`
+
+Можно импортировать репозиторий GitHub напрямую в Vercel.
+
+## Что сейчас работает
+
+- интерфейс кабинета питомца;
+- добавление питомцев;
+- цифровой паспорт;
+- QR/сканирование в демо-режиме;
+- напоминания;
+- медицинские записи;
+- SOS/потеряшки;
+- сервисы;
+- сохранение демо-данных в localStorage.
+
+Следующий этап — заменить localStorage на настоящий API и PostgreSQL.

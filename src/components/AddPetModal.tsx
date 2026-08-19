@@ -91,42 +91,42 @@ export const AddPetModal: React.FC<AddPetModalProps> = ({
   ];
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-xl overflow-y-auto">
       <div 
-        className="relative w-full max-w-2xl bg-white border border-slate-200/90 rounded-3xl shadow-2xl overflow-hidden my-6 animate-in zoom-in-95 text-left"
+        className="relative w-full max-w-2xl bg-slate-900 border border-teal-500/40 rounded-3xl shadow-2xl shadow-teal-950/90 overflow-hidden my-6 animate-in zoom-in-95 text-left"
         onClick={(e) => e.stopPropagation()}
       >
         
         {/* Header */}
-        <div className="bg-gradient-to-r from-teal-700 via-teal-800 to-emerald-800 px-6 py-4 border-b border-teal-600/30 flex items-center justify-between text-white shadow-sm">
+        <div className="bg-gradient-to-r from-teal-950 via-slate-900 to-cyan-950 px-6 py-4 border-b border-teal-500/20 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-white/15 backdrop-blur-xs border border-white/25 flex items-center justify-center text-emerald-300 shadow-inner">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-teal-400 to-emerald-500 flex items-center justify-center text-slate-950 shadow-md">
               <Plus className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-lg font-black text-white tracking-tight">
+              <h3 className="text-lg font-extrabold text-white">
                 Регистрация нового питомца
               </h3>
-              <p className="text-xs text-teal-100/90 font-medium">
+              <p className="text-xs text-teal-300">
                 Создание цифрового ветпаспорта и генерация персонального ZM-ID
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-xl bg-white/10 hover:bg-rose-500/80 hover:text-white text-white/80 transition cursor-pointer"
+            className="p-2 rounded-xl bg-slate-800 hover:bg-rose-950 hover:text-rose-400 text-slate-400 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-4 max-h-[80vh] overflow-y-auto bg-slate-50/50">
+        <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-4 max-h-[80vh] overflow-y-auto">
           
           {/* Pet Type and Gender */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs font-black uppercase tracking-wider text-slate-600 block mb-2">
+              <label className="text-xs font-bold text-slate-300 block mb-1">
                 Вид питомца
               </label>
               <div className="grid grid-cols-2 gap-2">
@@ -135,8 +135,8 @@ export const AddPetModal: React.FC<AddPetModalProps> = ({
                   onClick={() => setSpecies('dog')}
                   className={`py-2 px-3 rounded-xl text-xs font-bold border transition cursor-pointer ${
                     species === 'dog'
-                      ? 'bg-teal-600 text-white border-teal-600 shadow-xs'
-                      : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
+                      ? 'bg-teal-500/20 border-teal-400 text-teal-300'
+                      : 'bg-slate-950 border-slate-800 text-slate-400'
                   }`}
                 >
                   🐶 Собака
@@ -146,8 +146,8 @@ export const AddPetModal: React.FC<AddPetModalProps> = ({
                   onClick={() => setSpecies('cat')}
                   className={`py-2 px-3 rounded-xl text-xs font-bold border transition cursor-pointer ${
                     species === 'cat'
-                      ? 'bg-teal-600 text-white border-teal-600 shadow-xs'
-                      : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
+                      ? 'bg-teal-500/20 border-teal-400 text-teal-300'
+                      : 'bg-slate-950 border-slate-800 text-slate-400'
                   }`}
                 >
                   🐱 Кошка
@@ -156,7 +156,7 @@ export const AddPetModal: React.FC<AddPetModalProps> = ({
             </div>
 
             <div>
-              <label className="text-xs font-black uppercase tracking-wider text-slate-600 block mb-2">
+              <label className="text-xs font-bold text-slate-300 block mb-1">
                 Пол
               </label>
               <div className="grid grid-cols-2 gap-2">
@@ -165,8 +165,8 @@ export const AddPetModal: React.FC<AddPetModalProps> = ({
                   onClick={() => setGender('male')}
                   className={`py-2 px-3 rounded-xl text-xs font-bold border transition cursor-pointer ${
                     gender === 'male'
-                      ? 'bg-cyan-600 text-white border-cyan-600 shadow-xs'
-                      : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
+                      ? 'bg-cyan-500/20 border-cyan-400 text-cyan-300'
+                      : 'bg-slate-950 border-slate-800 text-slate-400'
                   }`}
                 >
                   ♂ Мальчик
@@ -176,8 +176,8 @@ export const AddPetModal: React.FC<AddPetModalProps> = ({
                   onClick={() => setGender('female')}
                   className={`py-2 px-3 rounded-xl text-xs font-bold border transition cursor-pointer ${
                     gender === 'female'
-                      ? 'bg-rose-500 text-white border-rose-500 shadow-xs'
-                      : 'bg-white border-slate-200 text-slate-700 hover:bg-slate-50'
+                      ? 'bg-pink-500/20 border-pink-400 text-pink-300'
+                      : 'bg-slate-950 border-slate-800 text-slate-400'
                   }`}
                 >
                   ♀ Девочка
@@ -189,7 +189,7 @@ export const AddPetModal: React.FC<AddPetModalProps> = ({
           {/* Name and Breed */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs font-bold text-slate-700 block mb-1">
+              <label className="text-xs font-bold text-slate-300 block mb-1">
                 Кличка питомца *
               </label>
               <input
@@ -198,12 +198,12 @@ export const AddPetModal: React.FC<AddPetModalProps> = ({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Например: Арчи, Мия, Чарли..."
-                className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-900 focus:border-teal-500 focus:outline-none"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-teal-400 focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="text-xs font-bold text-slate-700 block mb-1">
+              <label className="text-xs font-bold text-slate-300 block mb-1">
                 Порода *
               </label>
               <input
@@ -212,7 +212,7 @@ export const AddPetModal: React.FC<AddPetModalProps> = ({
                 value={breed}
                 onChange={(e) => setBreed(e.target.value)}
                 placeholder="Например: Французский бульдог, Абиссинская..."
-                className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-900 focus:border-teal-500 focus:outline-none"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-teal-400 focus:outline-none"
               />
             </div>
           </div>
@@ -220,19 +220,19 @@ export const AddPetModal: React.FC<AddPetModalProps> = ({
           {/* Birth date & Weight */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs font-bold text-slate-700 block mb-1">
+              <label className="text-xs font-bold text-slate-300 block mb-1">
                 Дата рождения
               </label>
               <input
                 type="date"
                 value={birthDate}
                 onChange={(e) => setBirthDate(e.target.value)}
-                className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-900 focus:border-teal-500 focus:outline-none"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-teal-400 focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="text-xs font-bold text-slate-700 block mb-1">
+              <label className="text-xs font-bold text-slate-300 block mb-1">
                 Вес (кг)
               </label>
               <input
@@ -240,14 +240,14 @@ export const AddPetModal: React.FC<AddPetModalProps> = ({
                 step="0.1"
                 value={weight}
                 onChange={(e) => setWeight(parseFloat(e.target.value) || 0)}
-                className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-900 focus:border-teal-500 focus:outline-none"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-teal-400 focus:outline-none"
               />
             </div>
           </div>
 
           {/* Photo Selector */}
           <div>
-            <label className="text-xs font-black uppercase tracking-wider text-slate-600 block mb-2">
+            <label className="text-xs font-bold text-slate-300 block mb-2">
               Фотография профиля (Выберите образец или укажите ссылку)
             </label>
             <div className="grid grid-cols-4 gap-2 mb-2">
@@ -257,11 +257,11 @@ export const AddPetModal: React.FC<AddPetModalProps> = ({
                   key={idx}
                   onClick={() => setPhotoUrl(p.url)}
                   className={`relative rounded-xl overflow-hidden border-2 transition cursor-pointer ${
-                    photoUrl === p.url ? 'border-teal-500 shadow-sm ring-2 ring-teal-500/20' : 'border-slate-200 opacity-70 hover:opacity-100'
+                    photoUrl === p.url ? 'border-teal-400 shadow-md ring-2 ring-teal-500/40' : 'border-slate-800 opacity-60 hover:opacity-100'
                   }`}
                 >
                   <img src={p.url} alt={p.label} className="w-full h-14 object-cover" />
-                  <span className="text-[9px] font-bold text-center block bg-slate-900/80 py-0.5 text-white">
+                  <span className="text-[9px] font-bold text-center block bg-slate-950/80 py-0.5 text-white">
                     {p.label}
                   </span>
                 </button>
@@ -272,26 +272,26 @@ export const AddPetModal: React.FC<AddPetModalProps> = ({
               value={photoUrl}
               onChange={(e) => setPhotoUrl(e.target.value)}
               placeholder="Или вставьте прямую ссылку на фото"
-              className="w-full bg-white border border-slate-300 rounded-xl px-3 py-1.5 text-xs text-slate-700 focus:border-teal-500 focus:outline-none font-mono"
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-1.5 text-xs text-slate-300 focus:border-teal-400 focus:outline-none font-mono"
             />
           </div>
 
           {/* Microchip & Allergies */}
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="text-xs font-bold text-slate-700 block mb-1">
+              <label className="text-xs font-bold text-slate-300 block mb-1">
                 Номер микрочипа (ISO 11784)
               </label>
               <input
                 type="text"
                 value={microchipId}
                 onChange={(e) => setMicrochipId(e.target.value)}
-                className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-teal-700 font-mono font-bold focus:border-teal-500 focus:outline-none"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-teal-300 font-mono focus:border-teal-400 focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="text-xs font-bold text-slate-700 block mb-1">
+              <label className="text-xs font-bold text-slate-300 block mb-1">
                 Аллергии и особенности (через запятую)
               </label>
               <input
@@ -299,28 +299,28 @@ export const AddPetModal: React.FC<AddPetModalProps> = ({
                 value={allergiesText}
                 onChange={(e) => setAllergiesText(e.target.value)}
                 placeholder="Курица, лактоза..."
-                className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-900 focus:border-teal-500 focus:outline-none"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-teal-400 focus:outline-none"
               />
             </div>
           </div>
 
           {/* Submit */}
-          <div className="pt-4 border-t border-slate-200 flex items-center justify-between">
-            <span className="text-xs text-teal-700 font-bold flex items-center gap-1.5">
-              <ShieldCheck className="w-4 h-4 text-emerald-600" /> Данные шифруются и защищены
+          <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
+            <span className="text-xs text-teal-400 font-semibold flex items-center gap-1">
+              <ShieldCheck className="w-4 h-4" /> Данные шифруются и защищены
             </span>
 
             <div className="flex gap-3">
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold cursor-pointer"
+                className="px-4 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold cursor-pointer"
               >
                 Отмена
               </button>
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-teal-600 to-emerald-600 hover:from-teal-500 hover:to-emerald-500 text-white font-extrabold text-xs shadow-md shadow-teal-600/20 cursor-pointer"
+                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-teal-500 to-emerald-500 hover:from-teal-400 hover:to-emerald-400 text-slate-950 font-extrabold text-xs shadow-lg shadow-teal-500/25 cursor-pointer"
               >
                 Зарегистрировать питомца
               </button>

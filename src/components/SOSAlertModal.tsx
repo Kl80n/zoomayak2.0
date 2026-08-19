@@ -67,40 +67,40 @@ export const SOSAlertModal: React.FC<SOSAlertModalProps> = ({
   };
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-md overflow-y-auto">
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/85 backdrop-blur-xl overflow-y-auto">
       <div 
-        className="relative w-full max-w-xl bg-white border border-rose-200 rounded-3xl shadow-2xl overflow-hidden my-6 animate-in zoom-in-95 text-left"
+        className="relative w-full max-w-xl bg-slate-900 border-2 border-rose-500/50 rounded-3xl shadow-2xl shadow-rose-950/90 overflow-hidden my-6 animate-in zoom-in-95 text-left"
         onClick={(e) => e.stopPropagation()}
       >
         
         {/* Header */}
-        <div className="bg-gradient-to-r from-rose-700 via-rose-800 to-red-800 px-6 py-4 border-b border-rose-600/30 flex items-center justify-between text-white shadow-sm">
+        <div className="bg-gradient-to-r from-rose-950 via-slate-900 to-red-950 px-6 py-4 border-b border-rose-500/30 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-2xl bg-white/15 backdrop-blur-xs border border-white/25 flex items-center justify-center text-rose-200 shadow-inner animate-pulse">
+            <div className="w-10 h-10 rounded-xl bg-rose-600 flex items-center justify-center text-white shadow-md animate-pulse">
               <Radio className="w-5 h-5" />
             </div>
             <div>
-              <h3 className="text-lg font-black text-white tracking-tight">
+              <h3 className="text-lg font-extrabold text-white">
                 Подача экстренного сигнала SOS
               </h3>
-              <p className="text-xs text-rose-100/90 font-medium">
+              <p className="text-xs text-rose-300">
                 Оповещение волонтеров, ветклиник и пользователей рядом
               </p>
             </div>
           </div>
           <button
             onClick={onClose}
-            className="p-2 rounded-xl bg-white/10 hover:bg-rose-500/80 hover:text-white text-white/80 transition cursor-pointer"
+            className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-400 transition cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
         </div>
 
         {/* Form */}
-        <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-4 bg-slate-50/50">
+        <form onSubmit={handleSubmit} className="p-6 sm:p-8 space-y-4">
           
           <div>
-            <label className="text-xs font-black uppercase tracking-wider text-slate-700 block mb-2">
+            <label className="text-xs font-bold text-slate-300 block mb-1">
               Выберите питомца
             </label>
             <div className="grid grid-cols-3 gap-2">
@@ -111,14 +111,14 @@ export const SOSAlertModal: React.FC<SOSAlertModalProps> = ({
                   onClick={() => setSelectedPetId(p.id)}
                   className={`p-2.5 rounded-2xl border transition flex items-center gap-2 text-left cursor-pointer ${
                     selectedPetId === p.id
-                      ? 'bg-rose-50 border-rose-500 text-slate-900 shadow-xs ring-2 ring-rose-500/20'
-                      : 'bg-white border-slate-200 text-slate-600 hover:border-slate-300'
+                      ? 'bg-rose-950/60 border-rose-500 text-white shadow-md'
+                      : 'bg-slate-950 border-slate-800 text-slate-400'
                   }`}
                 >
-                  <img src={p.photoUrl} alt={p.name} className="w-8 h-8 rounded-xl object-cover ring-1 ring-slate-200" />
+                  <img src={p.photoUrl} alt={p.name} className="w-8 h-8 rounded-xl object-cover" />
                   <div>
-                    <div className="text-xs font-black text-slate-900">{p.name}</div>
-                    <div className="text-[10px] text-slate-500 font-semibold">{p.breed.slice(0, 8)}..</div>
+                    <div className="text-xs font-bold">{p.name}</div>
+                    <div className="text-[10px] text-slate-400">{p.breed.slice(0, 8)}..</div>
                   </div>
                 </button>
               ))}
@@ -126,7 +126,7 @@ export const SOSAlertModal: React.FC<SOSAlertModalProps> = ({
           </div>
 
           <div>
-            <label className="text-xs font-bold text-slate-700 block mb-1">
+            <label className="text-xs font-bold text-slate-300 block mb-1">
               Где и когда последний раз видели питомца *
             </label>
             <input
@@ -135,13 +135,13 @@ export const SOSAlertModal: React.FC<SOSAlertModalProps> = ({
               value={location}
               onChange={(e) => setLocation(e.target.value)}
               placeholder="Улица, парк, ориентиры..."
-              className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-900 focus:border-rose-500 focus:outline-none"
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-rose-500 focus:outline-none"
             />
           </div>
 
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs font-bold text-slate-700 block mb-1">
+              <label className="text-xs font-bold text-slate-300 block mb-1">
                 Вознаграждение за возврат
               </label>
               <input
@@ -149,12 +149,12 @@ export const SOSAlertModal: React.FC<SOSAlertModalProps> = ({
                 value={reward}
                 onChange={(e) => setReward(e.target.value)}
                 placeholder="Например: 20 000 ₽"
-                className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-amber-700 font-bold focus:border-rose-500 focus:outline-none"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-amber-300 font-bold focus:border-rose-500 focus:outline-none"
               />
             </div>
 
             <div>
-              <label className="text-xs font-bold text-slate-700 block mb-1">
+              <label className="text-xs font-bold text-slate-300 block mb-1">
                 Телефон для связи *
               </label>
               <input
@@ -162,25 +162,25 @@ export const SOSAlertModal: React.FC<SOSAlertModalProps> = ({
                 required
                 value={phone}
                 onChange={(e) => setPhone(e.target.value)}
-                className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-900 font-bold focus:border-rose-500 focus:outline-none"
+                className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-rose-500 focus:outline-none"
               />
             </div>
           </div>
 
           <div>
-            <label className="text-xs font-bold text-slate-700 block mb-1">
+            <label className="text-xs font-bold text-slate-300 block mb-1">
               Особые приметы и обстоятельства
             </label>
             <textarea
               rows={3}
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-              className="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm text-slate-900 focus:border-rose-500 focus:outline-none"
+              className="w-full bg-slate-950 border border-slate-800 rounded-xl px-3 py-2 text-sm text-white focus:border-rose-500 focus:outline-none"
             />
           </div>
 
-          <div className="pt-4 border-t border-slate-200 flex items-center justify-between">
-            <span className="text-[11px] text-rose-700 font-bold">
+          <div className="pt-4 border-t border-slate-800 flex items-center justify-between">
+            <span className="text-[11px] text-rose-400 font-semibold">
               Радиус рассылки: 15 км • 24/7
             </span>
 
@@ -188,13 +188,13 @@ export const SOSAlertModal: React.FC<SOSAlertModalProps> = ({
               <button
                 type="button"
                 onClick={onClose}
-                className="px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 text-xs font-bold cursor-pointer"
+                className="px-4 py-2.5 rounded-xl bg-slate-800 text-slate-300 text-xs font-bold cursor-pointer"
               >
                 Отмена
               </button>
               <button
                 type="submit"
-                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-rose-600 to-red-600 hover:from-rose-500 hover:to-red-500 text-white font-extrabold text-xs shadow-md shadow-rose-600/20 cursor-pointer"
+                className="px-6 py-2.5 rounded-xl bg-gradient-to-r from-rose-600 to-amber-600 hover:from-rose-500 hover:to-amber-500 text-white font-extrabold text-xs shadow-lg shadow-rose-600/30 cursor-pointer"
               >
                 Запустить поиск SOS
               </button>

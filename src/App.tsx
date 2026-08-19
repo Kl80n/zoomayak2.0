@@ -3,7 +3,7 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { 
   INITIAL_PETS, 
   INITIAL_RECORDS, 
@@ -12,7 +12,7 @@ import {
   INITIAL_SERVICES 
 } from './data/mockData';
 import { Pet, MedicalRecord, ReminderItem, LostAlert, ActiveNavTab } from './types';
-import { Header } from './components/Header';
+import { Header, type ThemeMode } from './components/Header';
 import { HeroSection } from './components/HeroSection';
 import { NavigationCards } from './components/NavigationCards';
 import { MyPetsTab } from './components/MyPetsTab';
@@ -26,14 +26,27 @@ import { AddPetModal } from './components/AddPetModal';
 import { ScanModal } from './components/ScanModal';
 import { SOSAlertModal } from './components/SOSAlertModal';
 import { Footer } from './components/Footer';
+import { PublicPetProfile } from './components/PublicPetProfile';
+import { usePersistentState } from './storage';
 
 export default function App() {
-  const [pets, setPets] = useState<Pet[]>(INITIAL_PETS);
-  const [selectedPet, setSelectedPet] = useState<Pet>(INITIAL_PETS[0]);
-  const [medicalRecords, setMedicalRecords] = useState<MedicalRecord[]>(INITIAL_RECORDS);
-  const [reminders, setReminders] = useState<ReminderItem[]>(INITIAL_REMINDERS);
-  const [lostAlerts, setLostAlerts] = useState<LostAlert[]>(INITIAL_LOST_ALERTS);
+  const publicMatch = window.location.pathname.match(/^\/qr\/([^/]+)/i);
+  if (publicMatch) {
+    const publicId = decodeURIComponent(publicMatch[1]).toLowerCase();
+    const publicPet = INITIAL_PETS.find(p => p.zmId.toLowerCase() === publicId) ??
+      INITIAL_PETS.find(p => p.id.toLowerCase() === publicId);
+    return <PublicPetProfile pet={publicPet} />;
+  }
+  // Данные демо сохраняются между перезагрузками. Это уже рабочий MVP-режим;
+  // позже эти же состояния можно заменить на API без переделки компонентов.
+  const [pets, setPets] = usePersistentState<Pet[]>('pets', INITIAL_PETS);
+  const [medicalRecords, setMedicalRecords] = usePersistentState<MedicalRecord[]>('medical-records', INITIAL_RECORDS);
+  const [reminders, setReminders] = usePersistentState<ReminderItem[]>('reminders', INITIAL_REMINDERS);
+  const [lostAlerts, setLostAlerts] = usePersistentState<LostAlert[]>('lost-alerts', INITIAL_LOST_ALERTS);
+  const [selectedPetId, setSelectedPetId] = usePersistentState<string>('selected-pet', INITIAL_PETS[0]?.id ?? '');
+  const selectedPet = pets.find((pet) => pet.id === selectedPetId) ?? pets[0];
   const [activeTab, setActiveTab] = useState<ActiveNavTab>('home');
+  const [theme, setTheme] = usePersistentState<ThemeMode>('theme', 'dark');
 
   // Modals state
   const [isPassportOpen, setIsPassportOpen] = useState(false);
@@ -43,9 +56,11 @@ export default function App() {
   const [isSOSModalOpen, setIsSOSModalOpen] = useState(false);
 
   // Handlers
+  const handleSelectPet = (pet: Pet) => setSelectedPetId(pet.id);
+
   const handleAddPet = (newPet: Pet) => {
     setPets(prev => [newPet, ...prev]);
-    setSelectedPet(newPet);
+    setSelectedPetId(newPet.id);
   };
 
   const handleAddRecord = (newRecord: MedicalRecord) => {
@@ -66,16 +81,40 @@ export default function App() {
     setLostAlerts(prev => [newAlert, ...prev]);
   };
 
+  useEffect(() => {
+    if (!selectedPet && pets.length) setSelectedPetId(pets[0].id);
+  }, [selectedPet, pets, setSelectedPetId]);
+
   const uncompletedRemindersCount = reminders.filter(r => !r.isCompleted).length;
 
+  useEffect(() => {
+    document.documentElement.dataset.theme = theme;
+  }, [theme]);
+
+  const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
+
+  if (!selectedPet) {
+    return (
+      <div className="min-h-screen bg-[#090d16] text-white grid place-items-center p-6">
+        <div className="max-w-md text-center">
+          <div className="text-5xl mb-4">🐾</div>
+          <h1 className="text-2xl font-extrabold mb-2">ЗооМаяк</h1>
+          <p className="text-slate-400 mb-6">Добавьте первого питомца, чтобы начать.</p>
+          <button onClick={() => setIsAddPetOpen(true)} className="px-5 py-3 rounded-2xl bg-teal-400 text-slate-950 font-extrabold">Добавить питомца</button>
+        </div>
+        <AddPetModal isOpen={isAddPetOpen} onClose={() => setIsAddPetOpen(false)} onAddPet={handleAddPet} />
+      </div>
+    );
+  }
+
   return (
-    <div className="min-h-screen bg-[#f8fafc] text-slate-900 flex flex-col font-sans relative selection:bg-teal-500 selection:text-white mesh-gradient-bg">
+    <div className={`app-shell ${theme === 'light' ? 'theme-light' : 'theme-dark'} min-h-screen flex flex-col font-sans relative`}>
       
       {/* Top Header */}
       <Header
         pets={pets}
         selectedPet={selectedPet}
-        onSelectPet={setSelectedPet}
+        onSelectPet={handleSelectPet}
         activeTab={activeTab}
         setActiveTab={setActiveTab}
         onOpenAddPet={() => setIsAddPetOpen(true)}
@@ -83,6 +122,8 @@ export default function App() {
         onOpenScanModal={() => setIsScanModalOpen(true)}
         onOpenSOS={() => setIsSOSModalOpen(true)}
         notificationCount={uncompletedRemindersCount}
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
 
       {/* Main App Content Views */}
@@ -94,7 +135,8 @@ export default function App() {
               onOpenPassport={() => setIsPassportOpen(true)}
               onOpenCollarStudio={() => setIsCollarStudioOpen(true)}
               onOpenAddPet={() => setIsAddPetOpen(true)}
-              onSelectPet={setSelectedPet}
+              onOpenSOS={() => setIsSOSModalOpen(true)}
+              onSelectPet={handleSelectPet}
               allPets={pets}
             />
 
@@ -113,7 +155,7 @@ export default function App() {
           <MyPetsTab
             pets={pets}
             selectedPet={selectedPet}
-            onSelectPet={setSelectedPet}
+            onSelectPet={handleSelectPet}
             onOpenAddPet={() => setIsAddPetOpen(true)}
             onOpenPassport={() => setIsPassportOpen(true)}
             onOpenCollarStudio={() => setIsCollarStudioOpen(true)}
@@ -187,7 +229,7 @@ export default function App() {
         onClose={() => setIsScanModalOpen(false)}
         pets={pets}
         onOpenPetProfile={(pet) => {
-          setSelectedPet(pet);
+          handleSelectPet(pet);
           setIsPassportOpen(true);
         }}
       />
