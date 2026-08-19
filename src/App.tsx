@@ -24,6 +24,8 @@ import { SOSAlertModal } from './components/SOSAlertModal';
 import { Footer } from './components/Footer';
 import { PublicPetProfile } from './components/PublicPetProfile';
 import { AccountTab } from './components/AccountTab';
+import { HomeMarketplacePreview } from './components/HomeMarketplacePreview';
+import { PetNews } from './components/PetNews';
 import { usePersistentState } from './storage';
 
 export default function App() {
@@ -136,7 +138,8 @@ export default function App() {
               onSelectPets={() => setActiveTab('account')}
               onOpenMarketplace={() => setActiveTab('services')}
             />
-
+            <HomeMarketplacePreview onOpenMarketplace={() => setActiveTab('services')} />
+            <PetNews />
           </div>
         )}
 

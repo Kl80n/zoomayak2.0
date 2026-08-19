@@ -11,6 +11,7 @@ export const MarketplaceTab: React.FC<MarketplaceTabProps> = ({ services }) => {
   const [mode, setMode] = useState<MarketMode>('animals');
   const [query, setQuery] = useState('');
   const [source, setSource] = useState<'all' | AnimalListing['source']>('all');
+  const [speciesFilter, setSpeciesFilter] = useState<'all' | AnimalListing['species']>('all');
   const [showPublish, setShowPublish] = useState(false);
   const [syncing, setSyncing] = useState(false);
   const [published, setPublished] = useState<AnimalListing[]>([]);
@@ -19,8 +20,9 @@ export const MarketplaceTab: React.FC<MarketplaceTabProps> = ({ services }) => {
     const q = query.trim().toLowerCase();
     const matchesQuery = !q || [item.title, item.breed, item.city, item.description].some(v => v.toLowerCase().includes(q));
     const matchesSource = source === 'all' || item.source === source;
-    return matchesQuery && matchesSource;
-  }), [query, source, published]);
+    const matchesSpecies = speciesFilter === 'all' || item.species === speciesFilter;
+    return matchesQuery && matchesSource && matchesSpecies;
+  }), [query, source, speciesFilter, published]);
 
   const syncSources = () => {
     setSyncing(true);
@@ -56,7 +58,8 @@ export const MarketplaceTab: React.FC<MarketplaceTabProps> = ({ services }) => {
 
     {mode === 'animals' || mode === 'mine' ? <>
       <div className="market-toolbar">
-        <div className="market-search"><Search /><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Порода, вид, город или ключевое слово" /></div>
+        <div className="market-search"><Search /><input value={query} onChange={e => setQuery(e.target.value)} placeholder="Порода, город или ключевое слово" /></div>
+        <label className="market-filter"><PawPrint /><select value={speciesFilter} onChange={e => setSpeciesFilter(e.target.value as typeof speciesFilter)}><option value="all">Все животные</option><option value="dog">🐶 Собаки</option><option value="cat">🐱 Кошки</option><option value="bird">🦜 Птицы</option><option value="rodent">🐹 Грызуны</option><option value="reptile">🦎 Рептилии</option><option value="other">🐾 Другое</option></select></label>
         <div className="market-sources"><button className={source === 'all' ? 'is-active' : ''} onClick={() => setSource('all')}>Все источники</button>{(['Avito','VK','Telegram','ЗооМаяк'] as const).map(s => <button key={s} className={source === s ? 'is-active' : ''} onClick={() => setSource(s)}>{s}</button>)}</div>
         <button className="market-sync" onClick={syncSources}><RefreshCw className={syncing ? 'spin' : ''} /> {syncing ? 'Обновляем…' : 'Обновить ленту'}</button>
       </div>

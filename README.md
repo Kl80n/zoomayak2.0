@@ -50,3 +50,17 @@ Install command: `npm install`
 - В создании питомца и публикации объявления добавлен единый список видов животных.
 - Добавлен полноценный рабочий раздел «Личный кабинет» с профилем, питомцами, напоминаниями и здоровьем.
 - Светлая тема сохранена в бело-зелёной палитре.
+
+
+### v8.2.0 — cabinet & logo polish
+- Master logo on dark theme uses transparent presentation with a subtle teal/blue glow instead of a white rectangle.
+- Removed the visible frame from the personal-cabinet header control.
+- Account sub-tabs stay inside the Personal Cabinet and provide a clear return-to-cabinet action.
+
+
+## v8.3.0 — marketplace & pet news
+- Главная: 5 популярных объявлений о животных.
+- Каталог объявлений: фильтр по виду животного.
+- Создание объявления: единый список видов животных.
+- Создание питомца: единый список видов животных.
+- Главная: новости о домашних питомцах с фотографиями.

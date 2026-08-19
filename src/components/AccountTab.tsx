@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Bell, Check, LockKeyhole, Mail, MapPin, Phone, Save, UserRound, PawPrint, HeartPulse, CalendarDays } from 'lucide-react';
+import { Bell, Check, LockKeyhole, Mail, MapPin, Phone, Save, UserRound, PawPrint, HeartPulse, CalendarDays, ArrowLeft } from 'lucide-react';
 import { Pet, MedicalRecord, ReminderItem } from '../types';
 import { MyPetsTab } from './MyPetsTab';
 import { RemindersTab } from './RemindersTab';
@@ -29,9 +29,13 @@ export const AccountTab: React.FC<AccountTabProps> = (props) => {
   const [saved, setSaved] = useState(false);
   const save = (e: React.FormEvent) => { e.preventDefault(); setSaved(true); window.setTimeout(() => setSaved(false), 1800); };
 
-  if (section === 'pets') return <MyPetsTab pets={props.pets} selectedPet={props.selectedPet ?? props.pets[0]} onSelectPet={props.onSelectPet} onOpenAddPet={props.onOpenAddPet} onOpenPassport={props.onOpenPassport} onOpenCollarStudio={props.onOpenCollarStudio} />;
-  if (section === 'reminders') return <RemindersTab reminders={props.reminders} pets={props.pets} onToggleReminder={props.onToggleReminder} onAddReminder={props.onAddReminder} />;
-  if (section === 'health') return <HealthVaultTab medicalRecords={props.medicalRecords} pets={props.pets} selectedPet={props.selectedPet ?? props.pets[0]} onAddRecord={props.onAddRecord} onOpenPassport={props.onOpenPassport} />;
+  const sectionContent = section === 'pets' ? (
+    <MyPetsTab pets={props.pets} selectedPet={props.selectedPet ?? props.pets[0]} onSelectPet={props.onSelectPet} onOpenAddPet={props.onOpenAddPet} onOpenPassport={props.onOpenPassport} onOpenCollarStudio={props.onOpenCollarStudio} />
+  ) : section === 'reminders' ? (
+    <RemindersTab reminders={props.reminders} pets={props.pets} onToggleReminder={props.onToggleReminder} onAddReminder={props.onAddReminder} />
+  ) : section === 'health' ? (
+    <HealthVaultTab medicalRecords={props.medicalRecords} pets={props.pets} selectedPet={props.selectedPet ?? props.pets[0]} onAddRecord={props.onAddRecord} onOpenPassport={props.onOpenPassport} />
+  ) : null;
 
   return (
     <section className="account-page max-w-[1400px] mx-auto px-4 sm:px-6 xl:px-8 py-7">
@@ -40,11 +44,17 @@ export const AccountTab: React.FC<AccountTabProps> = (props) => {
         <div className="account-status-card"><div className="account-status-icon"><Check className="w-4 h-4" /></div><div><strong>Профиль активен</strong><span>ZM-сервис готов к работе</span></div></div>
       </div>
       <div className="account-section-nav">
-        <button className="is-active" onClick={() => setSection('overview')}><UserRound /> Профиль</button>
-        <button onClick={() => setSection('pets')}><PawPrint /> Мои питомцы <b>{props.pets.length}</b></button>
-        <button onClick={() => setSection('reminders')}><CalendarDays /> Напоминания <b>{props.reminders.filter(r => !r.isCompleted).length}</b></button>
-        <button onClick={() => setSection('health')}><HeartPulse /> Здоровье</button>
+        <button className={section === 'overview' ? 'is-active' : ''} onClick={() => setSection('overview')}><UserRound /> Профиль</button>
+        <button className={section === 'pets' ? 'is-active' : ''} onClick={() => setSection('pets')}><PawPrint /> Мои питомцы <b>{props.pets.length}</b></button>
+        <button className={section === 'reminders' ? 'is-active' : ''} onClick={() => setSection('reminders')}><CalendarDays /> Напоминания <b>{props.reminders.filter(r => !r.isCompleted).length}</b></button>
+        <button className={section === 'health' ? 'is-active' : ''} onClick={() => setSection('health')}><HeartPulse /> Здоровье</button>
       </div>
+      {section !== 'overview' ? (
+        <div className="account-subpage">
+          <button className="account-back-button" onClick={() => setSection('overview')}><ArrowLeft /> Вернуться в личный кабинет</button>
+          {sectionContent}
+        </div>
+      ) : (
       <div className="account-page-grid">
         <form className="account-profile-card" onSubmit={save}>
           <div className="panel-heading"><div><span className="eyebrow compact">ПРОФИЛЬ ВЛАДЕЛЬЦА</span><h3>Контактные данные</h3></div><div className="account-avatar"><UserRound className="w-5 h-5" /></div></div>
@@ -64,6 +74,7 @@ export const AccountTab: React.FC<AccountTabProps> = (props) => {
           <div className="account-privacy"><LockKeyhole /><span><strong>Приватность</strong><small>Контакты владельца не показываются в публичном профиле без разрешения.</small></span></div>
         </div>
       </div>
+      )}
     </section>
   );
 };
