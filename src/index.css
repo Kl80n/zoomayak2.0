@@ -1041,3 +1041,150 @@ html, body, #root { max-width: 100%; overflow-x: hidden; }
 .theme-light footer .text-slate-400,
 .theme-light footer .text-slate-500 { color: var(--muted) !important; }
 .theme-light footer .border-slate-800\/80 { border-color: var(--line) !important; }
+
+/* v8.9.5 — LIGHT THEME AUDIT: remove dark surfaces accidentally leaking into light UI.
+   Dark theme is intentionally untouched. */
+.theme-light .mypets-tab [class*="bg-gradient-to-r"],
+.theme-light .reminders-tab [class*="bg-gradient-to-r"] {
+  background: linear-gradient(135deg, #f0fdfa 0%, #ffffff 52%, #ecfeff 100%) !important;
+  border-color: #99f6e4 !important;
+}
+.theme-light .mypets-tab [class~="bg-slate-900"],
+.theme-light .mypets-tab [class*="bg-slate-900/"],
+.theme-light .mypets-tab [class~="bg-slate-950"],
+.theme-light .mypets-tab [class*="bg-slate-950/"],
+.theme-light .reminders-tab [class~="bg-slate-900"],
+.theme-light .reminders-tab [class*="bg-slate-900/"],
+.theme-light .reminders-tab [class~="bg-slate-950"],
+.theme-light .reminders-tab [class*="bg-slate-950/"] {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #dbe7e5 !important;
+}
+.theme-light .mypets-tab [class~="text-white"],
+.theme-light .mypets-tab [class~="text-slate-100"],
+.theme-light .mypets-tab [class~="text-slate-200"],
+.theme-light .reminders-tab [class~="text-white"],
+.theme-light .reminders-tab [class~="text-slate-100"],
+.theme-light .reminders-tab [class~="text-slate-200"] {
+  color: #0f172a !important;
+}
+.theme-light .mypets-tab [class~="text-slate-300"],
+.theme-light .mypets-tab [class~="text-slate-400"],
+.theme-light .mypets-tab [class~="text-slate-500"],
+.theme-light .reminders-tab [class~="text-slate-300"],
+.theme-light .reminders-tab [class~="text-slate-400"],
+.theme-light .reminders-tab [class~="text-slate-500"] {
+  color: #64748b !important;
+}
+.theme-light .mypets-tab [class*="hover:bg-slate-"],
+.theme-light .reminders-tab [class*="hover:bg-slate-"] {
+  background-color: #f1f5f9 !important;
+}
+.theme-light .pet-passport-modal > div {
+  background: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #99f6e4 !important;
+  box-shadow: 0 20px 60px rgba(15,23,42,.15) !important;
+}
+.theme-light .pet-passport-modal [class*="bg-gradient-to-r"],
+.theme-light .pet-passport-modal [class*="bg-gradient-to-br"] {
+  background: linear-gradient(135deg, #f0fdfa 0%, #ffffff 55%, #ecfeff 100%) !important;
+}
+.theme-light .pet-passport-modal [class~="bg-slate-900"],
+.theme-light .pet-passport-modal [class*="bg-slate-900/"],
+.theme-light .pet-passport-modal [class~="bg-slate-950"],
+.theme-light .pet-passport-modal [class*="bg-slate-950/"],
+.theme-light .pet-passport-modal [class~="bg-slate-800"],
+.theme-light .pet-passport-modal [class*="bg-slate-800/"] {
+  background-color: #f8fafc !important;
+  color: #0f172a !important;
+  border-color: #dbe7e5 !important;
+}
+.theme-light .pet-passport-modal [class~="text-white"],
+.theme-light .pet-passport-modal [class~="text-slate-100"],
+.theme-light .pet-passport-modal [class~="text-slate-200"],
+.theme-light .pet-passport-modal [class~="text-slate-300"] {
+  color: #0f172a !important;
+}
+.theme-light .pet-passport-modal [class~="text-slate-400"],
+.theme-light .pet-passport-modal [class~="text-slate-500"] {
+  color: #64748b !important;
+}
+.theme-light .pet-passport-modal [class*="hover:bg-slate-"] {
+  background-color: #f1f5f9 !important;
+}
+.theme-light .pet-passport-modal.fixed {
+  background: rgba(255,255,255,.82) !important;
+}
+
+/* v8.9.7 — final theme isolation for legacy account subpages. */
+.theme-light .mypets-page [class*="from-slate-"],
+.theme-light .mypets-page [class*="via-slate-"],
+.theme-light .mypets-page [class*="to-slate-"] {
+  background-image: none !important;
+}
+.theme-light .mypets-page [class*="from-slate-"] {
+  background-color: var(--surface) !important;
+}
+.theme-light .mypets-page [class*="bg-slate-950"],
+.theme-light .mypets-page [class*="bg-slate-900"],
+.theme-light .mypets-page [class*="bg-slate-800"] {
+  background-color: var(--surface-2) !important;
+}
+.theme-light .mypets-page [class*="text-slate-950"] { color: var(--text) !important; }
+.theme-light .mypets-page [class*="text-white"] { color: var(--text) !important; }
+.theme-light .mypets-page [class*="text-slate-100"],
+.theme-light .mypets-page [class*="text-slate-200"] { color: var(--text) !important; }
+.theme-light .mypets-page [class*="text-slate-300"],
+.theme-light .mypets-page [class*="text-slate-400"],
+.theme-light .mypets-page [class*="text-slate-500"] { color: var(--muted) !important; }
+.theme-light .mypets-page [class*="border-slate-"] { border-color: var(--line) !important; }
+
+.theme-light .reminders-page [class*="from-slate-"],
+.theme-light .reminders-page [class*="via-slate-"],
+.theme-light .reminders-page [class*="to-slate-"] {
+  background-image: none !important;
+}
+.theme-light .reminders-page [class*="from-slate-"] { background-color: var(--surface) !important; }
+.theme-light .reminders-page [class*="bg-slate-950"],
+.theme-light .reminders-page [class*="bg-slate-900"],
+.theme-light .reminders-page [class*="bg-slate-800"] { background-color: var(--surface-2) !important; }
+.theme-light .reminders-page [class*="text-slate-950"] { color: var(--text) !important; }
+.theme-light .reminders-page [class*="text-white"],
+.theme-light .reminders-page [class*="text-slate-100"],
+.theme-light .reminders-page [class*="text-slate-200"] { color: var(--text) !important; }
+.theme-light .reminders-page [class*="text-slate-300"],
+.theme-light .reminders-page [class*="text-slate-400"],
+.theme-light .reminders-page [class*="text-slate-500"] { color: var(--muted) !important; }
+.theme-light .reminders-page [class*="border-slate-"] { border-color: var(--line) !important; }
+
+/* The approved light and dark lockups must occupy identical geometry. */
+.zoomayak-approved-logo {
+  width: 210px !important;
+  height: 75px !important;
+  min-width: 210px !important;
+  min-height: 75px !important;
+  flex: 0 0 210px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  overflow: visible !important;
+}
+.zoomayak-approved-logo .zoomayak-approved-logo-img {
+  width: 210px !important;
+  height: 75px !important;
+  min-width: 210px !important;
+  min-height: 75px !important;
+  flex: 0 0 210px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+}
+@media (max-width: 1199px) {
+  .zoomayak-approved-logo { width: 180px !important; height: 64px !important; min-width: 180px !important; min-height: 64px !important; flex-basis: 180px !important; }
+  .zoomayak-approved-logo .zoomayak-approved-logo-img { width: 180px !important; height: 64px !important; min-width: 180px !important; min-height: 64px !important; flex-basis: 180px !important; }
+}
+@media (max-width: 640px) {
+  .zoomayak-approved-logo { width: 150px !important; height: 54px !important; min-width: 150px !important; min-height: 54px !important; flex-basis: 150px !important; }
+  .zoomayak-approved-logo .zoomayak-approved-logo-img { width: 150px !important; height: 54px !important; min-width: 150px !important; min-height: 54px !important; flex-basis: 150px !important; }
+}

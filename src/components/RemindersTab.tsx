@@ -101,10 +101,10 @@ export const RemindersTab: React.FC<RemindersTabProps> = ({
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in duration-300 text-left">
+    <div className="reminders-page max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in duration-300 text-left">
       
       {/* Banner Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-cyan-950/60 via-slate-900 to-teal-950/60 p-6 rounded-3xl border border-cyan-500/30">
+      <div className="reminders-tab flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-cyan-950/60 via-slate-900 to-teal-950/60 p-6 rounded-3xl border border-cyan-500/30">
         <div>
           <div className="flex items-center gap-2 text-cyan-400 text-xs font-bold uppercase tracking-wider mb-1">
             <CalendarClock className="w-4 h-4" />
