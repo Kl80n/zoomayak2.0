@@ -47,7 +47,7 @@ export const ZoomayakLogo: React.FC<ZoomayakLogoProps> = ({
         className="zoomayak-approved-logo-img zoomayak-logo-light"
       />
       <img
-        src="/zoomayak-logo-dark-neon-approved.png"
+        src="/zoomayak-logo-dark-outline-only.png"
         alt="ЗооМаяк — Ваш ориентир в мире питомцев"
         className={`zoomayak-approved-logo-img zoomayak-logo-dark${showSlogan ? '' : ' zoomayak-no-slogan'}`}
       />

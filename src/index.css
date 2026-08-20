@@ -998,3 +998,46 @@ html, body, #root { max-width: 100%; overflow-x: hidden; }
     flex-basis: 190px !important;
   }
 }
+
+/* v8.9.3 — dark master: original artwork + restrained contour glow only */
+.zoomayak-approved-logo-img {
+  width: 242px !important;
+  height: 86px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+}
+
+
+/* v8.9.4 — theme audit: hard-coded dark utility surfaces must follow light theme */
+.theme-light .bg-slate-950\/95,
+.theme-light .bg-slate-950\/90,
+.theme-light .bg-slate-950\/85,
+.theme-light .bg-slate-950\/80,
+.theme-light .bg-slate-950\/70,
+.theme-light .bg-slate-950\/60,
+.theme-light .bg-slate-950\/40 { background: var(--surface-2) !important; }
+.theme-light .bg-slate-900\/90,
+.theme-light .bg-slate-900\/80,
+.theme-light .bg-slate-900\/70,
+.theme-light .bg-slate-900\/60 { background: var(--surface-2) !important; }
+.theme-light .bg-slate-900 { background: var(--surface) !important; }
+.theme-light .bg-slate-800\/90,
+.theme-light .bg-slate-800\/80,
+.theme-light .bg-slate-800\/50 { background: var(--surface-3) !important; }
+.theme-light .bg-slate-800 { background: var(--surface-3) !important; }
+.theme-light .bg-slate-950 { background: var(--surface-2) !important; }
+.theme-light .border-slate-800\/90,
+.theme-light .border-slate-800\/80,
+.theme-light .border-slate-800\/60,
+.theme-light .border-slate-800\/50 { border-color: var(--line) !important; }
+.theme-light .border-slate-700 { border-color: var(--line) !important; }
+.theme-light .text-slate-200,
+.theme-light .text-slate-300,
+.theme-light .text-slate-400,
+.theme-light .text-slate-500 { color: var(--muted) !important; }
+.theme-light .text-white { color: var(--text) !important; }
+.theme-light footer { background: var(--surface) !important; color: var(--text) !important; border-color: var(--line) !important; }
+.theme-light footer .text-slate-300,
+.theme-light footer .text-slate-400,
+.theme-light footer .text-slate-500 { color: var(--muted) !important; }
+.theme-light footer .border-slate-800\/80 { border-color: var(--line) !important; }

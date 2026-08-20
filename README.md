@@ -132,3 +132,8 @@ Install command: `npm install`
 
 ### v8.9.0 — approved logo master
 Header now uses the approved 242×86 light/dark lockup assets directly. No SVG redraw, no separate wordmark, and identical display geometry in both themes.
+
+
+## v8.9.4 audit
+- Dark logo uses approved light master artwork with restrained contour glow.
+- Light theme overrides hard-coded dark utility backgrounds, including footer and modal surfaces.
