@@ -967,3 +967,34 @@ html, body, #root { max-width: 100%; overflow-x: hidden; }
   .zoomayak-approved-logo { height:62px; }
   .zoomayak-approved-logo-img { width:174px !important; height:62px !important; }
 }
+
+/* v8.9.2 — neon dark master, exact same 242×86 geometry as light master */
+.zoomayak-approved-logo {
+  width: 242px !important;
+  height: 86px !important;
+  flex: 0 0 242px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: flex-start !important;
+  background: transparent !important;
+}
+.zoomayak-approved-logo-img {
+  width: 242px !important;
+  height: 86px !important;
+  flex: 0 0 242px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  display: block !important;
+}
+@media (max-width: 767px) {
+  .zoomayak-approved-logo {
+    width: 190px !important;
+    height: 68px !important;
+    flex-basis: 190px !important;
+  }
+  .zoomayak-approved-logo-img {
+    width: 190px !important;
+    height: 68px !important;
+    flex-basis: 190px !important;
+  }
+}
