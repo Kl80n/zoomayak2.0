@@ -1,8 +1,3 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
 import React, { useEffect, useState } from 'react';
 import { LockKeyhole, Mail, UserRound } from 'lucide-react';
 import { 
@@ -22,6 +17,7 @@ import { CollarTagStudioModal } from './components/CollarTagStudioModal';
 import { AddPetModal } from './components/AddPetModal';
 import { ScanModal } from './components/ScanModal';
 import { SOSAlertModal } from './components/SOSAlertModal';
+import { PricingTariffsModal } from './components/PricingTariffsModal';
 import { Footer } from './components/Footer';
 import { PublicPetProfile } from './components/PublicPetProfile';
 import { AccountTab } from './components/AccountTab';
@@ -59,44 +55,90 @@ function AuthModal({
     const savedPassword = localStorage.getItem('zoomayak_account_password');
 
     if (mode === 'login') {
-      if (!savedEmail || !savedPassword) {
-        setError('Учётная запись ещё не создана. Зарегистрируйтесь.');
+      if (!savedEmail || savedEmail !== normalizedEmail || savedPassword !== password) {
+        setError('Неверный email или пароль (для демо зарегистрируйтесь заново)');
         return;
       }
-      if (normalizedEmail !== savedEmail || password !== savedPassword) {
-        setError('Неверный e-mail или пароль');
-        return;
-      }
-    } else {
-      localStorage.setItem('zoomayak_account_name', name.trim());
-      localStorage.setItem('zoomayak_account_email', normalizedEmail);
-      localStorage.setItem('zoomayak_account_password', password);
+      const savedName = localStorage.getItem('zoomayak_account_name') || 'Владелец';
+      localStorage.setItem('zoomayak_account_logged_in', '1');
+      onSuccess(savedName, normalizedEmail);
+      onClose();
+      return;
     }
 
-    const displayName = localStorage.getItem('zoomayak_account_name') || name.trim() || normalizedEmail.split('@')[0];
-    localStorage.setItem('zoomayak_account_logged_in', '1');
-    localStorage.setItem('zoomayak_account_name', displayName);
     localStorage.setItem('zoomayak_account_email', normalizedEmail);
-    onSuccess(displayName, normalizedEmail);
+    localStorage.setItem('zoomayak_account_password', password);
+    localStorage.setItem('zoomayak_account_name', name.trim());
+    localStorage.setItem('zoomayak_account_logged_in', '1');
+    onSuccess(name.trim(), normalizedEmail);
     onClose();
   };
 
   return (
-    <div className="auth-modal-backdrop" onClick={onClose}>
-      <section className="auth-modal" onClick={e => e.stopPropagation()} role="dialog" aria-modal="true">
-        <button className="auth-close" onClick={onClose} aria-label="Закрыть">×</button>
-        <div className="auth-brand">Зоо<span>Маяк</span></div>
-        <div className="auth-kicker">{mode === 'register' ? 'ЛИЧНЫЙ КАБИНЕТ' : 'ВХОД В АККАУНТ'}</div>
-        <h2>{mode === 'register' ? 'Создать учётную запись' : 'С возвращением'}</h2>
-        <p>Ваши питомцы, документы, здоровье и напоминания — в одном личном кабинете.</p>
+    <div className="fixed inset-0 z-[60] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xl" onMouseDown={onClose}>
+      <section
+        className="auth-modal-card animate-in fade-in zoom-in-95 duration-200"
+        onMouseDown={(e) => e.stopPropagation()}
+        aria-modal="true"
+        role="dialog"
+        aria-labelledby="auth-modal-title"
+      >
+        <div className="auth-modal-head">
+          <div>
+            <span className="eyebrow compact">{mode === 'register' ? 'РЕГИСТРАЦИЯ В СИСТЕМЕ' : 'ВХОД В ЛИЧНЫЙ КАБИНЕТ'}</span>
+            <h2 id="auth-modal-title">{mode === 'register' ? 'Создать аккаунт ЗооМаяк' : 'Добро пожаловать'}</h2>
+          </div>
+          <button className="icon-action" onClick={onClose} aria-label="Закрыть модальное окно">✕</button>
+        </div>
         <form onSubmit={submit} className="auth-form">
           {mode === 'register' && (
-            <label><span>Имя</span><div className="auth-input"><UserRound/><input value={name} onChange={e=>setName(e.target.value)} placeholder="Ваше имя" /></div></label>
+            <label>
+              <span>Ваше имя</span>
+              <div className="auth-input-wrap">
+                <UserRound className="w-4 h-4" />
+                <input
+                  type="text"
+                  required
+                  placeholder="Александр Волков"
+                  value={name}
+                  onChange={(e) => setName(e.target.value)}
+                  autoComplete="name"
+                />
+              </div>
+            </label>
           )}
-          <label><span>E-mail</span><div className="auth-input"><Mail/><input type="email" value={email} onChange={e=>setEmail(e.target.value)} placeholder="name@example.ru" /></div></label>
-          <label><span>Пароль</span><div className="auth-input"><LockKeyhole/><input type="password" value={password} onChange={e=>setPassword(e.target.value)} placeholder="Минимум 6 символов" /></div></label>
-          {error && <div className="auth-error">{error}</div>}
-          <button className="auth-submit" type="submit">{mode === 'register' ? 'Создать аккаунт' : 'Войти'}</button>
+          <label>
+            <span>Электронная почта</span>
+            <div className="auth-input-wrap">
+              <Mail className="w-4 h-4" />
+              <input
+                type="email"
+                required
+                placeholder="name@example.com"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                autoComplete="email"
+              />
+            </div>
+          </label>
+          <label>
+            <span>Пароль</span>
+            <div className="auth-input-wrap">
+              <LockKeyhole className="w-4 h-4" />
+              <input
+                type="password"
+                required
+                placeholder="Минимум 6 символов"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
+                autoComplete={mode === 'register' ? 'new-password' : 'current-password'}
+              />
+            </div>
+          </label>
+          {error && <div className="auth-error" role="alert">{error}</div>}
+          <button type="submit" className="primary-cta w-full">
+            {mode === 'register' ? 'Зарегистрироваться' : 'Войти в профиль'}
+          </button>
         </form>
         <button className="auth-switch" onClick={() => { setError(''); setMode(mode === 'register' ? 'login' : 'register'); }}>
           {mode === 'register' ? 'Уже есть аккаунт? Войти →' : 'Нет аккаунта? Зарегистрироваться →'}
@@ -120,8 +162,7 @@ export default function App() {
       INITIAL_PETS.find(p => p.id.toLowerCase() === publicId);
     return <PublicPetProfile pet={publicPet} />;
   }
-  // Данные демо сохраняются между перезагрузками. Это уже рабочий MVP-режим;
-  // позже эти же состояния можно заменить на API без переделки компонентов.
+
   const [pets, setPets] = usePersistentState<Pet[]>('pets', INITIAL_PETS);
   const [medicalRecords, setMedicalRecords] = usePersistentState<MedicalRecord[]>('medical-records', INITIAL_RECORDS);
   const [reminders, setReminders] = usePersistentState<ReminderItem[]>('reminders', INITIAL_REMINDERS);
@@ -137,6 +178,7 @@ export default function App() {
   const [isAddPetOpen, setIsAddPetOpen] = useState(false);
   const [isScanModalOpen, setIsScanModalOpen] = useState(false);
   const [isSOSModalOpen, setIsSOSModalOpen] = useState(false);
+  const [isTariffsOpen, setIsTariffsOpen] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem('zoomayak_account_logged_in');
@@ -180,29 +222,23 @@ export default function App() {
   const uncompletedRemindersCount = reminders.filter(r => !r.isCompleted).length;
 
   useEffect(() => {
-    document.documentElement.dataset.theme = theme;
+    const root = document.documentElement;
+    if (theme === 'dark') {
+      root.classList.add('dark');
+      root.classList.remove('light');
+    } else {
+      root.classList.add('light');
+      root.classList.remove('dark');
+    }
   }, [theme]);
 
-  const toggleTheme = () => setTheme(prev => prev === 'dark' ? 'light' : 'dark');
-
-  if (!selectedPet) {
-    return (
-      <div className="min-h-screen bg-[#090d16] text-white grid place-items-center p-6">
-        <div className="max-w-md text-center">
-          <div className="text-5xl mb-4">🐾</div>
-          <h1 className="text-2xl font-extrabold mb-2">ЗооМаяк</h1>
-          <p className="text-slate-400 mb-6">Добавьте первого питомца, чтобы начать.</p>
-          <button onClick={() => setIsAddPetOpen(true)} className="px-5 py-3 rounded-2xl bg-teal-400 text-slate-950 font-extrabold">Добавить питомца</button>
-        </div>
-        <AddPetModal isOpen={isAddPetOpen} onClose={() => setIsAddPetOpen(false)} onAddPet={handleAddPet} />
-      </div>
-    );
-  }
+  const toggleTheme = () => {
+    setTheme(prev => (prev === 'light' ? 'dark' : 'light'));
+  };
 
   return (
-    <div className={`app-shell ${theme === 'light' ? 'theme-light' : 'theme-dark'} min-h-screen flex flex-col font-sans relative`}>
-      
-      {/* Top Header */}
+    <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] transition-colors duration-200 flex flex-col justify-between">
+      {/* Universal Header */}
       <Header
         pets={pets}
         selectedPet={selectedPet}
@@ -223,13 +259,20 @@ export default function App() {
         onToggleTheme={toggleTheme}
       />
 
-      {/* Main App Content Views */}
+      {/* Main Routed Content */}
       <main className="flex-1">
         {activeTab === 'home' && (
           <div className="space-y-6">
             <HeroSection
               selectedPet={selectedPet}
+              petsCount={pets.length}
+              activeAlertsCount={lostAlerts.length}
+              remindersCount={uncompletedRemindersCount}
+              activeTab={activeTab}
+              onSelectTab={setActiveTab}
+              onOpenAddPet={() => setIsAddPetOpen(true)}
               onOpenPassport={() => setIsPassportOpen(true)}
+              onOpenScanModal={() => setIsScanModalOpen(true)}
               onOpenCollarStudio={() => setIsCollarStudioOpen(true)}
               onOpenSOS={() => setIsSOSModalOpen(true)}
               onSelectPets={() => setActiveTab('account')}
@@ -253,6 +296,7 @@ export default function App() {
             onToggleReminder={handleToggleReminder}
             onAddReminder={handleAddReminder}
             onAddRecord={handleAddRecord}
+            onOpenTariffs={() => setIsTariffsOpen(true)}
           />
         )}
 
@@ -297,6 +341,7 @@ export default function App() {
         isOpen={isAddPetOpen}
         onClose={() => setIsAddPetOpen(false)}
         onAddPet={handleAddPet}
+        onOpenCollarStudio={() => setIsCollarStudioOpen(true)}
       />
 
       <ScanModal
@@ -315,6 +360,16 @@ export default function App() {
         pets={pets}
         onAddAlert={handleAddLostAlert}
       />
+
+      <PricingTariffsModal
+        isOpen={isTariffsOpen}
+        onClose={() => setIsTariffsOpen(false)}
+        onOpenCollarStudio={() => {
+          setIsTariffsOpen(false);
+          setIsCollarStudioOpen(true);
+        }}
+      />
+
       {authOpen && (
         <AuthModal
           onClose={() => setAuthOpen(false)}

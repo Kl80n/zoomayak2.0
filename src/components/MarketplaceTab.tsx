@@ -1,8 +1,9 @@
 import React, { useMemo, useState } from 'react';
-import { Search, Star, MapPin, Phone, Clock, ShieldCheck, ShoppingBag, PawPrint, Plus, ExternalLink, RefreshCw, SlidersHorizontal, X } from 'lucide-react';
+import { Search, Star, MapPin, Phone, Clock, ShieldCheck, ShoppingBag, PawPrint, Plus, ExternalLink, RefreshCw, SlidersHorizontal, X, Eye } from 'lucide-react';
 import confetti from 'canvas-confetti';
 import { AnimalListing, ServiceListing } from '../types';
 import { INITIAL_ANIMAL_LISTINGS } from '../data/mockData';
+import { ListingDetailModal } from './ListingDetailModal';
 
 interface MarketplaceTabProps { services: ServiceListing[]; }
 type MarketMode = 'animals' | 'services' | 'mine';
@@ -15,6 +16,8 @@ export const MarketplaceTab: React.FC<MarketplaceTabProps> = ({ services }) => {
   const [showPublish, setShowPublish] = useState(false);
   const [syncing, setSyncing] = useState(false);
   const [published, setPublished] = useState<AnimalListing[]>([]);
+  const [selectedAnimal, setSelectedAnimal] = useState<AnimalListing | null>(null);
+  const [selectedService, setSelectedService] = useState<ServiceListing | null>(null);
 
   const listings = useMemo(() => [...published, ...INITIAL_ANIMAL_LISTINGS].filter((item) => {
     const q = query.trim().toLowerCase();
@@ -73,24 +76,99 @@ export const MarketplaceTab: React.FC<MarketplaceTabProps> = ({ services }) => {
         <button className="market-sync" onClick={syncSources}><RefreshCw className={syncing ? 'spin' : ''} /> {syncing ? 'Обновляем…' : 'Обновить ленту'}</button>
       </div>
 
-      <div className="market-source-note"><ShieldCheck /><span><strong>Единый каталог:</strong> карточки помечены источником. В продакшене парсер подключается к серверным адаптерам Avito / VK / Telegram, а здесь используется демонстрационная лента без обхода ограничений площадок.</span></div>
+      <div className="market-source-note"><ShieldCheck /><span><strong>Единый каталог:</strong> Нажмите на любое объявление, чтобы открыть карточку с контактами продавца, документами и деталями.</span></div>
 
       {mode === 'mine' && published.length === 0 ? <div className="market-empty"><PawPrint /><h3>У вас пока нет объявлений</h3><p>Разместите первое объявление — оно появится в разделе «Мои объявления» и в общей ленте ЗооМаяка.</p><button onClick={() => setShowPublish(true)} className="primary-cta"><Plus /> Разместить объявление</button></div> :
-      <div className="animal-listing-grid">{listings.map(item => <AnimalCard key={item.id} item={item} />)}</div>}
-    </> : <ServicesGrid services={services} />}
+      <div className="animal-listing-grid">{listings.map(item => <AnimalCard key={item.id} item={item} onOpen={() => setSelectedAnimal(item)} />)}</div>}
+    </> : <ServicesGrid services={services} onOpen={(s) => setSelectedService(s)} />}
 
     {showPublish && <PublishModal onClose={() => setShowPublish(false)} onSubmit={publish} />}
+
+    {selectedAnimal && (
+      <ListingDetailModal 
+        isOpen={Boolean(selectedAnimal)} 
+        onClose={() => setSelectedAnimal(null)} 
+        listing={selectedAnimal} 
+      />
+    )}
+
+    {selectedService && (
+      <ListingDetailModal 
+        isOpen={Boolean(selectedService)} 
+        onClose={() => setSelectedService(null)} 
+        service={selectedService} 
+      />
+    )}
   </div>;
 };
 
-const AnimalCard: React.FC<{ item: AnimalListing }> = ({ item }) => <article className="animal-card">
-  <div className="animal-card-image"><img src={item.imageUrl} alt={item.title} /><span className="source-badge">{item.source}</span>{item.verified && <span className="verified-badge"><ShieldCheck /> Проверено</span>}</div>
-  <div className="animal-card-body"><div className="animal-card-title"><h3>{item.title}</h3><strong>{item.price.toLocaleString('ru-RU')} ₽</strong></div><p className="animal-breed">{item.breed} · {item.age} · {item.sex === 'female' ? 'девочка' : 'мальчик'}</p><p className="animal-description">{item.description}</p><div className="animal-meta"><span><MapPin /> {item.city}</span><span>{item.publishedAt}</span></div><div className="animal-card-foot"><span>Источник: <b>{item.source}</b></span><a href={item.sourceUrl} onClick={e => e.preventDefault()}>Открыть <ExternalLink /></a></div></div>
-</article>;
+const AnimalCard: React.FC<{ item: AnimalListing; onOpen: () => void }> = ({ item, onOpen }) => (
+  <article 
+    className="animal-card cursor-pointer group" 
+    onClick={onOpen}
+    tabIndex={0}
+    role="button"
+    onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onOpen(); }}
+  >
+    <div className="animal-card-image relative overflow-hidden">
+      <img src={item.imageUrl} alt={item.title} className="group-hover:scale-105 transition duration-300" />
+      <span className="source-badge">{item.source}</span>
+      {item.verified && <span className="verified-badge"><ShieldCheck /> Проверено</span>}
+    </div>
+    <div className="animal-card-body">
+      <div className="animal-card-title">
+        <h3 className="group-hover:text-teal-600 dark:group-hover:text-teal-400 transition">{item.title}</h3>
+        <strong>{item.price.toLocaleString('ru-RU')} ₽</strong>
+      </div>
+      <p className="animal-breed">{item.breed} · {item.age} · {item.sex === 'female' ? 'девочка' : 'мальчик'}</p>
+      <p className="animal-description line-clamp-2">{item.description}</p>
+      <div className="animal-meta">
+        <span><MapPin /> {item.city}</span>
+        <span>{item.publishedAt}</span>
+      </div>
+      <div className="animal-card-foot">
+        <span>Источник: <b>{item.source}</b></span>
+        <span className="text-teal-600 dark:text-teal-400 font-bold inline-flex items-center gap-1">
+          Подробнее <Eye className="w-3.5 h-3.5" />
+        </span>
+      </div>
+    </div>
+  </article>
+);
 
-const ServicesGrid: React.FC<{ services: ServiceListing[] }> = ({ services }) => <div className="services-grid">{services.map(service => <article key={service.id} className="service-card">
-  <img src={service.imageUrl} alt={service.title} /><div className="service-card-body"><div className="service-rating"><Star /> {service.rating} <span>({service.reviewsCount})</span></div><h3>{service.title}</h3><p>{service.description}</p><div className="service-line"><MapPin /> {service.address} · {service.district}</div><div className="service-line"><Clock /> {service.openHours}</div><div className="service-card-foot"><strong>от {service.priceFrom.toLocaleString('ru-RU')} ₽</strong><a href={`tel:${service.phone}`}><Phone /> Позвонить</a></div></div>
-</article>)}</div>;
+const ServicesGrid: React.FC<{ services: ServiceListing[]; onOpen: (s: ServiceListing) => void }> = ({ services, onOpen }) => (
+  <div className="services-grid">
+    {services.map(service => (
+      <article 
+        key={service.id} 
+        className="service-card cursor-pointer group"
+        onClick={() => onOpen(service)}
+        tabIndex={0}
+        role="button"
+        onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') onOpen(service); }}
+      >
+        <img src={service.imageUrl} alt={service.title} className="group-hover:scale-105 transition duration-300" />
+        <div className="service-card-body">
+          <div className="service-rating"><Star /> {service.rating} <span>({service.reviewsCount})</span></div>
+          <h3 className="group-hover:text-teal-600 dark:group-hover:text-teal-400 transition">{service.title}</h3>
+          <p className="line-clamp-2">{service.description}</p>
+          <div className="service-line"><MapPin /> {service.address} · {service.district}</div>
+          <div className="service-line"><Clock /> {service.openHours}</div>
+          <div className="service-card-foot">
+            <strong>от {service.priceFrom.toLocaleString('ru-RU')} ₽</strong>
+            <button 
+              type="button" 
+              onClick={(e) => { e.stopPropagation(); onOpen(service); }} 
+              className="px-3 py-1.5 rounded-xl bg-teal-500/10 text-teal-600 dark:text-teal-300 font-bold text-xs hover:bg-teal-500 hover:text-white transition"
+            >
+              Подробнее
+            </button>
+          </div>
+        </div>
+      </article>
+    ))}
+  </div>
+);
 
 const PublishModal: React.FC<{ onClose: () => void; onSubmit: (e: React.FormEvent<HTMLFormElement>) => void }> = ({ onClose, onSubmit }) => <div className="fixed inset-0 z-[70] flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xl" onMouseDown={onClose}>
   <form className="publish-modal" onSubmit={onSubmit} onMouseDown={e => e.stopPropagation()}>
