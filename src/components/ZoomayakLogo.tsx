@@ -19,17 +19,17 @@ export const ZoomayakLogo: React.FC<ZoomayakLogoProps> = ({
 }) => {
   if (compact) {
     return (
-      <span className={`zoomayak-logo-compact ${className}`} aria-label="ЗооМаяк">
+      <span className={`zoomayak-logo-compact bg-transparent ${className}`} aria-label="ЗооМаяк">
         <img
           src="/zoomayak-logo-approved-icon.png"
           alt=""
-          className="zoomayak-logo-icon zoomayak-logo-light"
+          className="zoomayak-logo-icon zoomayak-logo-light bg-transparent mix-blend-multiply dark:mix-blend-normal"
           aria-hidden="true"
         />
         <img
           src="/zoomayak-logo-dark-icon.png"
           alt=""
-          className="zoomayak-logo-icon zoomayak-logo-dark"
+          className="zoomayak-logo-icon zoomayak-logo-dark bg-transparent"
           aria-hidden="true"
         />
       </span>
@@ -38,18 +38,18 @@ export const ZoomayakLogo: React.FC<ZoomayakLogoProps> = ({
 
   return (
     <span
-      className={`zoomayak-approved-logo ${className}`}
+      className={`zoomayak-approved-logo bg-transparent ${className}`}
       aria-label="ЗооМаяк — Ваш ориентир в мире питомцев"
     >
       <img
         src="/zoomayak-logo-approved.png"
         alt="ЗооМаяк — Ваш ориентир в мире питомцев"
-        className="zoomayak-approved-logo-img zoomayak-logo-light"
+        className="zoomayak-approved-logo-img zoomayak-logo-light bg-transparent mix-blend-multiply dark:mix-blend-normal"
       />
       <img
         src="/zoomayak-logo-dark-neon-approved.png"
         alt="ЗооМаяк — Ваш ориентир в мире питомцев"
-        className={`zoomayak-approved-logo-img zoomayak-logo-dark${showSlogan ? '' : ' zoomayak-no-slogan'}`}
+        className={`zoomayak-approved-logo-img zoomayak-logo-dark bg-transparent${showSlogan ? '' : ' zoomayak-no-slogan'}`}
       />
     </span>
   );

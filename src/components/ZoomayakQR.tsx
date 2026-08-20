@@ -13,7 +13,7 @@ interface ZoomayakQRProps {
 
 export const ZoomayakQR: React.FC<ZoomayakQRProps> = ({
   value,
-  size = 156,
+  size = 120,
   logoSize,
   className = '',
   showBorder = false,
@@ -21,7 +21,7 @@ export const ZoomayakQR: React.FC<ZoomayakQRProps> = ({
   badgeShape = 'rounded',
 }) => {
   // Optimal logo size for Level H (~24-26% of QR size ensures 100% scan reliability)
-  const computedLogoSize = logoSize || Math.max(32, Math.round(size * 0.27));
+  const computedLogoSize = logoSize || Math.max(30, Math.round(size * 0.28));
   const badgeOuterSize = computedLogoSize + 8;
 
   return (
@@ -42,7 +42,7 @@ export const ZoomayakQR: React.FC<ZoomayakQRProps> = ({
         includeMargin={true}
         marginSize={2}
         bgColor="#ffffff"
-        fgColor="#0a0f1d"
+        fgColor="#111111"
       />
 
       {/* Centered official Zoomayak Brand Emblem Plate */}
@@ -58,7 +58,7 @@ export const ZoomayakQR: React.FC<ZoomayakQRProps> = ({
         <img
           src="/zoomayak-logo-approved-icon.png"
           alt="ЗооМаяк"
-          className="w-full h-full object-contain p-1.5"
+          className="w-full h-full object-contain p-1"
           loading="eager"
         />
       </div>

@@ -223,12 +223,17 @@ export default function App() {
 
   useEffect(() => {
     const root = document.documentElement;
+    root.setAttribute('data-theme', theme);
     if (theme === 'dark') {
-      root.classList.add('dark');
-      root.classList.remove('light');
+      root.classList.add('dark', 'theme-dark');
+      root.classList.remove('light', 'theme-light');
+      document.body.classList.add('dark', 'theme-dark');
+      document.body.classList.remove('light', 'theme-light');
     } else {
-      root.classList.add('light');
-      root.classList.remove('dark');
+      root.classList.add('light', 'theme-light');
+      root.classList.remove('dark', 'theme-dark');
+      document.body.classList.add('light', 'theme-light');
+      document.body.classList.remove('dark', 'theme-dark');
     }
   }, [theme]);
 
@@ -237,7 +242,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[var(--color-bg)] text-[var(--color-text)] transition-colors duration-200 flex flex-col justify-between">
+    <div className="min-h-screen bg-[var(--bg)] text-[var(--text)] transition-colors duration-200 flex flex-col justify-between">
       {/* Universal Header */}
       <Header
         pets={pets}

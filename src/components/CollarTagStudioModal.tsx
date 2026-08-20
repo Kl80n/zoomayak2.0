@@ -226,7 +226,7 @@ export const CollarTagStudioModal: React.FC<CollarTagStudioModalProps> = ({
                     Выберите форму адресника
                   </h3>
                   <p className="text-xs text-slate-500 dark:text-slate-400 mb-5">
-                    QR-код ведёт на профиль питомца в ЗооМаяке.
+                    QR-код ведёт на профиль питомца в ЗооМаяке и автоматически подгоняется под форму адресника.
                   </p>
 
                   {/* 3 Form Selector Cards: Круг, Лапа, Щит */}
@@ -646,7 +646,7 @@ export const CollarTagStudioModal: React.FC<CollarTagStudioModalProps> = ({
                 Интерактивный 3D-просмотр
               </h3>
               <p className="text-xs text-slate-500 dark:text-slate-400 max-w-md mb-4">
-                Поворачивайте жетон мышью, проверяйте QR-код и примеряйте адресник на натуральном кожаном ошейнике.
+                Поворачивайте жетон мышью, проверяйте увеличенный QR-код и его размещение внутри контура адресника.
               </p>
 
               <div className="w-full max-w-xl p-4 bg-slate-50 dark:bg-slate-950/70 rounded-3xl border border-slate-200 dark:border-slate-800">

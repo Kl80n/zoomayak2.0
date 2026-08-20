@@ -126,9 +126,9 @@ export const RealisticMetalTag: React.FC<RealisticMetalTagProps> = ({
           path: 'M 150 44 C 220 44 274 98 274 168 C 274 238 220 292 150 292 C 80 292 26 238 26 168 C 26 98 80 44 150 44 Z',
           hole: { cx: 150, cy: 68, r: 12 },
           front: {
-            qrY: 165,
-            qrSize: 92,
-            brandY: 236,
+            qrY: 160,
+            qrSize: 108,
+            brandY: 238,
             brandSize: 14.5,
           },
           back: {
@@ -150,9 +150,9 @@ export const RealisticMetalTag: React.FC<RealisticMetalTagProps> = ({
           path: 'M 150 26 C 165 26 175 38 175 54 C 190 45 214 44 228 58 C 244 74 239 100 227 114 C 248 119 268 138 268 163 C 268 190 248 210 228 216 C 238 240 226 270 196 285 C 172 297 150 297 150 297 C 150 297 128 297 104 285 C 74 270 62 240 72 216 C 52 210 32 190 32 163 C 32 138 52 119 73 114 C 61 100 56 74 72 58 C 86 44 110 45 125 54 C 125 38 135 26 150 26 Z',
           hole: { cx: 150, cy: 50, r: 11 },
           front: {
-            qrY: 166,
-            qrSize: 84,
-            brandY: 238,
+            qrY: 158,
+            qrSize: 106,
+            brandY: 240,
             brandSize: 14,
           },
           back: {
@@ -175,9 +175,9 @@ export const RealisticMetalTag: React.FC<RealisticMetalTagProps> = ({
           path: 'M 150 32 C 162 32 200 40 236 50 C 248 53 254 60 254 74 C 254 132 248 186 220 236 C 190 282 156 302 150 306 C 144 302 110 282 80 236 C 52 186 46 132 46 74 C 46 60 52 53 64 50 C 100 40 138 32 150 32 Z',
           hole: { cx: 150, cy: 56, r: 12 },
           front: {
-            qrY: 164,
-            qrSize: 88,
-            brandY: 236,
+            qrY: 158,
+            qrSize: 108,
+            brandY: 240,
             brandSize: 14.5,
           },
           back: {
@@ -193,13 +193,6 @@ export const RealisticMetalTag: React.FC<RealisticMetalTagProps> = ({
   };
 
   const shapeData = getShapeData();
-  const physicalRatio = shape === 'circle' ? 1 : shape === 'paw' ? 30 / 32 : 28 / 34;
-  const svgViewBox = shape === 'circle' ? '0 0 300 300' : shape === 'paw' ? '0 0 300 320' : '0 0 280 340';
-  const svgContentTransform = shape === 'shield' ? 'translate(-10 0)' : undefined;
-  const qrDisplaySize = shape === 'circle' ? 112 : shape === 'paw' ? 102 : 106;
-  const qrCenterY = shape === 'circle' ? 165 : shape === 'paw' ? 166 : 164;
-  const qrCardRadius = shape === 'circle' ? 7 : 6;
-
   const displayZmId = zmId || 'ZM-2025-0001';
   const qrTargetUrl = `${window.location.origin}/qr/${encodeURIComponent(displayZmId)}`;
 
@@ -208,14 +201,13 @@ export const RealisticMetalTag: React.FC<RealisticMetalTagProps> = ({
       className={`relative inline-flex flex-col items-center select-none transition-transform duration-200 ${
         selected ? 'scale-[1.03]' : ''
       } ${className}`}
-      style={{ width: `${size}px`, aspectRatio: `${physicalRatio}` }}
+      style={{ width: `${size}px` }}
       onClick={onClick}
     >
-      <div className="relative w-full h-full flex items-center justify-center">
+      <div className="relative w-full aspect-[300/320] flex items-center justify-center">
         {/* Photorealistic Vector Metal Tag SVG */}
         <svg
-          viewBox={svgViewBox}
-          preserveAspectRatio="none"
+          viewBox="0 0 300 320"
           className="w-full h-full drop-shadow-[0_16px_22px_rgba(0,0,0,0.38)]"
           xmlns="http://www.w3.org/2000/svg"
         >
@@ -281,7 +273,6 @@ export const RealisticMetalTag: React.FC<RealisticMetalTagProps> = ({
             </filter>
           </defs>
 
-          <g transform={svgContentTransform}>
           {/* Solid Cast Metal Body */}
           <path
             d={shapeData.path}
@@ -342,46 +333,47 @@ export const RealisticMetalTag: React.FC<RealisticMetalTagProps> = ({
           {side === 'front' ? (
             /* FRONT FACE (Лицевая сторона) EXACTLY AS IN UPLOADED PROTOTYPE */
             <g>
-              {/* QR engraving area: always square and centered for laser engraving */}
-              <g transform={`translate(150 ${qrCenterY})`}>
-                <rect
-                  x={-qrDisplaySize / 2 - 4}
-                  y={-qrDisplaySize / 2 - 4}
-                  width={qrDisplaySize + 8}
-                  height={qrDisplaySize + 8}
-                  rx={qrCardRadius}
-                  fill="#ffffff"
-                  stroke="#c5cbd2"
-                  strokeWidth="1.2"
-                  filter="drop-shadow(0 2px 5px rgba(0,0,0,0.22))"
-                />
-                <foreignObject
-                  x={-qrDisplaySize / 2}
-                  y={-qrDisplaySize / 2}
-                  width={qrDisplaySize}
-                  height={qrDisplaySize}
-                  style={{ overflow: 'visible' }}
-                >
-                  <div className="w-full h-full flex items-center justify-center bg-white rounded-md relative select-none">
-                    <QRCodeCanvas
-                      value={qrTargetUrl}
-                      size={qrDisplaySize}
-                      level="H"
-                      includeMargin={true}
-                      marginSize={2}
-                      bgColor="#ffffff"
-                      fgColor="#111111"
+              {/* White high-contrast rounded background card for 100% QR Scan Reliability */}
+              <rect
+                x={150 - shapeData.front.qrSize / 2 - 3}
+                y={shapeData.front.qrY - shapeData.front.qrSize / 2 - 3}
+                width={shapeData.front.qrSize + 6}
+                height={shapeData.front.qrSize + 6}
+                rx="8"
+                fill="#ffffff"
+                stroke="#c5cbd2"
+                strokeWidth="1.2"
+                filter="drop-shadow(0 2px 5px rgba(0,0,0,0.22))"
+              />
+
+              {/* QR Code HTML Canvas embedded in SVG with high error correction (Level H) */}
+              <foreignObject
+                x={150 - shapeData.front.qrSize / 2}
+                y={shapeData.front.qrY - shapeData.front.qrSize / 2}
+                width={shapeData.front.qrSize}
+                height={shapeData.front.qrSize}
+              >
+                <div className="w-full h-full flex items-center justify-center bg-white rounded-md relative select-none">
+                  <QRCodeCanvas
+                    value={qrTargetUrl}
+                    size={shapeData.front.qrSize}
+                    level="H"
+                    includeMargin={true}
+                    marginSize={1}
+                    bgColor="#ffffff"
+                    fgColor="#111111"
+                  />
+
+                  {/* Centered Lighthouse Emblem inside the QR code */}
+                  <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[32%] h-[32%] bg-white rounded-md p-0.5 shadow-md flex items-center justify-center border border-slate-300 pointer-events-none">
+                    <img
+                      src="/zoomayak-logo-approved-icon.png"
+                      alt="Маяк"
+                      className="w-full h-full object-contain"
                     />
-                    <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[28%] h-[28%] bg-white rounded-sm p-0.5 flex items-center justify-center border border-slate-300 pointer-events-none">
-                      <img
-                        src="/zoomayak-logo-approved-icon.png"
-                        alt="ЗооМаяк"
-                        className="w-full h-full object-contain"
-                      />
-                    </div>
                   </div>
-                </foreignObject>
-              </g>
+                </div>
+              </foreignObject>
 
               {/* Laser Engraved Brand Line: "♥ ЗооМаяк ♥" with hearts */}
               <g
@@ -506,7 +498,6 @@ export const RealisticMetalTag: React.FC<RealisticMetalTagProps> = ({
               </g>
             </g>
           )}
-          </g>
         </svg>
       </div>
 

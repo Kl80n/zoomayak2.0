@@ -364,8 +364,8 @@ export const AddPetModal: React.FC<AddPetModalProps> = ({
                 <div className="p-2 bg-white rounded-xl shadow-inner flex items-center justify-center">
                   <ZoomayakQR
                     value={`${window.location.origin}/qr/${encodeURIComponent(createdPet.zmId)}`}
-                    size={172}
-                    logoSize={46}
+                    size={140}
+                    logoSize={38}
                     lightBackground={true}
                   />
                 </div>
@@ -388,7 +388,7 @@ export const AddPetModal: React.FC<AddPetModalProps> = ({
                 className="w-full py-3.5 rounded-2xl bg-teal-500 hover:bg-teal-600 text-white font-extrabold text-xs shadow-md shadow-teal-500/20 flex items-center justify-center gap-2 transition cursor-pointer"
               >
                 <Sparkles className="w-4 h-4" />
-                <span>Заказать жетон с гравировкой (Круг, Лапа, Щит)</span>
+                <span>Заказать жетон с гравировкой (Щит, Кость, Сердце, Круг)</span>
               </button>
 
               <button

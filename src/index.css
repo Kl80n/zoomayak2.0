@@ -4,29 +4,37 @@
 
 :root,
 :root[data-theme='dark'],
-:root.dark {
+:root.dark,
+.dark,
+.theme-dark {
   color-scheme: dark;
   --bg: #070b14;
-  --surface: #0e1626;
-  --surface-2: #121c2e;
-  --surface-3: #172237;
+  --color-bg: #070b14;
+  --surface: #0a111e;
+  --surface-2: #0e1726;
+  --surface-3: #131f33;
   --text: #f8fafc;
+  --color-text: #f8fafc;
   --muted: #94a3b8;
-  --line: rgba(148, 163, 184, .16);
-  --green: #00a978;
-  --green-2: #13c88a;
-  --green-soft: rgba(0, 169, 120, .11);
-  --hero: linear-gradient(135deg, rgba(13, 54, 44, .9), rgba(13, 32, 45, .92));
+  --line: rgba(148, 163, 184, .12);
+  --green: #00b887;
+  --green-2: #14d695;
+  --green-soft: rgba(0, 184, 135, .12);
+  --hero: linear-gradient(135deg, #0b1424 0%, #070e1a 100%);
 }
 
 :root[data-theme='light'],
-:root.light {
+:root.light,
+.light,
+.theme-light {
   color-scheme: light;
   --bg: #f6faf8;
+  --color-bg: #f6faf8;
   --surface: #ffffff;
   --surface-2: #fbfefd;
   --surface-3: #f1f8f4;
   --text: #0b1720;
+  --color-text: #0b1720;
   --muted: #64748b;
   --line: rgba(16, 85, 65, .12);
   --green: #009b69;
@@ -443,29 +451,24 @@ html, body, #root { max-width: 100%; overflow-x: hidden; }
 .zoomayak-approved-logo {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  padding: 4px 9px;
-  min-height: 44px;
-  border-radius: 13px;
-  background: var(--surface);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
-  border: 1px solid var(--line);
-  transition: background-color 0.2s ease, border-color 0.2s ease;
+  justify-content: flex-start;
+  padding: 0;
+  min-height: auto;
+  border-radius: 0;
+  background: transparent !important;
+  box-shadow: none !important;
+  border: 0 !important;
 }
 :root[data-theme='dark'] .zoomayak-approved-logo,
-.dark .zoomayak-approved-logo {
-  background: #090d16;
-  border-color: #1e293b;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
-}
+.dark .zoomayak-approved-logo,
 :root[data-theme='light'] .zoomayak-approved-logo,
 .light .zoomayak-approved-logo {
-  background: #ffffff;
-  border-color: rgba(0, 0, 0, 0.08);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.06);
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
 }
-.zoomayak-approved-logo-img { width: 182px; height: auto; object-fit: contain; display: block; }
-.zoomayak-approved-logo.is-compact { padding: 3px; width: 42px; height: 42px; border-radius: 12px; }
+.zoomayak-approved-logo-img { width: 182px; height: auto; object-fit: contain; display: block; background: transparent !important; }
+.zoomayak-approved-logo.is-compact { padding: 0; width: 42px; height: 42px; border-radius: 0; background: transparent !important; border: 0 !important; box-shadow: none !important; }
 .zoomayak-approved-logo.is-compact .zoomayak-approved-logo-img { width: 36px; height: 36px; object-fit: contain; }
 .account-header-button.is-active { border-color:var(--green); background:var(--green-soft); }
 .mobile-account-button.is-active { border-color:var(--green); background:var(--green-soft); color:var(--green); }
@@ -594,7 +597,7 @@ html, body, #root { max-width: 100%; overflow-x: hidden; }
 @media (max-width: 640px) { .zoomayak-approved-logo-img { width: 150px !important; } .zoomayak-logo-glow { width: 120px; } }
 
 /* v8.3.0 — homepage marketplace + pet news */
-.home-market-preview,.pet-news-section{max-width:1400px;margin:0 auto;padding:8px 16px 0}.home-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:16px}.home-section-head h2{margin:6px 0 5px;font-size:28px;font-weight:950;color:var(--text)}.home-section-head p{margin:0;color:var(--muted);font-size:12px;max-width:720px;line-height:1.55}.ghost-link{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--surface);color:var(--text);padding:10px 14px;border-radius:12px;font-weight:850;white-space:nowrap}.ghost-link svg{width:15px}.home-listing-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}.home-listing-card{overflow:hidden;border:1px solid var(--line);border-radius:18px;background:var(--surface);min-width:0}.home-listing-image{height:150px;position:relative}.home-listing-image img{width:100%;height:100%;object-fit:cover;display:block}.home-listing-image span{position:absolute;left:9px;top:9px;background:rgba(4,10,20,.78);color:#fff;padding:5px 7px;border-radius:8px;font-size:9px;font-weight:900}.home-listing-body{padding:12px}.home-listing-title{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}.home-listing-title h3{margin:0;font-size:14px;font-weight:900;color:var(--text)}.home-listing-title strong{color:var(--green);font-size:12px;white-space:nowrap}.home-listing-body>p{margin:5px 0 9px;color:var(--muted);font-size:10px}.home-listing-meta{display:flex;justify-content:space-between;gap:6px;color:var(--muted);font-size:9px}.home-listing-meta span{display:inline-flex;align-items:center;gap:4px}.home-listing-meta svg{width:12px}.verified-inline{color:var(--green)!important}.home-market-note{display:flex;align-items:center;gap:10px;margin-top:12px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(90deg,rgba(0,190,145,.08),transparent);color:var(--muted);font-size:10px}.home-market-note>svg{color:var(--green);width:17px;flex:none}.home-market-note span{flex:1}.home-market-note button{display:inline-flex;align-items:center;gap:5px;background:none;border:0;color:var(--green);font-weight:900;white-space:nowrap}.home-market-note button svg{width:13px}.pet-news-section{padding-top:34px;padding-bottom:36px}.pet-news-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.pet-news-card{overflow:hidden;border:1px solid var(--line);border-radius:18px;background:var(--surface)}.pet-news-card>img{width:100%;height:170px;object-fit:cover;display:block}.pet-news-body{padding:14px}.pet-news-meta{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:9px}.pet-news-meta span{color:var(--green);font-weight:900}.pet-news-meta time{display:inline-flex;align-items:center;gap:4px}.pet-news-meta svg{width:11px}.pet-news-body h3{margin:9px 0 6px;font-size:15px;line-height:1.25;color:var(--text)}.pet-news-body p{margin:0;color:var(--muted);font-size:10px;line-height:1.5}.pet-news-body button{display:inline-flex;align-items:center;gap:5px;margin-top:12px;padding:0;border:0;background:none;color:var(--green);font-size:10px;font-weight:900}.pet-news-body button svg{width:13px}.market-toolbar{grid-template-columns:minmax(220px,1.5fr) auto minmax(180px,.8fr) auto!important}.market-filter{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:0 11px;color:var(--muted);min-height:42px}.market-filter svg{width:15px;color:var(--green)}.market-filter select{border:0;background:transparent;color:var(--text);outline:0;font-weight:800;font-size:11px;padding:0 4px}.market-filter option{background:#101827;color:#fff}
+.home-market-preview,.pet-news-section{max-width:1400px;margin:0 auto;padding:8px 16px 0}.home-section-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:16px}.home-section-head h2{margin:6px 0 5px;font-size:28px;font-weight:950;color:var(--text)}.home-section-head p{margin:0;color:var(--muted);font-size:12px;max-width:720px;line-height:1.55}.ghost-link{display:inline-flex;align-items:center;gap:7px;border:1px solid var(--line);background:var(--surface);color:var(--text);padding:10px 14px;border-radius:12px;font-weight:850;white-space:nowrap}.ghost-link svg{width:15px}.home-listing-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}.home-listing-card{overflow:hidden;border:1px solid var(--line);border-radius:18px;background:var(--surface);min-width:0}.home-listing-image{height:150px;position:relative}.home-listing-image img{width:100%;height:100%;object-fit:cover;display:block}.home-listing-body{padding:12px}.home-listing-title{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}.home-listing-title h3{margin:0;font-size:14px;font-weight:900;color:var(--text)}.home-listing-title strong{color:var(--green);font-size:12px;white-space:nowrap}.home-listing-body>p{margin:5px 0 9px;color:var(--muted);font-size:10px}.home-listing-meta{display:flex;justify-content:space-between;gap:6px;color:var(--muted);font-size:9px}.home-listing-meta span{display:inline-flex;align-items:center;gap:4px}.home-listing-meta svg{width:12px}.verified-inline{color:var(--green)!important}.home-market-note{display:flex;align-items:center;gap:10px;margin-top:12px;padding:12px 14px;border:1px solid var(--line);border-radius:14px;background:linear-gradient(90deg,rgba(0,190,145,.08),transparent);color:var(--muted);font-size:10px}.home-market-note>svg{color:var(--green);width:17px;flex:none}.home-market-note span{flex:1}.home-market-note button{display:inline-flex;align-items:center;gap:5px;background:none;border:0;color:var(--green);font-weight:900;white-space:nowrap}.home-market-note button svg{width:13px}.pet-news-section{padding-top:34px;padding-bottom:36px}.pet-news-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}.pet-news-card{overflow:hidden;border:1px solid var(--line);border-radius:18px;background:var(--surface)}.pet-news-card>img{width:100%;height:170px;object-fit:cover;display:block}.pet-news-body{padding:14px}.pet-news-meta{display:flex;justify-content:space-between;gap:8px;color:var(--muted);font-size:9px}.pet-news-meta span{color:var(--green);font-weight:900}.pet-news-meta time{display:inline-flex;align-items:center;gap:4px}.pet-news-meta svg{width:11px}.pet-news-body h3{margin:9px 0 6px;font-size:15px;line-height:1.25;color:var(--text)}.pet-news-body p{margin:0;color:var(--muted);font-size:10px;line-height:1.5}.pet-news-body button{display:inline-flex;align-items:center;gap:5px;margin-top:12px;padding:0;border:0;background:none;color:var(--green);font-size:10px;font-weight:900}.pet-news-body button svg{width:13px}.market-toolbar{grid-template-columns:minmax(220px,1.5fr) auto minmax(180px,.8fr) auto!important}.market-filter{display:flex;align-items:center;gap:7px;border:1px solid var(--line);border-radius:12px;background:var(--surface);padding:0 11px;color:var(--muted);min-height:42px}.market-filter svg{width:15px;color:var(--green)}.market-filter select{border:0;background:transparent;color:var(--text);outline:0;font-weight:800;font-size:11px;padding:0 4px}.market-filter option{background:#101827;color:#fff}
 @media (max-width:1100px){.home-listing-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.pet-news-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.market-toolbar{grid-template-columns:1fr 1fr!important}.market-sync{grid-column:1/-1}}
 @media (max-width:700px){.home-market-preview,.pet-news-section{padding-left:12px;padding-right:12px}.home-section-head{align-items:flex-start;flex-direction:column}.home-section-head h2{font-size:23px}.home-listing-grid,.pet-news-grid{grid-template-columns:1fr}.home-market-note{align-items:flex-start;flex-wrap:wrap}.home-market-note button{margin-left:27px}.market-toolbar{grid-template-columns:1fr!important}.market-filter,.market-sync{width:100%}}
 
@@ -905,32 +908,55 @@ html, body, #root { max-width: 100%; overflow-x: hidden; }
 }
 
 /* Light theme default */
-.zoomayak-approved-logo .zoomayak-logo-light {
+.zoomayak-approved-logo .zoomayak-logo-light,
+.zoomayak-logo-compact .zoomayak-logo-light,
+.zoomayak-logo-light {
   display: block !important;
+  mix-blend-mode: multiply !important;
+  background: transparent !important;
 }
-.zoomayak-approved-logo .zoomayak-logo-dark {
+.zoomayak-approved-logo .zoomayak-logo-dark,
+.zoomayak-logo-compact .zoomayak-logo-dark,
+.zoomayak-logo-dark {
   display: none !important;
 }
 
 /* Dark theme active */
+.dark .zoomayak-approved-logo .zoomayak-logo-light,
 .theme-dark .zoomayak-approved-logo .zoomayak-logo-light,
-:root[data-theme='dark'] .zoomayak-approved-logo .zoomayak-logo-light {
+:root[data-theme='dark'] .zoomayak-approved-logo .zoomayak-logo-light,
+html.dark .zoomayak-approved-logo .zoomayak-logo-light,
+body.dark .zoomayak-approved-logo .zoomayak-logo-light,
+[data-theme='dark'] .zoomayak-approved-logo .zoomayak-logo-light {
   display: none !important;
 }
+.dark .zoomayak-approved-logo .zoomayak-logo-dark,
 .theme-dark .zoomayak-approved-logo .zoomayak-logo-dark,
-:root[data-theme='dark'] .zoomayak-approved-logo .zoomayak-logo-dark {
+:root[data-theme='dark'] .zoomayak-approved-logo .zoomayak-logo-dark,
+html.dark .zoomayak-approved-logo .zoomayak-logo-dark,
+body.dark .zoomayak-approved-logo .zoomayak-logo-dark,
+[data-theme='dark'] .zoomayak-approved-logo .zoomayak-logo-dark {
   display: block !important;
+  background: transparent !important;
   filter: drop-shadow(0 0 6px rgba(0, 200, 255, 0.25))
           drop-shadow(0 0 12px rgba(0, 230, 180, 0.15)) !important;
 }
 
 /* Light theme explicit */
+.light .zoomayak-approved-logo .zoomayak-logo-light,
 .theme-light .zoomayak-approved-logo .zoomayak-logo-light,
-:root[data-theme='light'] .zoomayak-approved-logo .zoomayak-logo-light {
+:root[data-theme='light'] .zoomayak-approved-logo .zoomayak-logo-light,
+html.light .zoomayak-approved-logo .zoomayak-logo-light,
+body.light .zoomayak-approved-logo .zoomayak-logo-light,
+[data-theme='light'] .zoomayak-approved-logo .zoomayak-logo-light {
   display: block !important;
 }
+.light .zoomayak-approved-logo .zoomayak-logo-dark,
 .theme-light .zoomayak-approved-logo .zoomayak-logo-dark,
-:root[data-theme='light'] .zoomayak-approved-logo .zoomayak-logo-dark {
+:root[data-theme='light'] .zoomayak-approved-logo .zoomayak-logo-dark,
+html.light .zoomayak-approved-logo .zoomayak-logo-dark,
+body.light .zoomayak-approved-logo .zoomayak-logo-dark,
+[data-theme='light'] .zoomayak-approved-logo .zoomayak-logo-dark {
   display: none !important;
 }
 
@@ -948,6 +974,7 @@ html, body, #root { max-width: 100%; overflow-x: hidden; }
   width: 44px !important;
   height: 44px !important;
   object-fit: contain !important;
+  background: transparent !important;
 }
 .zoomayak-logo-compact .zoomayak-logo-light {
   display: block !important;
@@ -955,14 +982,44 @@ html, body, #root { max-width: 100%; overflow-x: hidden; }
 .zoomayak-logo-compact .zoomayak-logo-dark {
   display: none !important;
 }
+.dark .zoomayak-logo-compact .zoomayak-logo-light,
 .theme-dark .zoomayak-logo-compact .zoomayak-logo-light,
-:root[data-theme='dark'] .zoomayak-logo-compact .zoomayak-logo-light {
+:root[data-theme='dark'] .zoomayak-logo-compact .zoomayak-logo-light,
+html.dark .zoomayak-logo-compact .zoomayak-logo-light,
+body.dark .zoomayak-logo-compact .zoomayak-logo-light,
+[data-theme='dark'] .zoomayak-logo-compact .zoomayak-logo-light {
   display: none !important;
 }
+.dark .zoomayak-logo-compact .zoomayak-logo-dark,
 .theme-dark .zoomayak-logo-compact .zoomayak-logo-dark,
-:root[data-theme='dark'] .zoomayak-logo-compact .zoomayak-logo-dark {
+:root[data-theme='dark'] .zoomayak-logo-compact .zoomayak-logo-dark,
+html.dark .zoomayak-logo-compact .zoomayak-logo-dark,
+body.dark .zoomayak-logo-compact .zoomayak-logo-dark,
+[data-theme='dark'] .zoomayak-logo-compact .zoomayak-logo-dark {
   display: block !important;
   filter: drop-shadow(0 0 6px rgba(0, 200, 255, 0.35));
+}
+
+/* Dark mode harmonious bridge */
+.dark .bg-slate-900,
+.theme-dark .bg-slate-900 {
+  background: var(--surface) !important;
+}
+.dark .bg-slate-950,
+.theme-dark .bg-slate-950 {
+  background: var(--bg) !important;
+}
+.dark .bg-slate-800,
+.theme-dark .bg-slate-800 {
+  background: var(--surface-2) !important;
+}
+.dark .border-slate-800,
+.theme-dark .border-slate-800,
+.dark .border-slate-800\/80,
+.theme-dark .border-slate-800\/80,
+.dark .border-slate-800\/90,
+.theme-dark .border-slate-800\/90 {
+  border-color: var(--line) !important;
 }
 
 @media (max-width: 1199px) {
