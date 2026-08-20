@@ -122,3 +122,9 @@ Install command: `npm install`
 ## v8.6.0 — header fixes
 - Dark-theme logo uses a normalized transparent lockup so the approved logo keeps the same visual size as the light theme and remains readable.
 - Account dropdown is closed by default, opens only on click, closes on outside click, navigation, and logout.
+## v8.8.1 — logo animals correction
+
+- Replaced the theme-dependent raster logo component with a single vector lockup.
+- Corrected the cat outline: no protruding stroke/“stick” at the back of the head/neck.
+- Kept the same logo geometry, title and slogan in light and dark themes; only colors adapt to the theme.
+
