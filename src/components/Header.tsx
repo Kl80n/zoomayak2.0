@@ -42,20 +42,30 @@ export const Header: React.FC<HeaderProps> = ({
   const [showAccountMenu, setShowAccountMenu] = useState(false);
   const accountMenuRef = useRef<HTMLDivElement>(null);
 
+  // Меню ЛК всегда закрыто при первом рендере, после навигации и после выхода.
+  useEffect(() => {
+    setShowAccountMenu(false);
+  }, [activeTab, accountLoggedIn]);
+
   useEffect(() => {
     if (!showAccountMenu) return;
+
     const handlePointerDown = (event: MouseEvent) => {
       if (!accountMenuRef.current?.contains(event.target as Node)) {
         setShowAccountMenu(false);
       }
     };
-    document.addEventListener('mousedown', handlePointerDown);
-    return () => document.removeEventListener('mousedown', handlePointerDown);
-  }, [showAccountMenu]);
+    const handleKeyDown = (event: KeyboardEvent) => {
+      if (event.key === 'Escape') setShowAccountMenu(false);
+    };
 
-  useEffect(() => {
-    setShowAccountMenu(false);
-  }, [activeTab, accountLoggedIn]);
+    document.addEventListener('mousedown', handlePointerDown);
+    document.addEventListener('keydown', handleKeyDown);
+    return () => {
+      document.removeEventListener('mousedown', handlePointerDown);
+      document.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [showAccountMenu]);
 
   return (
     <header className="site-header sticky top-0 z-40 w-full">

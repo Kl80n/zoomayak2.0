@@ -777,3 +777,69 @@ html, body, #root { max-width: 100%; overflow-x: hidden; }
     height: 58px !important;
   }
 }
+
+
+/* v8.8.0 — unified master logo: identical geometry in both themes.
+   Do not introduce a second artwork for dark mode. */
+.zoomayak-approved-logo {
+  position: relative !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  width: 214px !important;
+  height: 76px !important;
+  min-width: 214px !important;
+  min-height: 76px !important;
+  flex: 0 0 214px !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  overflow: visible !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+}
+.zoomayak-approved-logo .zoomayak-approved-logo-img {
+  display: block !important;
+  width: 214px !important;
+  height: 76px !important;
+  max-width: none !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+.zoomayak-approved-logo.is-compact {
+  width: 42px !important;
+  height: 42px !important;
+  min-width: 42px !important;
+  min-height: 42px !important;
+  flex-basis: 42px !important;
+}
+.zoomayak-approved-logo.is-compact .zoomayak-approved-logo-img {
+  width: 42px !important;
+  height: 42px !important;
+}
+:root[data-theme='dark'] .zoomayak-approved-logo .zoomayak-approved-logo-img,
+.theme-dark .zoomayak-approved-logo .zoomayak-approved-logo-img {
+  filter: brightness(1.55) saturate(1.12) contrast(1.08) drop-shadow(0 0 5px rgba(55, 230, 190, .14));
+}
+:root[data-theme='light'] .zoomayak-approved-logo .zoomayak-approved-logo-img,
+.theme-light .zoomayak-approved-logo .zoomayak-approved-logo-img {
+  filter: none;
+}
+@media (max-width: 1199px) {
+  .zoomayak-approved-logo:not(.is-compact) {
+    width: 180px !important; height: 68px !important; min-width: 180px !important; flex-basis: 180px !important;
+  }
+  .zoomayak-approved-logo:not(.is-compact) .zoomayak-approved-logo-img {
+    width: 180px !important; height: 68px !important;
+  }
+}
+@media (max-width: 640px) {
+  .zoomayak-approved-logo:not(.is-compact) {
+    width: 150px !important; height: 58px !important; min-width: 150px !important; flex-basis: 150px !important;
+  }
+  .zoomayak-approved-logo:not(.is-compact) .zoomayak-approved-logo-img {
+    width: 150px !important; height: 58px !important;
+  }
+}

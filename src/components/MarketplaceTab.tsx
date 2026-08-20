@@ -32,11 +32,20 @@ export const MarketplaceTab: React.FC<MarketplaceTabProps> = ({ services }) => {
   const publish = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const data = new FormData(e.currentTarget);
+    const species = String(data.get('species')) as AnimalListing['species'];
+    const photoBySpecies: Record<AnimalListing['species'], string> = {
+      dog: 'https://images.unsplash.com/photo-1558788353-f76d92427f16?auto=format&fit=crop&w=900&q=80',
+      cat: 'https://images.unsplash.com/photo-1518791841217-8f162f1e1131?auto=format&fit=crop&w=900&q=80',
+      bird: 'https://images.unsplash.com/photo-1444464666168-49d633b86797?auto=format&fit=crop&w=900&q=80',
+      rodent: 'https://images.unsplash.com/photo-1425082661705-1834bfd09dca?auto=format&fit=crop&w=900&q=80',
+      reptile: 'https://images.unsplash.com/photo-1526161280731-2a0e3c2a6b1f?auto=format&fit=crop&w=900&q=80',
+      other: 'https://images.unsplash.com/photo-1543852786-1cf6624b9987?auto=format&fit=crop&w=900&q=80',
+    };
     const item: AnimalListing = {
-      id: `mine-${Date.now()}`, title: String(data.get('title') || 'Новое объявление'), species: String(data.get('species')) as AnimalListing['species'],
+      id: `mine-${Date.now()}`, title: String(data.get('title') || 'Новое объявление'), species,
       breed: String(data.get('breed') || 'Порода не указана'), age: String(data.get('age') || 'Возраст не указан'), sex: String(data.get('sex')) as AnimalListing['sex'],
       price: Number(data.get('price') || 0), city: String(data.get('city') || 'Ярославль'), source: 'ЗооМаяк', sourceUrl: '#',
-      imageUrl: 'https://images.unsplash.com/photo-1552053831-71594a27632d?auto=format&fit=crop&w=900&q=80', description: String(data.get('description') || ''), publishedAt: 'Только что', verified: true,
+      imageUrl: photoBySpecies[species], description: String(data.get('description') || ''), publishedAt: 'Только что', verified: true,
     };
     setPublished(prev => [item, ...prev]);
     setShowPublish(false);
