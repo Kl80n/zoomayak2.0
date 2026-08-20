@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { QRCodeCanvas } from 'qrcode.react';
 import { 
   Users, 
   Plus, 
@@ -12,7 +13,9 @@ import {
   Sparkles,
   Award,
   ChevronRight,
-  AlertCircle
+  AlertCircle,
+  X,
+  Download
 } from 'lucide-react';
 import { Pet } from '../types';
 
@@ -33,6 +36,19 @@ export const MyPetsTab: React.FC<MyPetsTabProps> = ({
   onOpenPassport,
   onOpenCollarStudio,
 }) => {
+  const [qrPet, setQrPet] = useState<Pet | null>(null);
+  const qrValue = qrPet ? `${window.location.origin}/qr/${encodeURIComponent(qrPet.zmId)}` : '';
+
+  const handleDownloadQr = () => {
+    const canvas = document.getElementById('selected-pet-qr-large') as HTMLCanvasElement | null;
+    if (!canvas) return;
+    const link = document.createElement('a');
+    if (!qrPet) return;
+    link.download = `${qrPet.zmId}-qr.png`;
+    link.href = canvas.toDataURL('image/png');
+    link.click();
+  };
+
   return (
     <div className="mypets-page max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in duration-300">
       
@@ -94,8 +110,25 @@ export const MyPetsTab: React.FC<MyPetsTabProps> = ({
                   <span className="font-mono text-xs font-bold text-teal-400 bg-slate-800/90 px-2 py-1 rounded-lg border border-slate-700">
                     {pet.zmId}
                   </span>
-                  <div className="text-[10px] text-slate-400 mt-1">
-                    {pet.species === 'dog' ? '🐶 Собака' : '🐱 Кошка'}
+                  <div className="mt-1 flex items-center justify-end gap-2">
+                    <div className="text-[10px] text-slate-400">
+                      {pet.species === 'dog' ? '🐶 Собака' : '🐱 Кошка'}
+                    </div>
+                    <button
+                      type="button"
+                      onClick={(e) => { e.stopPropagation(); setQrPet(pet); }}
+                      className="flex h-9 w-9 items-center justify-center rounded-lg bg-white border border-teal-500/30 shadow-sm transition hover:border-teal-400 hover:shadow cursor-pointer"
+                      title={`Открыть QR ${pet.zmId}`}
+                      aria-label={`Открыть QR ${pet.name}`}
+                    >
+                      <QRCodeCanvas
+                        value={`${window.location.origin}/qr/${encodeURIComponent(pet.zmId)}`}
+                        size={28}
+                        level="H"
+                        includeMargin={false}
+                        imageSettings={{ src: '/zoomayak-logo-approved-icon.png', height: 7, width: 7, excavate: true }}
+                      />
+                    </button>
                   </div>
                 </div>
               </div>
@@ -157,6 +190,27 @@ export const MyPetsTab: React.FC<MyPetsTabProps> = ({
           </div>
 
           <div className="flex flex-wrap items-center gap-3">
+            <button
+              type="button"
+              onClick={(e) => { e.stopPropagation(); setQrPet(selectedPet); }}
+              className="group flex items-center gap-2 rounded-2xl border border-teal-500/30 bg-white p-1.5 pr-3 shadow-sm transition hover:border-teal-400 hover:shadow-md cursor-pointer"
+              title={`Открыть QR-код ${selectedPet.zmId}`}
+            >
+              <span className="flex h-14 w-14 items-center justify-center rounded-xl bg-white border border-slate-200">
+                <QRCodeCanvas
+                  value={qrValue}
+                  size={48}
+                  level="H"
+                  includeMargin={false}
+                  imageSettings={{ src: '/zoomayak-logo-approved-icon.png', height: 11, width: 11, excavate: true }}
+                />
+              </span>
+              <span className="text-left leading-tight">
+                <span className="block text-[10px] font-extrabold uppercase tracking-wider text-teal-600">QR-адресник</span>
+                <span className="block text-xs font-bold text-slate-600">Нажмите, чтобы открыть</span>
+              </span>
+            </button>
+
             <button
               onClick={onOpenPassport}
               className="px-5 py-2.5 rounded-2xl bg-gradient-to-r from-teal-500 to-cyan-500 hover:from-teal-400 hover:to-cyan-400 text-slate-950 font-extrabold text-xs shadow-lg shadow-teal-500/25 transition cursor-pointer flex items-center gap-1.5"
@@ -280,6 +334,58 @@ export const MyPetsTab: React.FC<MyPetsTabProps> = ({
         </div>
 
       </div>
+
+      {qrPet && (
+        <div
+          className="fixed inset-0 z-[70] flex items-center justify-center bg-slate-950/70 p-4 backdrop-blur-md"
+          role="dialog"
+          aria-modal="true"
+          aria-label={`QR-код питомца ${qrPet.name}`}
+          onClick={() => setQrPet(null)}
+        >
+          <div
+            className="relative w-full max-w-sm rounded-3xl border border-teal-500/30 bg-white p-6 text-center shadow-2xl"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              type="button"
+              onClick={() => setQrPet(null)}
+              className="absolute right-3 top-3 flex h-9 w-9 items-center justify-center rounded-xl bg-slate-100 text-slate-600 transition hover:bg-slate-200 cursor-pointer"
+              aria-label="Закрыть QR"
+            >
+              <X className="h-5 w-5" />
+            </button>
+
+            <div className="pt-2">
+              <div className="text-[11px] font-extrabold uppercase tracking-widest text-teal-600">QR-адресник ЗооМаяк</div>
+              <h3 className="mt-1 text-2xl font-black text-slate-900">{qrPet.name}</h3>
+              <p className="mt-1 text-xs text-slate-500">Отсканируйте код, чтобы открыть публичную карточку питомца.</p>
+
+              <div className="mx-auto mt-5 flex w-fit items-center justify-center rounded-2xl border-2 border-slate-900 bg-white p-4 shadow-inner">
+                <QRCodeCanvas
+                  id="selected-pet-qr-large"
+                  value={qrValue}
+                  size={220}
+                  level="H"
+                  includeMargin
+                  imageSettings={{ src: '/zoomayak-logo-approved-icon.png', height: 34, width: 34, excavate: true }}
+                />
+              </div>
+
+              <div className="mt-4 rounded-xl bg-slate-50 px-3 py-2 font-mono text-xs font-bold text-slate-600">{qrPet.zmId}</div>
+
+              <button
+                type="button"
+                onClick={handleDownloadQr}
+                className="mt-4 inline-flex items-center justify-center gap-2 rounded-xl bg-teal-500 px-4 py-2.5 text-sm font-extrabold text-slate-950 shadow-lg shadow-teal-500/20 transition hover:bg-teal-400 cursor-pointer"
+              >
+                <Download className="h-4 w-4" />
+                Скачать QR
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
 
     </div>
   );
