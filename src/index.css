@@ -843,3 +843,101 @@ html, body, #root { max-width: 100%; overflow-x: hidden; }
     width: 150px !important; height: 58px !important;
   }
 }
+
+
+/* v8.9.0 — APPROVED MASTER LOCKUPS
+   Light and dark files are both 242×86 and contain the complete artwork:
+   animals + lighthouse + heart + wordmark + slogan.
+   Never rebuild the logo from SVG/text in CSS. */
+.zoomayak-approved-logo {
+  width: 214px !important;
+  height: 76px !important;
+  flex: 0 0 214px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  overflow: visible !important;
+  position: relative !important;
+}
+.zoomayak-approved-logo-img {
+  width: 214px !important;
+  height: 76px !important;
+  flex: 0 0 214px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  background: transparent !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  display: none !important;
+  filter: none !important;
+}
+.zoomayak-approved-logo .zoomayak-logo-light { display: block !important; }
+.zoomayak-approved-logo .zoomayak-logo-dark { display: none !important; }
+
+/* Theme is controlled by the app's theme class and data-theme attribute. */
+.theme-dark .zoomayak-approved-logo .zoomayak-logo-light,
+:root[data-theme='dark'] .zoomayak-approved-logo .zoomayak-logo-light {
+  display: none !important;
+}
+.theme-dark .zoomayak-approved-logo .zoomayak-logo-dark,
+:root[data-theme='dark'] .zoomayak-approved-logo .zoomayak-logo-dark {
+  display: block !important;
+  filter: drop-shadow(0 0 5px rgba(0, 207, 255, .22))
+          drop-shadow(0 0 8px rgba(0, 220, 170, .14)) !important;
+}
+.theme-light .zoomayak-approved-logo .zoomayak-logo-light,
+:root[data-theme='light'] .zoomayak-approved-logo .zoomayak-logo-light {
+  display: block !important;
+}
+.theme-light .zoomayak-approved-logo .zoomayak-logo-dark,
+:root[data-theme='light'] .zoomayak-approved-logo .zoomayak-logo-dark {
+  display: none !important;
+}
+
+.zoomayak-logo-compact {
+  width: 42px !important;
+  height: 42px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  flex: 0 0 42px !important;
+  background: transparent !important;
+}
+.zoomayak-logo-icon {
+  width: 42px !important;
+  height: 42px !important;
+  object-fit: contain !important;
+  display: none !important;
+  background: transparent !important;
+}
+.zoomayak-logo-compact .zoomayak-logo-light { display: block !important; }
+.theme-dark .zoomayak-logo-compact .zoomayak-logo-light,
+:root[data-theme='dark'] .zoomayak-logo-compact .zoomayak-logo-light { display: none !important; }
+.theme-dark .zoomayak-logo-compact .zoomayak-logo-dark,
+:root[data-theme='dark'] .zoomayak-logo-compact .zoomayak-logo-dark {
+  display: block !important;
+  filter: drop-shadow(0 0 5px rgba(0, 207, 255, .25));
+}
+
+@media (max-width: 1199px) {
+  .zoomayak-approved-logo,
+  .zoomayak-approved-logo-img {
+    width: 180px !important;
+    height: 64px !important;
+    flex-basis: 180px !important;
+  }
+}
+@media (max-width: 640px) {
+  .zoomayak-approved-logo,
+  .zoomayak-approved-logo-img {
+    width: 150px !important;
+    height: 54px !important;
+    flex-basis: 150px !important;
+  }
+}

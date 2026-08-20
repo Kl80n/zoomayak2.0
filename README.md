@@ -128,3 +128,7 @@ Install command: `npm install`
 - Corrected the cat outline: no protruding stroke/“stick” at the back of the head/neck.
 - Kept the same logo geometry, title and slogan in light and dark themes; only colors adapt to the theme.
 
+
+
+### v8.9.0 — approved logo master
+Header now uses the approved 242×86 light/dark lockup assets directly. No SVG redraw, no separate wordmark, and identical display geometry in both themes.
