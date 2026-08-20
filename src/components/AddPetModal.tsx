@@ -364,7 +364,7 @@ export const AddPetModal: React.FC<AddPetModalProps> = ({
                 <div className="p-2 bg-white rounded-xl shadow-inner flex items-center justify-center">
                   <ZoomayakQR
                     value={`${window.location.origin}/qr/${encodeURIComponent(createdPet.zmId)}`}
-                    size={140}
+                    size={160}
                     logoSize={38}
                     lightBackground={true}
                   />

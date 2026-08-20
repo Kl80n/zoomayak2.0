@@ -21,7 +21,7 @@ export const ZoomayakQR: React.FC<ZoomayakQRProps> = ({
   badgeShape = 'rounded',
 }) => {
   // Optimal logo size for Level H (~24-26% of QR size ensures 100% scan reliability)
-  const computedLogoSize = logoSize || Math.max(30, Math.round(size * 0.22));
+  const computedLogoSize = logoSize || Math.max(30, Math.round(size * 0.24));
   const badgeOuterSize = computedLogoSize + 10;
 
   return (
@@ -56,7 +56,7 @@ export const ZoomayakQR: React.FC<ZoomayakQRProps> = ({
         }}
       >
         <img
-          src="/zoomayak-qr-logo.svg"
+          src="/zoomayak-logo-approved-icon.png"
           alt="ЗооМаяк"
           className="w-full h-full object-contain p-1.5"
           loading="eager"
