@@ -361,7 +361,7 @@ html, body, #root { max-width: 100%; overflow-x: hidden; }
 
 /* Approved master logo: use the exact board-approved artwork as the single source of truth. */
 .zoomayak-approved-logo { display:inline-flex; align-items:center; justify-content:center; flex:0 0 auto; }
-.zoomayak-approved-logo-img { display:block; width:210px; height:auto; object-fit:contain; }
+.zoomayak-approved-logo-img { display:block; width:210px; height:auto; aspect-ratio:242/86; object-fit:contain; flex:0 0 210px; }
 .zoomayak-approved-logo.is-compact .zoomayak-approved-logo-img { width:42px; height:42px; object-fit:cover; object-position:left center; }
 .brand-block .zoomayak-approved-logo.is-compact { width:42px; height:42px; }
 @media (max-width: 767px) {
@@ -371,9 +371,9 @@ html, body, #root { max-width: 100%; overflow-x: hidden; }
 }
 
 /* v7 — approved master logo, user account and clean home */
-.zoomayak-approved-logo-img { width: 182px; height: auto; object-fit: contain; }
-.zoomayak-approved-logo.is-compact .zoomayak-approved-logo-img { width: 40px; height: 40px; object-fit: contain; }
-.brand-block { min-width: 182px; }
+.zoomayak-approved-logo-img { display:block; width:210px; height:auto; aspect-ratio:242/86; object-fit:contain; flex:0 0 210px; }
+.zoomayak-approved-logo.is-compact .zoomayak-approved-logo-img { width:40px; height:40px; object-fit:contain; }
+.brand-block { min-width:210px; }
 .account-header-button { height: 42px; padding: 3px 10px 3px 4px; display: inline-flex; align-items: center; gap: 8px; border: 1px solid var(--line); border-radius: 13px; background: var(--surface-2); color: var(--text); transition: .2s ease; }
 .account-header-button:hover, .mobile-account-button:hover { border-color: color-mix(in srgb, var(--green) 40%, var(--line)); background: var(--surface-3); }
 .account-header-button strong { display:block; font-size: 10px; line-height: 1.1; }
@@ -940,4 +940,30 @@ html, body, #root { max-width: 100%; overflow-x: hidden; }
     height: 54px !important;
     flex-basis: 150px !important;
   }
+}
+
+/* v8.9.1 — FINAL APPROVED LOCKUP: identical geometry in both themes */
+.zoomayak-approved-logo {
+  width: 210px;
+  height: 75px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: flex-start;
+  flex: 0 0 210px;
+  background: transparent !important;
+}
+.zoomayak-approved-logo-img {
+  width: 210px !important;
+  height: 75px !important;
+  object-fit: contain !important;
+  object-position: center !important;
+  display: block !important;
+}
+.theme-dark .zoomayak-approved-logo .zoomayak-logo-light { display: none !important; }
+.theme-dark .zoomayak-approved-logo .zoomayak-logo-dark { display: block !important; }
+.theme-light .zoomayak-approved-logo .zoomayak-logo-dark { display: none !important; }
+@media (max-width: 767px) {
+  .zoomayak-approved-logo, .brand-block { width: 174px; min-width:174px; flex-basis:174px; }
+  .zoomayak-approved-logo { height:62px; }
+  .zoomayak-approved-logo-img { width:174px !important; height:62px !important; }
 }

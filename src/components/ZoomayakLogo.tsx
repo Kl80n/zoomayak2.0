@@ -7,11 +7,10 @@ interface ZoomayakLogoProps {
 }
 
 /**
- * Утверждённый master-логотип.
- *
- * Важно: artwork не перерисовывается и не масштабируется по-разному
- * между темами. Светлый и тёмный lockup имеют один и тот же исходный
- * холст 242×86 и выводятся в одном фиксированном контейнере.
+ * ЗооМаяк — утверждённый master lockup.
+ * Светлая и тёмная версии имеют один и тот же холст 242×86,
+ * поэтому в header они занимают абсолютно одинаковое место.
+ * Artwork животных/маяка не перерисовывается.
  */
 export const ZoomayakLogo: React.FC<ZoomayakLogoProps> = ({
   className = '',
@@ -48,7 +47,7 @@ export const ZoomayakLogo: React.FC<ZoomayakLogoProps> = ({
         className="zoomayak-approved-logo-img zoomayak-logo-light"
       />
       <img
-        src="/zoomayak-logo-dark-lockup-normalized.png"
+        src="/zoomayak-logo-dark-lockup-correct.png"
         alt="ЗооМаяк — Ваш ориентир в мире питомцев"
         className={`zoomayak-approved-logo-img zoomayak-logo-dark${showSlogan ? '' : ' zoomayak-no-slogan'}`}
       />
