@@ -37,7 +37,7 @@ export const MyPetsTab: React.FC<MyPetsTabProps> = ({
     <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8 animate-in fade-in duration-300">
       
       {/* Top Banner Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-teal-950/60 via-slate-900 to-cyan-950/60 p-6 rounded-3xl border border-teal-500/30">
+      <div className="mypets-tab flex flex-col sm:flex-row sm:items-center justify-between gap-4 bg-gradient-to-r from-teal-950/60 via-slate-900 to-cyan-950/60 p-6 rounded-3xl border border-teal-500/30">
         <div>
           <div className="flex items-center gap-2 text-teal-400 text-xs font-bold uppercase tracking-wider mb-1">
             <Users className="w-4 h-4" />

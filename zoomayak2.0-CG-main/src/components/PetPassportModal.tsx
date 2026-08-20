@@ -64,7 +64,7 @@ export const PetPassportModal: React.FC<PetPassportModalProps> = ({
   const petRecords = medicalRecords.filter(r => r.petId === pet.id);
 
   return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xl overflow-y-auto">
+    <div className="pet-passport-modal fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-xl overflow-y-auto">
       
       {/* Modal Card Backdrop */}
       <div 
