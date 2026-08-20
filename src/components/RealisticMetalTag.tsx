@@ -196,7 +196,7 @@ export const RealisticMetalTag: React.FC<RealisticMetalTagProps> = ({
   const physicalRatio = shape === 'circle' ? 1 : shape === 'paw' ? 30 / 32 : 28 / 34;
   const svgViewBox = shape === 'circle' ? '0 0 300 300' : shape === 'paw' ? '0 0 300 320' : '0 0 280 340';
   const svgContentTransform = shape === 'shield' ? 'translate(-10 0)' : undefined;
-  const qrDisplaySize = shape === 'circle' ? 92 : shape === 'paw' ? 84 : 88;
+  const qrDisplaySize = shape === 'circle' ? 122 : shape === 'paw' ? 112 : 116;
   const qrCenterY = shape === 'circle' ? 165 : shape === 'paw' ? 166 : 164;
   const qrCardRadius = shape === 'circle' ? 7 : 6;
 
@@ -374,7 +374,7 @@ export const RealisticMetalTag: React.FC<RealisticMetalTagProps> = ({
                     />
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[24%] h-[24%] bg-white rounded-sm p-0.5 flex items-center justify-center border border-slate-300 pointer-events-none">
                       <img
-                        src="/zoomayak-master-icon.png"
+                        src="/zoomayak-qr-logo.svg"
                         alt="ЗооМаяк"
                         className="w-full h-full object-contain"
                       />
