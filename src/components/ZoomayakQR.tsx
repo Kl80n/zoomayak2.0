@@ -56,7 +56,7 @@ export const ZoomayakQR: React.FC<ZoomayakQRProps> = ({
         }}
       >
         <img
-          src="/zoomayak-logo-approved-icon.png"
+          src="/zoomayak-master-icon.png"
           alt="ЗооМаяк"
           className="w-full h-full object-contain p-1"
           loading="eager"

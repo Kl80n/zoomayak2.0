@@ -374,7 +374,7 @@ export const RealisticMetalTag: React.FC<RealisticMetalTagProps> = ({
                     />
                     <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[24%] h-[24%] bg-white rounded-sm p-0.5 flex items-center justify-center border border-slate-300 pointer-events-none">
                       <img
-                        src="/zoomayak-logo-approved-icon.png"
+                        src="/zoomayak-master-icon.png"
                         alt="ЗооМаяк"
                         className="w-full h-full object-contain"
                       />
